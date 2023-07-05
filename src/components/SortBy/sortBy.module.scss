@@ -1,0 +1,31 @@
+.sort {
+  color: white;
+  font-size: 16px;
+  display: flex;
+  column-gap: 15px;
+  align-items: center;
+
+  span {
+    font-weight: 700;
+  }
+}
+
+.select {
+  position: relative;
+}
+
+.option {
+  cursor: pointer;
+  padding: 6px 23px;
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
+}
+
+.options {
+  position: absolute;
+  z-index: 5;
+  width: 100%;
+}

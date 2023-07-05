@@ -1,0 +1,33 @@
+.slider {
+  margin-bottom: 90px;
+}
+
+.slide {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding-left: 45px;
+  column-gap: 50px;
+  width: fit-content;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 23px;
+  height: 100%;
+
+  button {
+    padding: 17px 47px;
+    background: var(--primary);
+    color: white;
+    border-radius: 2px;
+  }
+}
+
+.title {
+  color: var(--primary);
+  font-size: 20px;
+}

@@ -1,0 +1,30 @@
+.inner {
+  gap: 11px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 60px;
+}
+
+.categorie {
+  display: flex;
+  align-items: center;
+  row-gap: 18px;
+  flex-direction: column;
+  color: var(--yellow);
+  background: var(--primary);
+  font-size: 50px;
+  padding: 10px 50px;
+  max-width: 205px;
+  cursor: pointer;
+
+  img {
+    width: 105px;
+    height: auto;
+  }
+
+  span {
+    font-size: 20px;
+    color: white;
+    text-align: center;
+  }
+}

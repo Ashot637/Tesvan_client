@@ -1,0 +1,64 @@
+.sidebar {
+  width: 100%;
+  max-width: 280px;
+}
+
+.accordion {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.brands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.brand {
+  color: var(--lightGrey);
+  border: 1px solid var(--lightGrey);
+  padding: 8px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.active {
+  color: var(--primary);
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.fields {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 30px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+
+  label {
+    color: var(--lightGrey);
+    font-size: 12px;
+    font-weight: 300;
+  }
+
+  input {
+    width: 100%;
+    max-width: 70px;
+    border-radius: 2px;
+    border: 1px solid var(--yellow);
+    color: var(--yellow);
+    background: transparent;
+    padding: 4px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

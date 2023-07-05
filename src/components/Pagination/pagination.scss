@@ -1,0 +1,36 @@
+.pagination {
+  list-style: none;
+  padding-bottom: 60px;
+  margin: 0 auto;
+
+  li {
+    margin-right: 5px;
+    display: inline-flex;
+
+    a {
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--yellow);
+      color: var(--yellow);
+      border-radius: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+
+  li.selected {
+    a {
+      color: var(--primary) !important;
+      background: var(--yellow) !important;
+    }
+  }
+
+  //   li.disabled {
+  //     a {
+  //       color: gray;
+  //       border-color: gray;
+  //     }
+  //   }
+}

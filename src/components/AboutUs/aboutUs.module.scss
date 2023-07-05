@@ -1,0 +1,30 @@
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 0;
+}
+
+.img {
+  width: 580px;
+  height: 640px;
+  background: var(--lightGrey);
+  border-radius: 5px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 32px;
+  color: var(--yellow);
+  margin-bottom: 25px;
+}
+
+.subtitle {
+  font-size: 20px;
+  max-width: 480px;
+  color: white;
+}
