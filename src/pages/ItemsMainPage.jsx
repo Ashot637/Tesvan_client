@@ -4,6 +4,7 @@ import ItemsSection from '../components/ItemsSection/ItemsSection';
 import axios from '../helpers/axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../redux/slices/categoriesSlice';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const ItemsMainPage = ({ typeId, title }) => {
   const [items, setItems] = useState([]);
@@ -17,6 +18,7 @@ const ItemsMainPage = ({ typeId, title }) => {
 
   return (
     <>
+      <Breadcrumbs />
       <Title title={title} />
       {status === 'success' &&
         categories.map((categorie) => {

@@ -11,12 +11,17 @@ import {
   faMagnifyingGlass,
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
+import Cart from '../Cart/Cart';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleIsOpen } from '../../redux/slices/cartSlice';
 
 const languages = ['English', 'Armenian', 'Russian'];
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [language, setLaungage] = useState(languages[0]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenLanguage, setIsOpenLanguage] = useState(false);
+  const { isOpen: isOpenCart } = useSelector((state) => state.cart);
 
   return (
     <>
@@ -27,16 +32,16 @@ const Header = () => {
               <FontAwesomeIcon icon={faPhone} />
               <span>+ (374) 91 75 19 00</span>
             </li>
-            <li onClick={() => setIsOpen((isOpen) => !isOpen)}>
+            <li onClick={() => setIsOpenLanguage((isOpen) => !isOpen)}>
               <FontAwesomeIcon icon={faGlobe} />
               <div className="select">{language}</div>
               <FontAwesomeIcon
                 className={classes.angle}
-                style={isOpen ? { transform: 'rotateX(180deg)' } : undefined}
+                style={isOpenLanguage ? { transform: 'rotateX(180deg)' } : undefined}
                 icon={faAngleDown}
               />
 
-              {isOpen && (
+              {isOpenLanguage && (
                 <ul className={classes.options}>
                   {languages.map((lan) => {
                     return lan === language ? undefined : (
@@ -104,13 +109,14 @@ const Header = () => {
               </nav>
             </div>
             <ul className={classes.btns}>
-              <li className="cart">
+              <li className="cart" onClick={() => dispatch(toggleIsOpen())}>
                 <FontAwesomeIcon icon={faCartShopping} />
               </li>
               <li className="compare">
                 <FontAwesomeIcon icon={faCodeCompare} />
               </li>
             </ul>
+            {isOpenCart && <Cart />}
           </div>
         </div>
       </header>

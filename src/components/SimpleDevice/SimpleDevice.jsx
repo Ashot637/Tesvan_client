@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import classes from './simpleDevice.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -8,37 +8,41 @@ import {
   faAngleRight,
   faAngleLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { useParams } from 'react-router-dom';
-import axios from '../../helpers/axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBrands } from '../../redux/slices/brandSlice';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Card from '../Card/Card';
+import getPrice from '../../helpers/getPrice';
+import { addDevice } from '../../redux/slices/cartSlice';
+import { useLocation } from 'react-router-dom';
 
-const SimpleDevice = () => {
-  const { id } = useParams();
-  const { brands } = useSelector((state) => state.brands);
-  const [device, setDevice] = useState();
-  const [relateds, setRelateds] = useState();
+const SimpleDevice = ({ device, relateds }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const { brands } = useSelector((state) => state.brands);
   const [swiperRef, setSwiperRef] = useState();
   const [moreOpen, setMoreOpen] = useState(false);
+  const [count, setCount] = useState(1);
+
+  const onChangeCount = (i) => {
+    if (count === 1 && i < 0) {
+    } else {
+      setCount(count + i);
+    }
+  };
+
+  const onAddToCart = (item) => {
+    item = {
+      ...item,
+      count,
+    };
+
+    dispatch(addDevice(item));
+  };
 
   useEffect(() => {
-    let localDevice;
-    axios.get('/device/' + id).then(({ data }) => {
-      setDevice(data);
-      localDevice = data;
-      axios
-        .get('/devices', { params: { categorieId: localDevice.categorieId, limit: 8 } })
-        .then(({ data }) => {
-          data = data.filter((item) => item.id !== localDevice.id);
-          setRelateds(data);
-        });
-    });
-    dispatch(fetchBrands());
-  }, [id]);
+    setCount(1);
+  }, [location]);
 
   const handlePrevious = useCallback(() => {
     swiperRef?.slidePrev();
@@ -85,9 +89,7 @@ const SimpleDevice = () => {
                   <div className={classes.mainInfo}>
                     <span className={classes.title}>{device.title}</span>
                     <span className={classes.codeId}>Code {device.id}</span>
-                    <span className={classes.price}>
-                      {device.price.toLocaleString().replaceAll(',', ' ')} AMD
-                    </span>
+                    <span className={classes.price}>{getPrice(device.price)} AMD</span>
                     <table className={classes.table}>
                       <thead className={classes.thead}>
                         <tr>
@@ -114,7 +116,7 @@ const SimpleDevice = () => {
                       </div>
                       <div className={classes.card}>
                         <b>Card</b>
-                        {(device.price + 50000).toLocaleString().replaceAll(',', ' ')} AMD
+                        {getPrice(device.price + 50000)} AMD
                       </div>
                     </div>
                     <table className={classes.characteristics}>
@@ -138,18 +140,18 @@ const SimpleDevice = () => {
                     <div className={classes.quantity}>
                       <div>Quantity</div>
                       <ul className={classes.counter}>
-                        <li className={classes.inc}>
+                        <li className={classes.inc} onClick={() => onChangeCount(1)}>
                           <FontAwesomeIcon icon={faPlus} />
                         </li>
-                        <li className={classes.count}>1</li>
+                        <li className={classes.count}>{count}</li>
                         <li className={classes.dec}>
-                          <FontAwesomeIcon icon={faMinus} />
+                          <FontAwesomeIcon icon={faMinus} onClick={() => onChangeCount(-1)} />
                         </li>
                       </ul>
                     </div>
                     <div className={classes.btns}>
                       <button>Buy</button>
-                      <button>Add to cart</button>
+                      <button onClick={() => onAddToCart(device)}>Add to cart</button>
                     </div>
                   </div>
                 </div>

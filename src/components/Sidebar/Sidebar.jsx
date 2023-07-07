@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './sidebar.module.scss';
 import AccordionItem from '../AccordionItem/AccordionItem';
 import ReactSlider from 'react-slider';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBrandId, setMaxPrice, setMinPrice } from '../../redux/slices/devicesSlice';
+import { setBrandId, setMaxPrice, setMinPrice, setPage } from '../../redux/slices/devicesSlice';
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { brands } = useSelector((state) => state.brands);
@@ -13,10 +13,14 @@ const Sidebar = () => {
     dispatch(setBrandId(id));
   };
 
+  useEffect(() => {
+    dispatch(setPage(1));
+  }, [brandId]);
+
   return (
     <div className={classes.sidebar}>
       <div className={classes.accordion}>
-        <AccordionItem>
+        <AccordionItem title={'Brand'}>
           <div className={classes.brands}>
             {brands.map((brand) => {
               return (
@@ -32,7 +36,7 @@ const Sidebar = () => {
             })}
           </div>
         </AccordionItem>
-        <AccordionItem>
+        <AccordionItem title={'Price'}>
           <div style={{ paddingTop: 15 }}>
             <ReactSlider
               className="horizontal-slider"
@@ -69,14 +73,12 @@ const Sidebar = () => {
             </div>
           </div>
         </AccordionItem>
-        <AccordionItem />
-        <AccordionItem />
-        <AccordionItem />
-        <AccordionItem />
-        <AccordionItem />
-        <AccordionItem />
-        <AccordionItem />
-        <AccordionItem />
+        <AccordionItem title={'Price'} />
+        <AccordionItem title={'Price'} />
+        <AccordionItem title={'Price'} />
+        <AccordionItem title={'Price'} />
+        <AccordionItem title={'Price'} />
+        <AccordionItem title={'Price'} />
       </div>
     </div>
   );

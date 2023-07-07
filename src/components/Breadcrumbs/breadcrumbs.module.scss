@@ -1,0 +1,28 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 5px;
+  padding: 25px 0;
+}
+
+.circle {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--yellow);
+
+  &:last-child {
+    background: var(--lightGrey);
+  }
+}
+
+.breadcrumb {
+  color: var(--yellow);
+  text-transform: capitalize;
+}
+
+.current {
+  color: var(--lightGrey);
+  cursor: auto;
+}

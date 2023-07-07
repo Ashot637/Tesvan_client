@@ -22,7 +22,7 @@ const Categories = () => {
           {categories.map((categorie, i) => {
             return (
               <Link
-                to={`/devices/${categorie.title.toLowerCase()}?id=${categorie.id}`}
+                to={`/categories/${categorie.title.toLowerCase()}`}
                 className={classes.categorie}
                 key={i}>
                 <img src={'http://localhost:8080/' + categorie.img} alt="Slide" />

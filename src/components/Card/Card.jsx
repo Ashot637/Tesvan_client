@@ -5,9 +5,24 @@ import { faCodeCompare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import bestseller from '../../img/bestseller.png';
 import neewCollection from '../../img/new-collection.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { addDevice } from '../../redux/slices/cartSlice';
+import getPrice from '../../helpers/getPrice';
 
 const Card = ({ item, brands }) => {
+  const dispatch = useDispatch();
   const location = useLocation();
+  const { categories } = useSelector((state) => state.categories);
+
+  const onAddToCart = (item) => {
+    item = {
+      ...item,
+      count: 1,
+    };
+
+    dispatch(addDevice(item));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const getItemTypeImg = (id) => {
     switch (id) {
@@ -27,26 +42,34 @@ const Card = ({ item, brands }) => {
   };
 
   return (
-    <Link to={'/device/' + item.id} className={classes.item}>
+    <div className={classes.item}>
       {location.pathname.includes('devices') && getItemTypeImg(item.typeId)}
-      <div className={classes.top}>
-        <span>
-          {brands.find((brand) => brand.id === item.brandId) &&
-            brands.find((brand) => brand.id === item.brandId).title}
-        </span>
-        <FontAwesomeIcon icon={faCodeCompare} className={classes.compare} />
-      </div>
-      <img src={'http://localhost:8080/' + item.img} alt="Macbook" />
-      <span className={classes.name}>{item.title}</span>
-      <span className={classes.price}>{item.price.toLocaleString().replaceAll(',', ' ')} AMD</span>
-      <span className={classes.oldPrice}>
-        {item.oldPrice.toLocaleString().replaceAll(',', ' ')} AMD
-      </span>
+      <Link
+        className={classes.body}
+        to={
+          categories.find((c) => c.id === item.categorieId) &&
+          '/categories/' +
+            categories.find((c) => c.id === item.categorieId).title.toLowerCase() +
+            '/' +
+            item.id
+        }>
+        <div className={classes.top}>
+          <span>
+            {brands.find((brand) => brand.id === item.brandId) &&
+              brands.find((brand) => brand.id === item.brandId).title}
+          </span>
+          <FontAwesomeIcon icon={faCodeCompare} className={classes.compare} />
+        </div>
+        <img src={'http://localhost:8080/' + item.img} alt="Macbook" />
+        <span className={classes.name}>{item.title}</span>
+        <span className={classes.price}>{getPrice(item.price)} AMD</span>
+        <span className={classes.oldPrice}>{getPrice(item.oldPrice)} AMD</span>
+      </Link>
       <div className={classes.btns}>
         <button>Buy</button>
-        <button>Add to cart</button>
+        <button onClick={() => onAddToCart(item)}>Add to cart</button>
       </div>
-    </Link>
+    </div>
   );
 };
 

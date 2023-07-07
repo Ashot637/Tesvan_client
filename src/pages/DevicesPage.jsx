@@ -5,23 +5,35 @@ import DevicesList from '../components/DevicesLIst/DevicesList';
 import { fetchBrands } from '../redux/slices/brandSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import SortBy from '../components/SortBy/SortBy';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { setCategorieId, setCategorieLabel } from '../redux/slices/devicesSlice';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import { fetchCategories } from '../redux/slices/categoriesSlice';
 
 const DevicesPage = () => {
   const dispatch = useDispatch();
   const { categorie } = useParams();
   const { categorieLabel } = useSelector((state) => state.devices);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { categories } = useSelector((state) => state.categories);
 
   useEffect(() => {
     dispatch(fetchBrands());
+    dispatch(fetchCategories());
     dispatch(setCategorieLabel(categorie));
-    dispatch(setCategorieId(searchParams.get('id')));
   }, []);
+
+  useEffect(() => {
+    if (categories) {
+      if (categories.find((c) => c.title.toLowerCase() === categorie)) {
+        let id = categories.find((c) => c.title.toLowerCase() === categorie).id;
+        dispatch(setCategorieId(id));
+      }
+    }
+  }, [categories]);
 
   return (
     <>
+      <Breadcrumbs />
       <Title title={categorieLabel}>
         <SortBy />
       </Title>

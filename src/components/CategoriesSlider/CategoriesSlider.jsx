@@ -35,9 +35,7 @@ const CategoriesSlider = () => {
           {categories.map((categorie, i) => {
             return (
               <SwiperSlide key={i}>
-                <Link
-                  className={classes.slide}
-                  to={`/devices/${categorie.title.toLowerCase()}?id=${categorie.id}`}>
+                <Link className={classes.slide} to={`/categories/${categorie.title.toLowerCase()}`}>
                   <img src={'http://localhost:8080/' + categorie.img} alt="Slide" />
                   <span>{categorie.title}</span>
                 </Link>

@@ -1,0 +1,142 @@
+.overlay {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 9;
+  width: 100vw;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.cart {
+  z-index: 10;
+  min-height: 800px;
+  padding: 43px 79px 37px;
+  background: var(--darkBlue);
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--lightGrey);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.deleteAll {
+  color: var(--lightGrey);
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: end;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.items {
+  border-top: 1px solid var(--primary);
+  max-height: 500px;
+  margin-bottom: 30px;
+  display: inline-block;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--primary);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--darkBlue);
+  }
+
+  tr {
+    td {
+      padding: 9px;
+      border-bottom: 1px solid var(--primary);
+    }
+  }
+}
+
+.remove {
+  font-size: 22px;
+  color: var(--lightGrey);
+  padding-right: 20px !important;
+  cursor: pointer;
+}
+
+.name {
+  color: var(--lightGrey);
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+.count {
+  border: 1px solid var(--yellow);
+  padding: 4px 14px;
+  border-radius: 2px;
+  min-width: 50px;
+}
+
+.inc,
+.dec {
+  border: 1px solid white;
+  border-radius: 50%;
+  padding: 3px 4px;
+  font-size: 8px;
+  cursor: pointer;
+}
+
+.order {
+  border-top: 1px solid var(--primary);
+  padding-top: 10px;
+  margin-top: auto;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding: 0 20px;
+
+  span {
+    color: var(--lightGrey);
+  }
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+}
+
+.back {
+  color: var(--yellow);
+  cursor: pointer;
+}
+
+.done {
+  padding: 10px 55px;
+  color: var(--primary);
+  background: var(--yellow);
+}

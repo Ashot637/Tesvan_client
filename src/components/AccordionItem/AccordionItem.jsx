@@ -3,7 +3,7 @@ import classes from './accordionItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
-const AccordionItem = ({ children }) => {
+const AccordionItem = ({ children, title }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const AccordionItem = ({ children }) => {
         className={classes.top}
         style={isOpen ? { background: 'transparent' } : undefined}
         onClick={() => setIsOpen((isOpen) => !isOpen)}>
-        <span>Price</span>
+        <span>{title}</span>
         <FontAwesomeIcon
           className={classes.angle}
           style={isOpen ? { transform: 'rotateX(180deg)' } : undefined}

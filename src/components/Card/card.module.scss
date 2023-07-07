@@ -1,14 +1,20 @@
 .item {
   background: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   padding: 26px 0;
   color: white;
   font-weight: 400;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   img {
     margin-bottom: 20px;
   }
@@ -35,13 +41,13 @@
 }
 
 .name {
-  margin-bottom: 29px;
   font-size: 16px;
+  margin-bottom: 29px;
 }
 
 .price {
   font-size: 20px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .oldPrice {
