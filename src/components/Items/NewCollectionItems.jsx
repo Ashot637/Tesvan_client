@@ -11,6 +11,10 @@ const NewCollectionItems = () => {
       .catch((e) => console.log(e));
   }, []);
 
+  if (!items.length) {
+    return <ItemsSection title={'Loading...'} loading />;
+  }
+
   return <ItemsSection title={'New Collection'} items={items} link={'new-collection'} />;
 };
 

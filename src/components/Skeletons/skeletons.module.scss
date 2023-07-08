@@ -1,0 +1,22 @@
+.card {
+  width: 280px;
+  height: 460px;
+  @extend %skeleton;
+}
+
+%skeleton {
+  background-image: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
+  background-size: 600px;
+  animation: shine 1.6s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: -100px + 68;
+  }
+
+  40%,
+  100% {
+    background-position: 140px + 68;
+  }
+}

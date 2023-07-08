@@ -8,7 +8,7 @@ import Pagination from '../Pagination/Pagination';
 
 const DevicesList = () => {
   const { brands } = useSelector((state) => state.brands);
-  const { devices, page, brandId, categorieId, minPrice, maxPrice, sortType } = useSelector(
+  const { devices, page, brandId, categorieId, minPrice, maxPrice, sortType, status } = useSelector(
     (state) => state.devices,
   );
   const dispatch = useDispatch();
@@ -40,6 +40,9 @@ const DevicesList = () => {
         {devices.map((item) => {
           return <Card key={item.id} brands={brands} item={item} />;
         })}
+        {!devices.length && status === 'success' && (
+          <h3 className={classes.nothing}>Nothing found</h3>
+        )}
       </div>
       <Pagination />
     </div>

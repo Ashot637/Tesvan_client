@@ -8,15 +8,19 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  max-height: 480px;
 }
 
 .body {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   img {
     margin-bottom: 20px;
+    max-width: 272px;
+    max-height: 180px;
   }
 }
 

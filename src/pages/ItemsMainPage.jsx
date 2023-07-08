@@ -2,17 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Title from '../ui/Title/Title';
 import ItemsSection from '../components/ItemsSection/ItemsSection';
 import axios from '../helpers/axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../redux/slices/categoriesSlice';
+import { useSelector } from 'react-redux';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const ItemsMainPage = ({ typeId, title }) => {
   const [items, setItems] = useState([]);
-  const dispatch = useDispatch();
   const { categories, status } = useSelector((state) => state.categories);
 
   useEffect(() => {
-    dispatch(fetchCategories());
     axios.get('/devices', { params: { typeId, limit: 50 } }).then(({ data }) => setItems(data));
   }, []);
 
@@ -20,7 +17,7 @@ const ItemsMainPage = ({ typeId, title }) => {
     <>
       <Breadcrumbs />
       <Title title={title} />
-      {status === 'success' &&
+      {status === 'success' ? (
         categories.map((categorie) => {
           if (items.find((item) => item.categorieId === categorie.id)) {
             return (
@@ -37,7 +34,10 @@ const ItemsMainPage = ({ typeId, title }) => {
             );
           }
           return undefined;
-        })}
+        })
+      ) : (
+        <ItemsSection loading title={'Loading'} main />
+      )}
     </>
   );
 };

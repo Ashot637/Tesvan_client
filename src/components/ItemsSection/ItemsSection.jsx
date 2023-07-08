@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card';
 
-const ItemsSection = ({ title, items, main, link }) => {
+const ItemsSection = ({ title, items, main, link, loading }) => {
   const { brands } = useSelector((state) => state.brands);
 
   return (
@@ -14,9 +14,13 @@ const ItemsSection = ({ title, items, main, link }) => {
       <div className="container">
         <h1 className={main ? classes.mainTitle : classes.title}>{title}</h1>
         <div className={classes.grid}>
-          {items.map((item) => {
-            return <Card key={item.id} brands={brands} item={item} />;
-          })}
+          {loading
+            ? [...Array(8)].map((_, i) => {
+                return <Card loading key={i} />;
+              })
+            : items.map((item) => {
+                return <Card key={item.id} brands={brands} item={item} />;
+              })}
         </div>
         {!main && (
           <Link to={link} className={classes.all}>

@@ -12,6 +12,10 @@ const BestsellersItems = () => {
       .catch((e) => console.log(e));
   }, []);
 
+  if (!items.length) {
+    return <ItemsSection title={'Loading...'} loading />;
+  }
+
   return <ItemsSection title={'Bestsellers'} items={items} link={'bestsellers'} />;
 };
 

@@ -36,7 +36,7 @@ const Footer = () => {
                       <li>Brand name</li>
                     </ul>
                   </td>
-                  <td valign="top" d>
+                  <td valign="top">
                     <ul>
                       <li>Brand name</li>
                       <li>Brand name</li>

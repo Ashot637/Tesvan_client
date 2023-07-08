@@ -1,18 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import classes from './categories.module.scss';
 import Title from '../../ui/Title/Title';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../../redux/slices/categoriesSlice';
-import img from '../../img/monitor.png';
+import { useSelector } from 'react-redux';
+import img from '../../img/telephone.png';
 import { Link } from 'react-router-dom';
 
 const Categories = () => {
-  const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
-
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, []);
 
   return (
     <div className={classes.categories}>

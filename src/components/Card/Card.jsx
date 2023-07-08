@@ -8,8 +8,9 @@ import neewCollection from '../../img/new-collection.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDevice } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
+import CardSkeleton from '../Skeletons/CardSkeleton';
 
-const Card = ({ item, brands }) => {
+const Card = ({ item, brands, loading }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { categories } = useSelector((state) => state.categories);
@@ -40,6 +41,10 @@ const Card = ({ item, brands }) => {
         return;
     }
   };
+
+  if (loading) {
+    return <CardSkeleton />;
+  }
 
   return (
     <div className={classes.item}>

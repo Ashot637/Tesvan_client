@@ -17,6 +17,10 @@ const Sidebar = () => {
     dispatch(setPage(1));
   }, [brandId]);
 
+  useEffect(() => {
+    onSelectBrand(0);
+  }, []);
+
   return (
     <div className={classes.sidebar}>
       <div className={classes.accordion}>

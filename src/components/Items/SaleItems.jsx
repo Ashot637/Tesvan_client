@@ -11,6 +11,10 @@ const SaleItems = () => {
       .catch((e) => console.log(e));
   }, []);
 
+  if (!items.length) {
+    return <ItemsSection title={'Loading...'} loading />;
+  }
+
   return <ItemsSection title={'Sale'} items={items} link={'sale'} />;
 };
 

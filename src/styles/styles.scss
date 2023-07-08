@@ -56,6 +56,16 @@ button {
 
 // Lib
 
+.phone-slider {
+  .swiper-slide-active {
+    transform: scale(1.3) !important;
+  }
+  .swiper-slide-next,
+  .swiper-slide-prev {
+    transform: scale(0.8) !important;
+  }
+}
+
 .example-track.example-track-1 {
   height: 5px;
   top: 2px !important;

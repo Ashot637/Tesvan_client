@@ -8,7 +8,6 @@ import SortBy from '../components/SortBy/SortBy';
 import { useParams } from 'react-router-dom';
 import { setCategorieId, setCategorieLabel } from '../redux/slices/devicesSlice';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import { fetchCategories } from '../redux/slices/categoriesSlice';
 
 const DevicesPage = () => {
   const dispatch = useDispatch();
@@ -18,7 +17,6 @@ const DevicesPage = () => {
 
   useEffect(() => {
     dispatch(fetchBrands());
-    dispatch(fetchCategories());
     dispatch(setCategorieLabel(categorie));
   }, []);
 

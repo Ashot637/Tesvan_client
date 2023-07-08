@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import axios from '../helpers/axios';
 import { useDispatch } from 'react-redux';
 import { fetchBrands } from '../redux/slices/brandSlice';
-import { fetchCategories } from '../redux/slices/categoriesSlice';
 
 const SimpleDevicePage = () => {
   const { id } = useParams();
@@ -26,7 +25,6 @@ const SimpleDevicePage = () => {
         });
     });
     dispatch(fetchBrands());
-    dispatch(fetchCategories());
   }, [id]);
   return (
     <>

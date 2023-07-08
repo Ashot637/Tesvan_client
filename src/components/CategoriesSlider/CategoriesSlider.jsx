@@ -4,18 +4,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'swiper/css';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { fetchCategories } from '../../redux/slices/categoriesSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const CategoriesSlider = () => {
   const [swiperRef, setSwiperRef] = useState();
-  const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
 
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, []);
+  useEffect(() => {}, []);
 
   const handlePrevious = useCallback(() => {
     swiperRef?.slidePrev();

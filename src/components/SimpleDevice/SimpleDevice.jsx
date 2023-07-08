@@ -38,6 +38,7 @@ const SimpleDevice = ({ device, relateds }) => {
     };
 
     dispatch(addDevice(item));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -194,7 +195,7 @@ const SimpleDevice = ({ device, relateds }) => {
               <Swiper onSwiper={setSwiperRef} slidesPerView={4} spaceBetween={5}>
                 {relateds.map((item) => {
                   return (
-                    <SwiperSlide key={item.id}>
+                    <SwiperSlide style={{ maxHeight: 462 }} key={item.id}>
                       <Card brands={brands} item={item} />
                     </SwiperSlide>
                   );

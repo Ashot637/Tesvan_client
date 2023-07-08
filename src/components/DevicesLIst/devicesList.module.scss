@@ -1,11 +1,18 @@
 .devices {
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .list {
-  display: flex;
-  flex-wrap: wrap;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 280px);
   gap: 20px;
   margin-bottom: 60px;
+}
+
+.nothing {
+  font-size: 26px;
+  color: white;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './header.module.scss';
 import { NavLink } from 'react-router-dom';
 import logo from '../../img/Logo.png';
@@ -8,12 +8,13 @@ import {
   faCartShopping,
   faCodeCompare,
   faGlobe,
-  faMagnifyingGlass,
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
 import Cart from '../Cart/Cart';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleIsOpen } from '../../redux/slices/cartSlice';
+import SearchPanel from '../SearchPanel/SearchPanel';
+import { fetchCategories } from '../../redux/slices/categoriesSlice';
 
 const languages = ['English', 'Armenian', 'Russian'];
 
@@ -22,6 +23,10 @@ const Header = () => {
   const [language, setLaungage] = useState(languages[0]);
   const [isOpenLanguage, setIsOpenLanguage] = useState(false);
   const { isOpen: isOpenCart } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, []);
 
   return (
     <>
@@ -65,16 +70,7 @@ const Header = () => {
               </NavLink>
             </div>
             <div className={classes.nav}>
-              <form className={classes.search}>
-                <input
-                  type="text"
-                  className={classes.searchPanel}
-                  placeholder="enter your product name"
-                />
-                <button type="submit" className={classes.searchIcon}>
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </button>
-              </form>
+              <SearchPanel />
               <nav>
                 <ul className={classes.links}>
                   <li className={classes.link}>

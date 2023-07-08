@@ -85,34 +85,6 @@ header {
   }
 }
 
-.search {
-  position: relative;
-}
-
-.searchPanel {
-  padding: 11px 70px 11px 34px;
-  background: #d4d4d4;
-  color: black;
-  border-radius: 20px;
-  width: 100%;
-
-  &::placeholder {
-    color: var(--grey);
-  }
-}
-
-.searchIcon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  background: var(--yellow);
-  border-radius: 20px;
-  padding: 8px 20px;
-  color: var(--primary);
-  font-size: 20px;
-}
-
 .btns {
   display: flex;
   align-items: center;
