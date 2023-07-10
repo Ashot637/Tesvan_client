@@ -109,7 +109,9 @@ const Header = () => {
                 <FontAwesomeIcon icon={faCartShopping} />
               </li>
               <li className="compare">
-                <FontAwesomeIcon icon={faCodeCompare} />
+                <NavLink to="/compare">
+                  <FontAwesomeIcon icon={faCodeCompare} />
+                </NavLink>
               </li>
             </ul>
             {isOpenCart && <Cart />}

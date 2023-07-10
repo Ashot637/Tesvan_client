@@ -14,7 +14,8 @@ import 'swiper/css';
 import Card from '../Card/Card';
 import getPrice from '../../helpers/getPrice';
 import { addDevice } from '../../redux/slices/cartSlice';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+import { addDeviceComparing } from '../../redux/slices/compareSlice';
 
 const SimpleDevice = ({ device, relateds }) => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const SimpleDevice = ({ device, relateds }) => {
   const [swiperRef, setSwiperRef] = useState();
   const [moreOpen, setMoreOpen] = useState(false);
   const [count, setCount] = useState(1);
+  const titles = ['Color', 'Memory', 'RAM'];
 
   const onChangeCount = (i) => {
     if (count === 1 && i < 0) {
@@ -64,7 +66,11 @@ const SimpleDevice = ({ device, relateds }) => {
                   {brands.find((brand) => brand.id === device.brandId) &&
                     brands.find((brand) => brand.id === device.brandId).title}
                 </span>
-                <FontAwesomeIcon icon={faCodeCompare} className={classes.compare} />
+                <FontAwesomeIcon
+                  icon={faCodeCompare}
+                  className={classes.compare}
+                  onClick={() => dispatch(addDeviceComparing(device))}
+                />
               </div>
               <div className={classes.body}>
                 <div className={classes.images}>
@@ -121,21 +127,19 @@ const SimpleDevice = ({ device, relateds }) => {
                       </div>
                     </div>
                     <table className={classes.characteristics}>
-                      <thead>
-                        <tr>
-                          <td>Memory</td>
-                          <td>512 GB</td>
-                        </tr>
-                      </thead>
                       <tbody>
-                        <tr>
-                          <td>Memory</td>
-                          <td>1 GB</td>
-                        </tr>
-                        <tr>
-                          <td>Color</td>
-                          <td>Midnight</td>
-                        </tr>
+                        {device.info &&
+                          device.info.map((i, index) => {
+                            let currentInfo = device.info.find(
+                              (information) => information.title === titles[index],
+                            );
+                            return currentInfo ? (
+                              <tr>
+                                <td>{titles[index]}</td>
+                                <td>{currentInfo.description}</td>
+                              </tr>
+                            ) : undefined;
+                          })}
                       </tbody>
                     </table>
                     <div className={classes.quantity}>
@@ -151,7 +155,9 @@ const SimpleDevice = ({ device, relateds }) => {
                       </ul>
                     </div>
                     <div className={classes.btns}>
-                      <button>Buy</button>
+                      <Link to={location.pathname + '/order'}>
+                        <button>Buy</button>
+                      </Link>
                       <button onClick={() => onAddToCart(device)}>Add to cart</button>
                     </div>
                   </div>

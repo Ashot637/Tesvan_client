@@ -11,6 +11,8 @@ import ItemsMainPage from '../../pages/ItemsMainPage';
 import SimpleDevicePage from '../../pages/SimpleDevicePage';
 import ScrollToTop from '../../helpers/ScrollToTop';
 import DevicesPage from '../../pages/DevicesPage';
+import OrderPage from '../../pages/OrderPage';
+import ComparePage from '../../pages/ComparePage';
 
 const App = () => {
   return (
@@ -21,6 +23,9 @@ const App = () => {
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/categories/:categorie" element={<DevicesPage />} />
         <Route path="/categories/:categorie/:id" element={<SimpleDevicePage />} />
+        <Route path="/categories/:categorie/:id/order" element={<OrderPage />} />
+        <Route path="/order" element={<OrderPage />} />
+        <Route path="/compare" element={<ComparePage />} />
 
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/credit-terms" element={<CreditTermsPage />} />

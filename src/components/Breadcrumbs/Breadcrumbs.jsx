@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import classes from './breadcrumbs.module.scss';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import axios from '../../helpers/axios';
 const Breadcrumbs = ({ deviceTitle }) => {
   const location = useLocation();
   const [paths, setPaths] = useState();
+  const { id } = useParams();
 
   useEffect(() => {
     setPaths(location.pathname.split('/'));
     if (deviceTitle) {
       let newPaths = location.pathname.split('/');
-      newPaths.pop();
-      setPaths([...newPaths, deviceTitle]);
+      let index = newPaths.findIndex((path) => path === id);
+      newPaths[index] = deviceTitle;
+      setPaths(newPaths);
+    }
+    if (id && !deviceTitle) {
+      axios.get('/device/' + id).then(({ data }) => {
+        let newPaths = location.pathname.split('/');
+        let index = newPaths.findIndex((path) => path === id);
+        newPaths[index] = data.title;
+        setPaths(newPaths);
+      });
     }
   }, [location, deviceTitle]);
 

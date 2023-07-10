@@ -6,7 +6,7 @@ import CartItem from '../CartItem/CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeAll, toggleIsOpen } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -57,7 +57,9 @@ const Cart = () => {
                 <div className={classes.back} onClick={() => dispatch(toggleIsOpen())}>
                   {'<<'} Back to shoping
                 </div>
-                <button className={classes.done}>Make order</button>
+                <Link to="/order">
+                  <button className={classes.done}>Make order</button>
+                </Link>
               </div>
             </div>
           </>
