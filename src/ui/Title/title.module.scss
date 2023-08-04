@@ -11,3 +11,23 @@
     text-transform: capitalize;
   }
 }
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  .title h3 {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .inner {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 25px;
+  }
+}

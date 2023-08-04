@@ -23,26 +23,53 @@ const CategoriesSlider = () => {
 
   return (
     <div className={classes.categories}>
-      <button onClick={handlePrevious}>
-        <FontAwesomeIcon icon={faAngleLeft} />
-      </button>
       <div className="container">
-        <Swiper onSwiper={setSwiperRef} slidesPerView={5} spaceBetween={5}>
-          {categories.map((categorie, i) => {
-            return (
-              <SwiperSlide key={i}>
-                <Link className={classes.slide} to={`/categories/${categorie.title.toLowerCase()}`}>
-                  <img src={'http://localhost:8080/' + categorie.img} alt="Slide" />
-                  <span>{categorie.title}</span>
-                </Link>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
+        <div className={classes.flex}>
+          <button onClick={handlePrevious}>
+            <FontAwesomeIcon icon={faAngleLeft} />
+          </button>
+          <Swiper
+            onSwiper={setSwiperRef}
+            slidesPerView={5}
+            slidesOffsetAfter={0}
+            freeMode={true}
+            breakpoints={{
+              200: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              600: {
+                slidesPerView: 3,
+                spaceBetween: 10,
+              },
+              850: {
+                slidesPerView: 4,
+                spaceBetween: 10,
+              },
+              1270: {
+                slidesPerView: 5,
+                spaceBetween: 10,
+              },
+            }}
+            spaceBetween={5}>
+            {categories.map((categorie, i) => {
+              return (
+                <SwiperSlide key={i}>
+                  <Link
+                    className={classes.slide}
+                    to={`/categories/${categorie.title.toLowerCase()}`}>
+                    <img src={'http://localhost:8080/' + categorie.img} alt="Slide" />
+                    <span>{categorie.title}</span>
+                  </Link>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+          <button className={classes.next} onClick={handleNext}>
+            <FontAwesomeIcon icon={faAngleRight} />
+          </button>
+        </div>
       </div>
-      <button onClick={handleNext}>
-        <FontAwesomeIcon icon={faAngleRight} />
-      </button>
     </div>
   );
 };

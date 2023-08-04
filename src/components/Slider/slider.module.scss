@@ -6,10 +6,8 @@
   display: flex;
   align-items: center;
   background: white;
-  padding-left: 45px;
+  padding-left: 75px;
   column-gap: 50px;
-  margin-left: 75px;
-  width: fit-content;
 }
 
 .info {
@@ -19,16 +17,137 @@
   flex-direction: column;
   row-gap: 23px;
   height: 100%;
+  margin-bottom: 50px;
 
   button {
     padding: 17px 47px;
     background: var(--primary);
     color: white;
-    border-radius: 2px;
+    border-radius: 5px;
+
+    &:hover {
+      background: var(--darkBlue);
+    }
   }
 }
 
 .title {
   color: var(--primary);
   font-size: 20px;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 1350px) {
+  .slide {
+    padding-left: 45px;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .slide {
+    img {
+      max-width: 300px;
+    }
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .slider {
+    margin-bottom: 50px;
+  }
+  .title {
+    font-size: 16px;
+  }
+  .slide {
+    img {
+      max-width: 200px;
+    }
+  }
+
+  .info {
+    margin-bottom: 0;
+    button {
+      padding: 10px 25px;
+    }
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .slide {
+    padding-left: 20px;
+  }
+  .title {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .slide {
+    img {
+      max-width: 180px;
+    }
+  }
+
+  .info {
+    row-gap: 10px;
+    button {
+      padding: 8px 20px;
+      font-size: 11px;
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .slide {
+    img {
+      max-width: 160px;
+    }
+  }
+}
+
+@media screen and (max-width: 355px) {
+  .slide {
+    padding-left: 15px;
+  }
+  .slide {
+    img {
+      max-width: 140px;
+    }
+  }
+}
+
+@media screen and (max-width: 1260px) and (min-width: 1200px) {
+  .slide {
+    padding-left: 75px;
+  }
+}
+
+@media screen and (max-width: 1130px) and (min-width: 1070px) {
+  .slide {
+    padding-left: 75px;
+  }
+}
+
+@media screen and (max-width: 1000px) and (min-width: 930px) {
+  .slide {
+    padding-left: 75px;
+  }
+}
+
+@media screen and (max-width: 840px) and (min-width: 810px) {
+  .slide {
+    padding-left: 60px;
+  }
+}
+
+@media screen and (max-width: 700px) and (min-width: 630px) {
+  .slide {
+    padding-left: 50px;
+  }
+}
+
+@media screen and (max-width: 600px) and (min-width: 540px) {
+  .slide {
+    img {
+      max-width: 250px;
+    }
+  }
 }

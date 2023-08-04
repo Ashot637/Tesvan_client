@@ -7,8 +7,7 @@
 
 .img {
   width: 580px;
-  height: 640px;
-  background: var(--lightGrey);
+  height: auto;
   border-radius: 5px;
 }
 
@@ -27,4 +26,64 @@
   font-size: 20px;
   max-width: 480px;
   color: white;
+}
+
+.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 1110px) {
+  .inner {
+    column-gap: 20px;
+  }
+  .img {
+    height: auto;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .inner {
+    flex-direction: column-reverse;
+    row-gap: 20px;
+  }
+
+  .img {
+    width: 480px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .inner {
+    align-items: normal;
+  }
+
+  .img {
+    width: auto;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  .subtitle {
+    line-height: 25px;
+  }
+
+  .subtitle p {
+    display: none;
+  }
 }

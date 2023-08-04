@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const getComparingFromLS = () => {
+  const data = localStorage.getItem('compare');
+  const items = data ? JSON.parse(data) : [];
+
+  return items;
+};
+
 const initialState = {
-  devices: [],
+  devices: getComparingFromLS(),
 };
 
 const compareSlice = createSlice({
@@ -13,6 +20,8 @@ const compareSlice = createSlice({
 
       if (!findItem) {
         state.devices.push(action.payload);
+      } else {
+        state.devices = state.devices.filter((device) => device.id !== action.payload.id);
       }
     },
     removeDeviceComparing: (state, action) => {

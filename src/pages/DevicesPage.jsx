@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Title from '../ui/Title/Title';
 import DevicesList from '../components/DevicesLIst/DevicesList';
@@ -8,12 +8,16 @@ import SortBy from '../components/SortBy/SortBy';
 import { useParams } from 'react-router-dom';
 import { setCategorieId, setCategorieLabel } from '../redux/slices/devicesSlice';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { CSSTransition } from 'react-transition-group';
 
 const DevicesPage = () => {
   const dispatch = useDispatch();
   const { categorie } = useParams();
   const { categorieLabel } = useSelector((state) => state.devices);
   const { categories } = useSelector((state) => state.categories);
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
 
   useEffect(() => {
     dispatch(fetchBrands());
@@ -33,11 +37,32 @@ const DevicesPage = () => {
     <>
       <Breadcrumbs />
       <Title title={categorieLabel}>
-        <SortBy />
+        <div className="flex between">
+          <SortBy />
+          <div className="block-850">
+            <FontAwesomeIcon
+              icon={faFilter}
+              onClick={() => setIsOpenFilter((isOpenFilter) => !isOpenFilter)}
+              style={{ cursor: 'pointer' }}
+            />
+          </div>
+        </div>
       </Title>
       <div className="container">
-        <div className="flex">
-          <Sidebar />
+        <div className="flex" style={{ position: 'relative' }}>
+          <div className="none-850">
+            <Sidebar />
+          </div>
+          <div className="sidebar">
+            <div className="sidebar__inner">
+              <CSSTransition in={isOpenFilter} timeout={300} classNames="sidebar" unmountOnExit>
+                <Sidebar />
+              </CSSTransition>
+            </div>
+            {isOpenFilter && (
+              <div className="sidebar__overlay" onClick={() => setIsOpenFilter(false)}></div>
+            )}
+          </div>
           <DevicesList />
         </div>
       </div>

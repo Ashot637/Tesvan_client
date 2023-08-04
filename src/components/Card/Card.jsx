@@ -1,20 +1,25 @@
 import React from 'react';
 import classes from './card.module.scss';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { faCodeCompare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import bestseller from '../../img/bestseller.png';
-import newCollection from '../../img/new-collection.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDevice } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
 import CardSkeleton from '../Skeletons/CardSkeleton';
 import { addDeviceComparing } from '../../redux/slices/compareSlice';
 
+import sale from '../../img/sale.png';
+import bestseller from '../../img/bestseller.png';
+import newCollection from '../../img/new-collection.png';
+
 const Card = ({ item, brands, loading }) => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = useParams();
   const { categories } = useSelector((state) => state.categories);
+  const { devices: comparingDevices } = useSelector((state) => state.compare);
 
   const onAddToCart = (item) => {
     item = {
@@ -23,7 +28,6 @@ const Card = ({ item, brands, loading }) => {
     };
 
     dispatch(addDevice(item));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const onAddToCompare = (item) => {
@@ -32,19 +36,28 @@ const Card = ({ item, brands, loading }) => {
 
   const getItemTypeImg = (id) => {
     switch (id) {
+      case 1:
+        return (
+          <img className={[classes.itemType, classes.saleImg].join(' ')} src={sale} alt="Sale" />
+        );
       case 2:
         return (
           <img
             className={[classes.itemType, classes.newCollectionImg].join(' ')}
             src={newCollection}
-            alt="Type"
+            alt="New colection"
           />
         );
       case 3:
-        return <img className={classes.itemType} src={bestseller} alt="Type" />;
+        return <img className={classes.itemType} src={bestseller} alt="Bestseller" />;
       default:
         return;
     }
+  };
+
+  const navigateToOrderOutOfStock = () => {
+    localStorage.setItem('outOfStockDeviceTitle', item.title);
+    navigate('/contacts/order');
   };
 
   if (loading) {
@@ -53,7 +66,7 @@ const Card = ({ item, brands, loading }) => {
 
   return (
     <div className={classes.item}>
-      {location.pathname.includes('categories/') && getItemTypeImg(item.typeId)}
+      {location.pathname.includes('categories/') && !id && getItemTypeImg(item.typeId)}
       <div className={classes.top}>
         <span>
           {brands.find((brand) => brand.id === item.brandId) &&
@@ -61,7 +74,12 @@ const Card = ({ item, brands, loading }) => {
         </span>
         <FontAwesomeIcon
           icon={faCodeCompare}
-          className={classes.compare}
+          className={[
+            classes.compare,
+            comparingDevices.find((devices) => devices.id === item.id)
+              ? classes.selected
+              : undefined,
+          ].join(' ')}
           onClick={() => onAddToCompare(item)}
         />
       </div>
@@ -74,25 +92,47 @@ const Card = ({ item, brands, loading }) => {
             '/' +
             item.id
         }>
-        <img src={'http://localhost:8080/' + item.img} alt="Macbook" />
+        <div className={classes.imgHolder}>
+          <img src={'http://localhost:8080/' + item.img} alt="Macbook" />
+        </div>
         <span className={classes.name}>{item.title}</span>
-        <span className={classes.price}>{getPrice(item.price)} AMD</span>
-        <span className={classes.oldPrice}>{getPrice(item.oldPrice)} AMD</span>
+        {item?.quantity === 0 ? (
+          <div className={classes.out}>Out of stock</div>
+        ) : (
+          <>
+            <span className={classes.price}>{getPrice(item.price)} AMD</span>
+            {+item.oldPrice ? (
+              <span className={classes.oldPrice}>{getPrice(item.oldPrice)} AMD</span>
+            ) : (
+              <>
+                <br />
+                <br />
+                <br />
+              </>
+            )}
+          </>
+        )}
       </Link>
-      <div className={classes.btns}>
-        <Link
-          to={
-            categories.find((c) => c.id === item.categorieId) &&
-            '/categories/' +
-              categories.find((c) => c.id === item.categorieId).title.toLowerCase() +
-              '/' +
-              item.id +
-              '/order'
-          }>
-          <button>Buy</button>
-        </Link>
-        <button onClick={() => onAddToCart(item)}>Add to cart</button>
-      </div>
+      {item?.quantity === 0 ? (
+        <button className={classes.contactUs} onClick={() => navigateToOrderOutOfStock()}>
+          Contact us
+        </button>
+      ) : (
+        <div className={classes.btns}>
+          <Link
+            to={
+              categories.find((c) => c.id === item.categorieId) &&
+              '/categories/' +
+                categories.find((c) => c.id === item.categorieId).title.toLowerCase() +
+                '/' +
+                item.id +
+                '/order'
+            }>
+            <button>Buy</button>
+          </Link>
+          <button onClick={() => onAddToCart(item)}>Add to cart</button>
+        </div>
+      )}
     </div>
   );
 };

@@ -12,10 +12,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 130px 0 70px;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
 
   h2 {
     color: white;
+    flex: 2;
   }
 
   p {
@@ -23,92 +24,83 @@
     text-decoration: underline;
     align-self: flex-end;
     cursor: pointer;
-  }
-}
 
-.items {
-  display: flex;
-  flex-wrap: nowrap;
-  column-gap: 20px;
-  overflow: auto;
-  padding-bottom: 15px;
-
-  &::-webkit-scrollbar {
-    width: 850px;
-    height: 15px;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: var(--lightGrey);
-    border-radius: 10px;
-  }
-}
-
-.item {
-  min-width: 284px;
-  display: flex;
-  flex-direction: column;
-  li {
-    width: 100%;
-    padding: 11px 20px;
-    background: transparent;
-    color: white;
-
-    &:first-child {
-      background: var(--primary);
-      margin-bottom: 20px;
-    }
-
-    &:nth-child(2n) {
-      background: var(--primary);
-    }
-  }
-
-  &:first-child {
-    li:first-child {
-      background: transparent;
+    &:hover {
+      color: var(--yellow);
     }
   }
 }
 
-.item .header {
-  height: 340px;
+.filters {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding-top: 25px;
-  background: var(--primary);
-  position: relative;
+  column-gap: 10px;
+  flex: 8;
 
-  p {
-    color: white;
-    text-align: center;
-    font-size: 24px;
-    margin: auto;
-    max-width: 120px;
+  li {
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--primary);
+      background: var(--yellow);
+    }
+  }
+}
+.selected {
+  color: var(--primary) !important;
+  background: var(--yellow);
+}
+
+@media screen and (max-width: 1200px) {
+  .filters {
+    flex: 6;
   }
 
-  img {
-    margin-bottom: 24px;
-    max-height: 175px;
+  .top {
+    padding-right: 50px;
   }
 }
 
-.categorie {
-  margin-bottom: 23px;
+@media screen and (max-width: 950px) {
+  .filters {
+    flex: 6;
+  }
+
+  .top {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 
-.name {
-  color: var(--yellow);
+@media screen and (max-width: 800px) {
+  .filters {
+    flex: 4;
+  }
 }
 
-.remove {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  color: var(--lightGrey);
-  font-size: 24px;
-  cursor: pointer;
+@media screen and (max-width: 680px) {
+  .filters {
+    flex: 3;
+  }
+}
+
+@media screen and (max-width: 574px) {
+  .top {
+    white-space: nowrap;
+    overflow: auto;
+    column-gap: 25px;
+    h2 {
+      font-size: 20px;
+    }
+  }
+  .filters {
+    li {
+      padding: 8px 20px;
+      font-size: 14px;
+    }
+  }
 }

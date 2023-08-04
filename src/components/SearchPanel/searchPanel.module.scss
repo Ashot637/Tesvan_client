@@ -77,3 +77,33 @@
     }
   }
 }
+
+@media screen and (max-width: 410px) {
+  .devices {
+    tbody {
+      font-size: 14px;
+      tr {
+        td {
+          img {
+            max-width: 70px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .devices {
+    tbody {
+      font-size: 14px;
+      tr {
+        td {
+          &:last-child {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

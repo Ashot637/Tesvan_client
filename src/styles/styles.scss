@@ -34,6 +34,28 @@ textarea {
   }
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition-delay: 9999s;
+  transition-delay: 9999s;
+}
+
+@keyframes autofill {
+  100% {
+    background: transparent;
+    color: inherit;
+  }
+}
+
+@-webkit-keyframes autofill {
+  100% {
+    background: transparent;
+    color: inherit;
+  }
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -54,15 +76,153 @@ button {
   column-gap: 20px;
 }
 
+.block-850 {
+  display: none;
+  align-self: center;
+}
+
+.none-850 {
+  display: flex;
+  min-width: 280px;
+}
+
+.sidebar {
+  display: none;
+  position: absolute;
+  min-width: 280px;
+  top: -16px;
+  left: -10px;
+  height: 100%;
+
+  &__inner {
+    z-index: 998;
+    position: relative;
+  }
+
+  &__overlay {
+    background: var(--darkBlue);
+    opacity: 0.8;
+    width: 97vw;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+  }
+}
+
+@media screen and (max-width: 1050px) and (min-width: 1020px) {
+  .none-850 {
+    min-width: 240px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .sidebar__inner {
+    max-width: 245px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar__overlay {
+    width: 100vw;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .block-850 {
+    display: block;
+  }
+
+  .none-850 {
+    display: none;
+  }
+
+  .sidebar {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .between {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+// Transition
+
+.notification-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.notification-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.notification-exit {
+  opacity: 1;
+}
+.notification-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.sidebar-enter {
+  opacity: 1;
+  transform: translateX(-300px);
+}
+.sidebar-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.sidebar-exit {
+  opacity: 1;
+}
+.sidebar-exit-active {
+  opacity: 1;
+  transform: translateX(-300px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.cart-enter {
+  opacity: 1;
+  transform: translateX(750px);
+}
+.cart-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 400ms, transform 400ms;
+}
+.cart-exit {
+  opacity: 1;
+}
+.cart-exit-active {
+  opacity: 1;
+  transform: translateX(750px);
+  transition: opacity 400ms, transform 400ms;
+}
+
 // Lib
 
-.phone-slider {
-  .swiper-slide-active {
-    transform: scale(1.3) !important;
+.swiper-pagination-bullet-active {
+  transform: scale(1.4) !important;
+}
+
+.swiper-pagination-bullet {
+  &:hover {
+    background: var(--primary);
+    cursor: pointer !important;
+    opacity: 1 !important;
   }
+}
+
+.phone-slider {
   .swiper-slide-next,
   .swiper-slide-prev {
-    transform: scale(0.8) !important;
+    transform: scaleY(0.8) !important;
   }
 }
 
@@ -72,10 +232,58 @@ button {
   background: var(--yellow);
 }
 
+.example-track-0,
+.example-track-2 {
+  height: 5px;
+  top: 2px !important;
+  background: var(--lightGrey);
+  border-radius: 5px;
+}
+
 .horizontal-slider .example-thumb.example-thumb-0,
 .example-thumb.example-thumb-1 {
   height: 10px;
   width: 10px;
   border-radius: 50%;
   background: var(--yellow);
+}
+
+.PhoneInputCountry {
+  left: 20px;
+  top: 11px;
+}
+
+.PhoneInputCountrySelectArrow {
+  color: white;
+  opacity: 1;
+  height: 7px;
+  width: 7px;
+  margin-left: 10px;
+}
+
+.PhoneInputInput {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  padding-left: 70px !important;
+}
+
+.PhoneInputCountryIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.PhoneInputCountryIconImg {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+}
+
+.PhoneInputCountryIconImg {
+  object-fit: cover;
+}
+
+.PhoneInputCountryIcon--border {
+  box-shadow: none;
+  background: transparent;
 }

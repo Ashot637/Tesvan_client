@@ -5,9 +5,24 @@
   --grey: #646464;
   --lightGrey: #bfbfbf;
   --yellow: #f4b41a;
+  --danger: #cb3636;
 
-  --swiper-theme-color: var(--yellow);
+  // Lib
+
+  --swiper-theme-color: var(--primary);
   --swiper-pagination-bullet-size: 10px;
   --swiper-pagination-bullet-width: 10px;
   --swiper-pagination-bullet-height: 10px;
+
+  --PhoneInputCountryFlag-borderColor--focus: transparent;
+  --PhoneInputCountryFlag-borderColor: transparent;
+  --PhoneInputCountrySelectArrow-color--focus: white;
+}
+
+@media screen and (max-width: 500px) {
+  :root {
+    --swiper-pagination-bullet-size: 7px;
+    --swiper-pagination-bullet-width: 7px;
+    --swiper-pagination-bullet-height: 7px;
+  }
 }

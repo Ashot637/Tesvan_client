@@ -32,7 +32,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 17px 35px;
+  gap: 19px 35px;
   max-width: 510px;
   margin-bottom: 25px;
 }
@@ -41,6 +41,7 @@
   display: flex;
   flex-direction: column;
   row-gap: 5px;
+  position: relative;
 
   &:nth-last-child(1) {
     position: relative;
@@ -73,47 +74,102 @@
     &:focus {
       border-color: var(--yellow);
     }
+
+    &.invalid {
+      border-color: var(--danger);
+    }
+  }
+
+  p {
+    color: var(--danger);
+    font-size: 12px;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 5px;
+    white-space: nowrap;
+    margin-bottom: 10px;
   }
 }
 
-.radios {
+.textarea {
+  width: 100%;
+
+  textarea {
+    width: 100%;
+  }
+}
+
+.fieldInvalid {
+  input {
+    border-color: var(--danger) !important;
+  }
+}
+
+.payment {
+  padding-top: 20px;
+  border-top: 1px solid rgba($color: white, $alpha: 0.3);
+  width: 100%;
+  margin-top: 40px;
+
+  h3 {
+    font-size: 22px;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  span {
+    font-weight: 300;
+    color: white;
+  }
+}
+
+.methods {
   display: flex;
-  flex-direction: column;
-  row-gap: 12px;
-  max-width: 230px;
-  padding-top: 16px;
-  padding-left: 5px;
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 15px;
+  padding-top: 18px;
+
+  p {
+    color: white;
+  }
+}
+
+.method {
+  cursor: pointer;
+  div {
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+  }
 }
 
 .radio {
-  display: flex;
-  column-gap: 20px;
-  align-items: center;
-  font-weight: 400;
-  color: white;
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--lightGrey);
+  border-radius: 50%;
+}
 
-  label {
-    cursor: pointer;
-  }
-  input {
-    cursor: pointer;
-    width: auto;
+.icon {
+  width: 120px;
+  height: 80px;
+  display: flex;
+  margin-bottom: 15px;
+  border: 2px solid var(--lightGrey);
+  border-radius: 5px;
+
+  img {
+    margin: auto;
+    max-width: 90px;
   }
 }
 
-.paymentMethods {
-  display: flex;
-  align-items: center;
-  column-gap: 2px;
-  padding-top: 100px;
-  margin-bottom: 30px;
-  li {
-    background: var(--lightGrey);
-    border-radius: 4px;
-    padding: 5px 10px 0;
-  }
-  img {
-    max-width: 60px;
+.selected {
+  .radio {
+    background: white;
   }
 }
 
@@ -123,11 +179,17 @@
   font-weight: 700;
   border-radius: 2px;
   padding: 13px 91px;
+  margin-top: 60px;
+
+  &:disabled {
+    filter: grayscale(0.5);
+    cursor: not-allowed;
+  }
 }
 
 .error {
   align-self: flex-start;
-  color: #cb3636;
+  color: var(--danger);
   font-weight: 300;
 }
 
@@ -192,4 +254,218 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.devicesMobile {
+  display: none;
+}
+
+.back {
+  display: none;
+}
+
+.deviceImg {
+  background: white;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
+  border-radius: 2px;
+
+  img {
+    max-width: 50px;
+  }
+}
+
+@media screen and (max-width: 1210px) {
+  .block {
+    padding: 32px 15px;
+  }
+}
+
+@media screen and (max-width: 1117px) {
+  .field {
+    input {
+      width: 200px;
+    }
+  }
+
+  .icon {
+    width: 110px;
+  }
+}
+
+@media screen and (max-width: 1070px) {
+  .icon {
+    width: 100px;
+  }
+
+  .method {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .field {
+    width: 100%;
+    input {
+      width: 100%;
+    }
+  }
+  .phoneField {
+    margin-bottom: 20px;
+    p {
+      top: calc(100% + 27px);
+    }
+  }
+
+  .methods {
+    flex-wrap: wrap;
+  }
+
+  .method {
+    font-size: 16px;
+  }
+
+  .icon {
+    width: 120px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .blocks {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+  }
+
+  .block {
+    padding: 32px 40px;
+    width: fit-content;
+
+    &:nth-child(2) {
+      width: 590px;
+    }
+  }
+
+  .fields {
+    justify-content: center;
+  }
+
+  .field {
+    width: 100%;
+    max-width: 400px;
+    input {
+      width: 100%;
+    }
+  }
+  .paymentMethods {
+    padding-top: 40px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .block:nth-child(2) {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .block {
+    padding: 20px 12px;
+    width: 100%;
+  }
+
+  .fields {
+    justify-content: center;
+  }
+
+  .field {
+    width: 100%;
+    max-width: 400px;
+    input {
+      width: 100%;
+    }
+  }
+
+  .title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .paymentMethods {
+    padding-top: 20px;
+
+    li {
+      max-width: 57px;
+      padding: 0;
+    }
+
+    img {
+      max-width: 52px;
+      padding: 0 1px;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .devices {
+    display: none;
+  }
+
+  .devicesMobile {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--darkBlue);
+  }
+
+  .deviceMobile {
+    display: flex;
+    position: relative;
+    column-gap: 18px;
+    color: white;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5px 0;
+    justify-content: space-between;
+  }
+
+  .remove {
+    position: absolute;
+    top: 29px;
+    right: 0;
+  }
+
+  .deviceMobileImg {
+    width: 85px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+
+    img {
+      max-width: 78px;
+      max-height: 78px;
+    }
+  }
+
+  .back {
+    display: block;
+    color: var(--yellow);
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .btn {
+    padding: 13px 85px;
+  }
 }

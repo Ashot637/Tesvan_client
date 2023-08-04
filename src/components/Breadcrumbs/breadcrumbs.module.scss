@@ -2,7 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
   column-gap: 5px;
+  row-gap: 10px;
   padding: 25px 0;
 }
 
@@ -25,4 +27,10 @@
 .current {
   color: var(--lightGrey);
   cursor: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .breadcrumb {
+    font-size: 12px;
+  }
 }

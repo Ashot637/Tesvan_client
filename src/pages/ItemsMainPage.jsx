@@ -27,9 +27,7 @@ const ItemsMainPage = ({ typeId, title }) => {
                   title={categorie.title}
                   main
                 />
-                <br />
-                <br />
-                <br />
+                <div style={{ marginBottom: 20, height: 5 }}></div>
               </React.Fragment>
             );
           }

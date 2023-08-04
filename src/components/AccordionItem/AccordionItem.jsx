@@ -9,8 +9,7 @@ const AccordionItem = ({ children, title }) => {
   return (
     <div className={classes.item}>
       <div
-        className={classes.top}
-        style={isOpen ? { background: 'transparent' } : undefined}
+        className={[classes.top, isOpen ? classes.active : undefined].join(' ')}
         onClick={() => setIsOpen((isOpen) => !isOpen)}>
         <span>{title}</span>
         <FontAwesomeIcon

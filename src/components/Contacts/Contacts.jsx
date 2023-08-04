@@ -1,20 +1,34 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from './contacts.module.scss';
 import { useForm } from 'react-hook-form';
 import axios from '../../helpers/axios';
+import Phone from '../Phone/Phone';
+import { useLocation } from 'react-router-dom';
 
 const Contacts = () => {
+  const location = useLocation();
   const checkboxRef = useRef();
-  const [message, setMessage] = useState('');
+  const [phone, setPhone] = useState('');
+  const [phoneValid, setPhoneValid] = useState(false);
   const [checked, setChecked] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
-    formState: { isValid },
+    watch,
+    setFocus,
+    formState: { isValid, errors },
   } = useForm({
     mode: 'onChange',
   });
+  const [outOfStockDevice, setOutOfStockDevice] = useState();
+
+  useEffect(() => {
+    if (location.pathname.includes('/contacts/order')) {
+      setOutOfStockDevice(localStorage.getItem('outOfStockDeviceTitle'));
+      setFocus('message');
+    }
+  }, [location]);
 
   const onAcceptTerms = () => {
     checkboxRef.current.click();
@@ -22,13 +36,12 @@ const Contacts = () => {
   };
 
   const onSubmit = (data) => {
-    if (!message || !checked) {
+    if (!checked) {
       return;
     }
-    let formData = { ...data, message };
+    let formData = { ...data, phone };
     axios.post('/contacts', formData);
     reset();
-    setMessage('');
     setChecked(false);
   };
 
@@ -38,7 +51,7 @@ const Contacts = () => {
         <div className={classes.inner}>
           <h3 className={classes.title}>Contact Us</h3>
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-            {(!isValid || !message || !checked) && (
+            {(!isValid || !checked || !phoneValid) && (
               <div className={classes.required}>All fields are required</div>
             )}
             <div className={classes.fields}>
@@ -49,7 +62,9 @@ const Contacts = () => {
                     required: 'Required!',
                   })}
                   type="text"
+                  className={errors?.name ? classes.invalid : undefined}
                 />
+                {errors?.name && <p>This field is required.</p>}
               </div>
               <div className={classes.field}>
                 <label>Surname</label>
@@ -58,35 +73,53 @@ const Contacts = () => {
                     required: 'Required!',
                   })}
                   type="text"
+                  className={errors?.surname ? classes.invalid : undefined}
                 />
+                {errors?.surname && <p>This field is required.</p>}
               </div>
-              <div className={classes.field}>
+              <div
+                className={[
+                  classes.field,
+                  classes.phoneField,
+                  !phoneValid && phone ? classes.fieldInvalid : undefined,
+                ].join(' ')}>
                 <label>Phone</label>
-                <input
-                  {...register('phone', {
-                    required: 'Required!',
-                  })}
-                  type="number"
-                />
+                <Phone phone={phone} setPhone={setPhone} setPhoneValid={setPhoneValid} />
+                {!phoneValid && phone && <p>Please enter valid phone number.</p>}
               </div>
               <div className={classes.field}>
                 <label>Email</label>
                 <input
                   {...register('email', {
-                    required: 'Required!',
+                    required: 'This field is required.',
+                    pattern: {
+                      value:
+                        /^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)[\\.]([a-zA-Z]{2,9})$/,
+                      message: 'Invalid email address.',
+                    },
                   })}
-                  type="email"
+                  type="text"
+                  className={errors?.email ? classes.invalid : undefined}
                 />
+                {errors?.email && <p>{errors.email.message}</p>}
               </div>
               <div className={classes.field}>
                 <label>Message</label>
                 <textarea
                   rows={4}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
+                  {...register('message', {
+                    required: 'Required!',
+                  })}
+                  defaultValue={
+                    outOfStockDevice ? 'I want to order ' + outOfStockDevice + ' ' : undefined
+                  }
                   maxLength={160}
+                  className={errors?.message ? classes.invalid : undefined}
                 />
-                <span className={classes.symbols}>{message.length}/160</span>
+                {errors?.message && <p>This field is required.</p>}
+                <span className={classes.symbols}>
+                  {watch('message') ? watch('message').length : 0}/160
+                </span>
               </div>
             </div>
             <div className={classes.terms}>
@@ -97,7 +130,7 @@ const Contacts = () => {
             <button
               className={classes.btn}
               type="submit"
-              disabled={!isValid || !message || !checked}>
+              disabled={!isValid || !checked || !phoneValid}>
               Send
             </button>
           </form>

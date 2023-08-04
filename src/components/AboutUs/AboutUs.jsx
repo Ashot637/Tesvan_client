@@ -1,12 +1,19 @@
 import React from 'react';
 import classes from './aboutUs.module.scss';
+import img from '../../img/iphone.png';
 
 const AboutUs = () => {
   return (
     <div className={classes.about}>
       <div className="container">
         <div className={classes.inner}>
-          <div className={classes.img}></div>
+          <div className={[classes.subtitle, classes.mobile].join(' ')}>
+            Condimentum ac, vestibulum eu nisl. Class aptent taciti sociosqu ad litora torquent per
+            conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum
+            lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac,
+            vestibulum eu nisl.
+          </div>
+          <img src={img} className={classes.img} alt="About Us" />
           <div className={classes.text}>
             <span className={classes.title}>ABOUT US</span>
             <div className={classes.subtitle}>
@@ -15,10 +22,12 @@ const AboutUs = () => {
               torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis
               condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis.
               <br />
-              Condimentum ac, vestibulum eu nisl. Class aptent taciti sociosqu ad litora torquent
-              per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis
-              condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis
-              condimentum ac, vestibulum eu nisl.
+              <p>
+                Condimentum ac, vestibulum eu nisl. Class aptent taciti sociosqu ad litora torquent
+                per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis
+                condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis
+                condimentum ac, vestibulum eu nisl.
+              </p>
             </div>
           </div>
         </div>

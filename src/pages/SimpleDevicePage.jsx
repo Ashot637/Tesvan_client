@@ -18,9 +18,10 @@ const SimpleDevicePage = () => {
       setDevice(data);
       localDevice = data;
       axios
-        .get('/devices', { params: { categorieId: localDevice.categorieId, limit: 8 } })
+        .get('/devices', { params: { categorieId: localDevice.categorieId, limit: 9 } })
         .then(({ data }) => {
           data = data.filter((item) => item.id !== localDevice.id);
+          data = data.splice(0, 8);
           setRelateds(data);
         });
     });

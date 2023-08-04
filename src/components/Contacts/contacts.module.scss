@@ -37,7 +37,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 17px 35px;
+  gap: 19px 35px;
   max-width: 510px;
   margin-bottom: 25px;
 }
@@ -53,6 +53,7 @@
   display: flex;
   flex-direction: column;
   row-gap: 5px;
+  position: relative;
 
   &:nth-last-child(1) {
     width: 100%;
@@ -86,10 +87,30 @@
     &:focus {
       border-color: var(--yellow);
     }
+
+    &.invalid {
+      border-color: var(--danger);
+    }
   }
 
   textarea {
     width: 100%;
+  }
+
+  p {
+    color: var(--danger);
+    font-size: 12px;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 5px;
+    white-space: nowrap;
+    margin-bottom: 10px;
+  }
+}
+
+.fieldInvalid {
+  input {
+    border-color: var(--danger) !important;
   }
 }
 
@@ -129,6 +150,11 @@
   color: var(--primary);
   background: var(--yellow);
   margin-left: auto;
+
+  &:disabled {
+    filter: grayscale(0.5);
+    cursor: not-allowed;
+  }
 }
 
 .required {
@@ -137,4 +163,43 @@
   right: 0;
   top: -35px;
   font-weight: 300;
+}
+
+@media screen and (max-width: 732px) {
+  .inner {
+    padding: 10px 15px;
+  }
+}
+
+@media screen and (max-width: 564px) {
+  .inner {
+    padding: 25px 40px;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .phoneField {
+    margin-bottom: 20px;
+    p {
+      top: calc(100% + 27px);
+    }
+  }
+
+  .field {
+    width: 100%;
+    input {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .inner {
+    padding: 25px 10px;
+  }
+  .terms {
+    font-size: 14px;
+  }
 }

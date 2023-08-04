@@ -1,13 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './sidebar.module.scss';
 import AccordionItem from '../AccordionItem/AccordionItem';
 import ReactSlider from 'react-slider';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBrandId, setMaxPrice, setMinPrice, setPage } from '../../redux/slices/devicesSlice';
+import {
+  setBrandId,
+  setMaxPrice,
+  setMinPrice,
+  setPage,
+  setScreenSizeId,
+} from '../../redux/slices/devicesSlice';
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { brands } = useSelector((state) => state.brands);
-  const { brandId, minPrice, maxPrice } = useSelector((state) => state.devices);
+  const { brandId, minPrice, maxPrice, screenSizeId, screenSizesList } = useSelector(
+    (state) => state.devices,
+  );
 
   const onSelectBrand = (id) => {
     dispatch(setBrandId(id));
@@ -21,16 +29,18 @@ const Sidebar = () => {
     onSelectBrand(0);
   }, []);
 
+  useEffect(() => {}, [screenSizeId]);
+
   return (
     <div className={classes.sidebar}>
       <div className={classes.accordion}>
         <AccordionItem title={'Brand'}>
-          <div className={classes.brands}>
+          <div className={classes.items}>
             {brands.map((brand) => {
               return (
                 <div
                   key={brand.id}
-                  className={[classes.brand, brandId === brand.id ? classes.active : ''].join(' ')}
+                  className={[classes.item, brandId === brand.id ? classes.active : ''].join(' ')}
                   onClick={() =>
                     brandId === brand.id ? onSelectBrand(0) : onSelectBrand(brand.id)
                   }>
@@ -77,7 +87,26 @@ const Sidebar = () => {
             </div>
           </div>
         </AccordionItem>
-        <AccordionItem title={'Price'} />
+        <AccordionItem title={'Screen Size'}>
+          <ul className={classes.items}>
+            {screenSizesList.map((size, i) => {
+              return (
+                <li
+                  key={i}
+                  className={[classes.item, screenSizeId === i ? classes.active : undefined].join(
+                    ' ',
+                  )}
+                  onClick={() =>
+                    screenSizeId === i
+                      ? dispatch(setScreenSizeId(null))
+                      : dispatch(setScreenSizeId(i))
+                  }>
+                  {size}
+                </li>
+              );
+            })}
+          </ul>
+        </AccordionItem>
         <AccordionItem title={'Price'} />
         <AccordionItem title={'Price'} />
         <AccordionItem title={'Price'} />

@@ -10,7 +10,7 @@ const ItemsSection = ({ title, items, main, link, loading }) => {
   const { brands } = useSelector((state) => state.brands);
 
   return (
-    <div className="section">
+    <div>
       <div className="container">
         <h1 className={main ? classes.mainTitle : classes.title}>{title}</h1>
         <div className={classes.grid}>

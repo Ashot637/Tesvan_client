@@ -21,8 +21,16 @@ const SimpleDevice = ({ device, relateds }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { brands } = useSelector((state) => state.brands);
+  const { devices: comparingDevices } = useSelector((state) => state.compare);
   const [swiperRef, setSwiperRef] = useState();
   const [moreOpen, setMoreOpen] = useState(false);
+  const [images, setImages] = useState([
+    { id: 1, url: '3be6065e-2a43-4d93-a36b-0ddfa84ee083.png' },
+    { id: 2, url: '50453329-677b-49e8-8c4e-56fef39440d1.png' },
+    { id: 3, url: '3be6065e-2a43-4d93-a36b-0ddfa84ee083.png' },
+    { id: 4, url: '50453329-677b-49e8-8c4e-56fef39440d1.png' },
+  ]);
+  const [img, setImg] = useState(images[0]);
   const [count, setCount] = useState(1);
   const titles = ['Color', 'Memory', 'RAM'];
 
@@ -40,7 +48,6 @@ const SimpleDevice = ({ device, relateds }) => {
     };
 
     dispatch(addDevice(item));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -68,28 +75,28 @@ const SimpleDevice = ({ device, relateds }) => {
                 </span>
                 <FontAwesomeIcon
                   icon={faCodeCompare}
-                  className={classes.compare}
+                  className={[
+                    classes.compare,
+                    comparingDevices.find((devices) => devices.id === device.id)
+                      ? classes.selected
+                      : undefined,
+                  ].join(' ')}
                   onClick={() => dispatch(addDeviceComparing(device))}
                 />
               </div>
               <div className={classes.body}>
                 <div className={classes.images}>
                   <div className={classes.mainImg}>
-                    <img src={'http://localhost:8080/' + device.img} alt="Device" />
+                    <img src={'http://localhost:8080/' + img.url} alt="Device" />
                   </div>
                   <div className={classes.otherImages}>
-                    <div className={classes.otherImg}>
-                      <img src={'http://localhost:8080/' + device.img} alt="Device" />
-                    </div>
-                    <div className={classes.otherImg}>
-                      <img src={'http://localhost:8080/' + device.img} alt="Device" />
-                    </div>
-                    <div className={classes.otherImg}>
-                      <img src={'http://localhost:8080/' + device.img} alt="Device" />
-                    </div>
-                    <div className={classes.otherImg}>
-                      <img src={'http://localhost:8080/' + device.img} alt="Device" />
-                    </div>
+                    {images.map((i) => {
+                      return (
+                        <div key={i.id} className={classes.otherImg} onClick={() => setImg(i)}>
+                          <img src={'http://localhost:8080/' + i.url} alt="Device" />
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
                 <div className={classes.info}>
@@ -119,13 +126,14 @@ const SimpleDevice = ({ device, relateds }) => {
                     <div className={classes.prices}>
                       <div className={classes.cash}>
                         <b>Cash</b>
-                        {device.price.toLocaleString().replaceAll(',', ' ')} AMD
+                        <span>{device.price.toLocaleString().replaceAll(',', ' ')} AMD</span>
                       </div>
-                      <div className={classes.card}>
-                        <b>Card</b>
-                        {getPrice(device.price + 50000)} AMD
+                      <div className={classes.credit}>
+                        <b>Credit</b>
+                        <span>{getPrice(device.price + 50000)} AMD</span>
                       </div>
                     </div>
+                    <div className={classes.line}></div>
                     <table className={classes.characteristics}>
                       <tbody>
                         {device.info &&
@@ -134,7 +142,7 @@ const SimpleDevice = ({ device, relateds }) => {
                               (information) => information.title === titles[index],
                             );
                             return currentInfo ? (
-                              <tr>
+                              <tr key={i.id}>
                                 <td>{titles[index]}</td>
                                 <td>{currentInfo.description}</td>
                               </tr>
@@ -142,24 +150,34 @@ const SimpleDevice = ({ device, relateds }) => {
                           })}
                       </tbody>
                     </table>
-                    <div className={classes.quantity}>
-                      <div>Quantity</div>
-                      <ul className={classes.counter}>
-                        <li className={classes.inc} onClick={() => onChangeCount(1)}>
-                          <FontAwesomeIcon icon={faPlus} />
-                        </li>
-                        <li className={classes.count}>{count}</li>
-                        <li className={classes.dec}>
-                          <FontAwesomeIcon icon={faMinus} onClick={() => onChangeCount(-1)} />
-                        </li>
-                      </ul>
-                    </div>
-                    <div className={classes.btns}>
-                      <Link to={location.pathname + '/order'}>
-                        <button>Buy</button>
-                      </Link>
-                      <button onClick={() => onAddToCart(device)}>Add to cart</button>
-                    </div>
+                    <div className={classes.line}></div>
+                    {device?.quantity === 0 ? (
+                      <div className={classes.out}>
+                        <span>Out of stock</span>
+                        <button>Contact us</button>
+                      </div>
+                    ) : (
+                      <>
+                        <div className={classes.quantity}>
+                          <div>Quantity</div>
+                          <ul className={classes.counter}>
+                            <li className={classes.inc} onClick={() => onChangeCount(1)}>
+                              <FontAwesomeIcon icon={faPlus} />
+                            </li>
+                            <li className={classes.count}>{count}</li>
+                            <li className={classes.dec}>
+                              <FontAwesomeIcon icon={faMinus} onClick={() => onChangeCount(-1)} />
+                            </li>
+                          </ul>
+                        </div>
+                        <div className={classes.btns}>
+                          <Link to={location.pathname + '/order'}>
+                            <button>Buy</button>
+                          </Link>
+                          <button onClick={() => onAddToCart(device)}>Add to cart</button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -201,7 +219,7 @@ const SimpleDevice = ({ device, relateds }) => {
               <Swiper onSwiper={setSwiperRef} slidesPerView={4} spaceBetween={5}>
                 {relateds.map((item) => {
                   return (
-                    <SwiperSlide style={{ maxHeight: 462 }} key={item.id}>
+                    <SwiperSlide style={{ maxHeight: 480 }} key={item.id}>
                       <Card brands={brands} item={item} />
                     </SwiperSlide>
                   );
@@ -213,6 +231,12 @@ const SimpleDevice = ({ device, relateds }) => {
             </button>
           </>
         )}
+      </div>
+      <div className={classes.grid}>
+        {relateds &&
+          relateds.map((item) => {
+            return <Card brands={brands} key={item.id} item={item} />;
+          })}
       </div>
     </div>
   );

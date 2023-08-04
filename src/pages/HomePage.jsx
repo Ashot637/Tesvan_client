@@ -1,21 +1,19 @@
 import React from 'react';
 import Intro from '../components/Intro/Intro';
-import SaleItems from '../components/Items/SaleItems';
-import NewCollectionItems from '../components/Items/NewCollectionItems';
 import Slider from '../components/Slider/Slider';
-import BestsellersItems from '../components/Items/Bestsellers';
 import Brands from '../components/Brands/Brands';
 import CategoriesSlider from '../components/CategoriesSlider/CategoriesSlider';
+import TypedItems from '../components/TypedItems/TypedItems';
 
 const HomePage = () => {
   return (
     <>
       <Intro />
       <CategoriesSlider />
-      <SaleItems />
-      <NewCollectionItems />
+      <TypedItems title={'Sale'} typeId={1} link={'sale'} limit={8} />
+      <TypedItems title={'New Collection'} typeId={2} link={'new-collection'} limit={8} />
       <Slider />
-      <BestsellersItems />
+      <TypedItems title={'Bestsellers'} typeId={3} link={'bestsellers'} limit={4} />
       <Brands />
     </>
   );

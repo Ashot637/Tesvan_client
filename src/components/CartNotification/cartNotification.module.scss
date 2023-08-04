@@ -1,0 +1,171 @@
+.notification {
+  background: var(--darkBlue);
+  padding: 30px;
+  color: white;
+  width: 100%;
+  min-width: 450px;
+  position: absolute;
+  right: -100px;
+  top: 82px;
+  display: flex;
+  z-index: 999;
+  flex-direction: column;
+  border-radius: 2px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -38px;
+    left: 70%;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid var(--darkBlue);
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  button {
+    color: var(--primary);
+    background: var(--yellow);
+    padding: 10px 55px;
+    border-radius: 2px;
+    margin: 0 auto;
+  }
+}
+
+.device {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 30px;
+
+  img {
+    max-width: 100px;
+  }
+}
+
+.title {
+  max-width: 185px;
+  font-size: 16px;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background: var(--primary);
+  margin-bottom: 20px;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  span {
+    font-size: 15px;
+    color: var(--lighGray);
+  }
+
+  b {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .notification {
+    min-width: 350px;
+    padding: 20px;
+
+    &::before {
+      left: 61%;
+    }
+    p {
+      font-size: 15px;
+    }
+
+    button {
+      padding: 10px 40px;
+    }
+  }
+
+  .device {
+    margin-bottom: 20px;
+    img {
+      max-width: 70px;
+      margin-right: 15px;
+    }
+  }
+  .title {
+    font-size: 14px;
+  }
+
+  .bottom {
+    margin-bottom: 15px;
+    span {
+      font-size: 13px;
+    }
+    b {
+      font-size: 14px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .notification {
+    min-width: 250px;
+    padding: 15px;
+    p {
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px 25px;
+      font-size: 14px;
+    }
+
+    &::before {
+      left: 46%;
+    }
+  }
+
+  .device {
+    margin-bottom: 15px;
+    img {
+      max-width: 50px;
+      margin-right: 15px;
+    }
+  }
+  .title {
+    font-size: 10px;
+  }
+
+  .bottom {
+    margin-bottom: 10px;
+    span {
+      font-size: 11px;
+    }
+    b {
+      font-size: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .notification {
+    top: 45px;
+    &::before {
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 20px solid var(--darkBlue);
+      top: -17px;
+      left: 51%;
+    }
+  }
+}

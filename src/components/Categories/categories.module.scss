@@ -16,6 +16,14 @@
   padding: 10px 50px;
   max-width: 205px;
   cursor: pointer;
+  border-bottom: 1px solid transparent;
+
+  &:hover {
+    border-color: var(--yellow);
+    span {
+      color: var(--yellow);
+    }
+  }
 
   img {
     width: 105px;
@@ -26,5 +34,26 @@
     font-size: 20px;
     color: white;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .inner {
+    column-gap: 10px;
+  }
+  .categorie {
+    max-width: 150px;
+    img {
+      width: 66px;
+    }
+    span {
+      font-size: 18px;
+    }
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .categorie {
+    max-width: 145px;
   }
 }

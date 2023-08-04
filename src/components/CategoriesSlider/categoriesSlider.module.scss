@@ -1,6 +1,4 @@
 .categories {
-  display: flex;
-  align-items: center;
   max-width: 1400px;
   margin: 0 auto 60px;
 
@@ -12,7 +10,14 @@
   }
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
 .slide {
+  min-width: 100%;
   display: flex;
   align-items: center;
   row-gap: 18px;
@@ -23,6 +28,17 @@
   padding: 15px 30px;
   max-width: 230px;
   cursor: pointer;
+  border-bottom: 1px solid transparent;
+
+  &:hover {
+    border-color: var(--yellow);
+    span {
+      color: var(--yellow);
+    }
+    img {
+      transform: scale(1.1);
+    }
+  }
 
   img {
     width: 105px;
@@ -33,5 +49,32 @@
     font-size: 20px;
     color: white;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .categories {
+    button {
+      font-size: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .slide {
+    img {
+      width: 80px;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .slide {
+    img {
+      width: 60px;
+    }
+    span {
+      font-size: 18px;
+    }
   }
 }

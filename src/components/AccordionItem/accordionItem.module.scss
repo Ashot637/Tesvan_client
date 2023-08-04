@@ -2,15 +2,29 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 20px;
+  padding: 15px 18px;
   background: var(--primary);
   color: white;
   font-size: 20px;
   font-weight: 700;
   cursor: pointer;
+
+  &:hover {
+    background: var(--darkBlue);
+  }
+}
+
+.active {
+  background: var(--darkBlue);
 }
 
 .body {
   background: var(--primary);
   padding: 20px;
+}
+
+@media screen and (max-width: 620px) {
+  .top {
+    font-size: 18px;
+  }
 }

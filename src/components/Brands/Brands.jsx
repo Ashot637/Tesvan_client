@@ -34,7 +34,34 @@ const Brands = () => {
           <FontAwesomeIcon icon={faAngleLeft} />
         </button>
         <div className="container">
-          <Swiper onSwiper={setSwiperRef} slidesPerView={6} spaceBetween={20}>
+          <Swiper
+            onSwiper={setSwiperRef}
+            slidesPerView={'auto'}
+            spaceBetween={20}
+            breakpoints={{
+              0: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              470: {
+                slidesPerView: 3,
+                spaceBetween: 10,
+              },
+              600: {
+                slidesPerView: 4,
+                spaceBetween: 10,
+              },
+              1000: {
+                slidesPerView: 5,
+                spaceBetween: 10,
+              },
+              1239: {
+                slidesPerView: 5,
+              },
+              1270: {
+                slidesPerView: 6,
+              },
+            }}>
             {brands.map((brand, i) => {
               return (
                 <SwiperSlide key={i}>

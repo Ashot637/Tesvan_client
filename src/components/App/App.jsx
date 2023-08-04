@@ -13,6 +13,7 @@ import ScrollToTop from '../../helpers/ScrollToTop';
 import DevicesPage from '../../pages/DevicesPage';
 import OrderPage from '../../pages/OrderPage';
 import ComparePage from '../../pages/ComparePage';
+import ThanksPage from '../../pages/ThanksPage';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/credit-terms" element={<CreditTermsPage />} />
         <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/contacts/order" element={<ContactsPage />} />
 
         <Route path="/sale" element={<ItemsMainPage typeId={1} title={'Sale'} />} />
         <Route
@@ -37,6 +39,9 @@ const App = () => {
           element={<ItemsMainPage typeId={2} title={'New Collection'} />}
         />
         <Route path="/bestsellers" element={<ItemsMainPage typeId={3} title={'Bestsellers'} />} />
+
+        <Route path="/thanks" element={<ThanksPage success />} />
+        <Route path="/reject" element={<ThanksPage />} />
 
         <Route path="*" element={<Navigate to={'/'} />} />
       </Routes>

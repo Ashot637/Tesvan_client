@@ -8,9 +8,17 @@ import Pagination from '../Pagination/Pagination';
 
 const DevicesList = () => {
   const { brands } = useSelector((state) => state.brands);
-  const { devices, page, brandId, categorieId, minPrice, maxPrice, sortType, status } = useSelector(
-    (state) => state.devices,
-  );
+  const {
+    devices,
+    status,
+    page,
+    brandId,
+    categorieId,
+    minPrice,
+    maxPrice,
+    sortType,
+    screenSizeId,
+  } = useSelector((state) => state.devices);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +31,7 @@ const DevicesList = () => {
       sortName: sortType.name,
       sortFollowing: sortType.following,
     });
-  }, [page, brandId, categorieId, minPrice, maxPrice, sortType]);
+  }, [page, brandId, categorieId, minPrice, maxPrice, sortType, screenSizeId]);
 
   const onChangeFilters = useCallback(
     debounce(({ page, brandId, categorieId, minPrice, maxPrice, sortName, sortFollowing }) => {

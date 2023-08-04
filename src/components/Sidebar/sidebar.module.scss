@@ -1,6 +1,7 @@
 .sidebar {
   width: 100%;
   max-width: 280px;
+  margin-bottom: 60px;
 }
 
 .accordion {
@@ -10,13 +11,13 @@
   row-gap: 5px;
 }
 
-.brands {
+.items {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
 }
 
-.brand {
+.item {
   color: var(--lightGrey);
   border: 1px solid var(--lightGrey);
   padding: 8px 25px;
@@ -60,5 +61,26 @@
     &:focus {
       outline: none;
     }
+  }
+}
+
+@media screen and (max-width: 1050px) and (min-width: 1020px) {
+  .sidebar {
+    max-width: 240px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .sidebar {
+    margin: 0;
+  }
+  .accordion {
+    gap: 0;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .items {
+    font-size: 14px;
   }
 }

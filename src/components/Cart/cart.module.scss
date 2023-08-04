@@ -1,8 +1,8 @@
 .overlay {
   position: absolute;
   right: 0;
-  top: 100%;
-  z-index: 9;
+  top: 0;
+  z-index: 999;
   width: 100vw;
   background-color: rgba($color: #000000, $alpha: 0.7);
   display: flex;
@@ -12,7 +12,8 @@
 
 .cart {
   z-index: 10;
-  min-height: 800px;
+  // min-height: 800px;
+  height: 100vh;
   padding: 43px 79px 37px;
   background: var(--darkBlue);
   color: white;
@@ -110,6 +111,12 @@
   margin-top: auto;
 }
 
+.disabled {
+  cursor: default;
+  border-color: var(--grey);
+  color: var(--grey);
+}
+
 .total {
   display: flex;
   align-items: center;
@@ -139,4 +146,113 @@
   padding: 10px 55px;
   color: var(--primary);
   background: var(--yellow);
+}
+
+.cards {
+  display: none;
+  flex-direction: column;
+  row-gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 1000px) {
+  .cart {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .close {
+    right: 20px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .items {
+    display: none;
+  }
+
+  .cards {
+    display: flex;
+  }
+  .card {
+    background: var(--primary);
+    width: 100%;
+    padding: 18px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+  }
+
+  .device {
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+    border-bottom: 1px solid var(--darkBlue);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+
+    .img {
+      background: white;
+      min-height: 85px;
+      min-width: 85px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .deviceInfo {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+  }
+  .remove {
+    position: absolute;
+    right: -12px;
+    top: 5px;
+  }
+
+  .devicePrice {
+    margin-left: auto;
+    font-weight: 700;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .cart {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .close {
+    right: 15px;
+  }
+
+  .cart {
+    padding: 20px 16px;
+  }
+
+  .total {
+    font-size: 16px;
+    margin-bottom: 25px;
+  }
+
+  .btns {
+    flex-direction: column-reverse;
+    row-gap: 20px;
+  }
+
+  .deviceInfo {
+    p {
+      font-size: 14px;
+    }
+  }
 }

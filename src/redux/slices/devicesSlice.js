@@ -38,6 +38,8 @@ const initialState = {
       name: 'price',
     },
   ],
+  screenSizeId: null,
+  screenSizesList: ['6”', '13”', '15”', '15.6”', '16”', '17.3”'],
 };
 
 const devicesSlice = createSlice({
@@ -65,6 +67,9 @@ const devicesSlice = createSlice({
     setCategorieLabel: (state, action) => {
       state.categorieLabel = action.payload;
     },
+    setScreenSizeId: (state, action) => {
+      state.screenSizeId = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchDevices.pending, (state) => {
@@ -77,7 +82,18 @@ const devicesSlice = createSlice({
     });
     builder.addCase(fetchDevices.fulfilled, (state, action) => {
       state.status = 'success';
-      state.devices = action.payload;
+      if (state.screenSizeId !== null) {
+        let devices = action.payload.filter((device) =>
+          device.info.some(
+            (i) =>
+              i.title === 'Screen size' &&
+              i.description === state.screenSizesList[state.screenSizeId],
+          ),
+        );
+        state.devices = devices;
+      } else {
+        state.devices = action.payload;
+      }
     });
   },
 });
@@ -92,4 +108,5 @@ export const {
   setMinPrice,
   setMaxPrice,
   setSortType,
+  setScreenSizeId,
 } = devicesSlice.actions;

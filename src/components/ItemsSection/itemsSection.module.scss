@@ -1,6 +1,6 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 280px);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin-bottom: 20px;
 }
@@ -30,7 +30,29 @@
   color: var(--lightGrey);
   margin-bottom: 20px;
 
+  &:hover {
+    filter: brightness(0.7);
+  }
+
   span {
     font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .grid {
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

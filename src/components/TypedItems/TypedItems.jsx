@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ItemsSection from '../ItemsSection/ItemsSection';
 import axios from '../../helpers/axios';
-const NewCollectionItems = () => {
+const TypedItems = ({ title, typeId, link, limit }) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     axios
-      .get('/devices', { params: { typeId: 2, limit: 8 } })
+      .get('/devices', { params: { typeId, limit } })
       .then(({ data }) => setItems(data))
       .catch((e) => console.log(e));
   }, []);
@@ -15,7 +15,7 @@ const NewCollectionItems = () => {
     return <ItemsSection title={'Loading...'} loading />;
   }
 
-  return <ItemsSection title={'New Collection'} items={items} link={'new-collection'} />;
+  return <ItemsSection title={title} items={items} link={link} />;
 };
 
-export default NewCollectionItems;
+export default TypedItems;
