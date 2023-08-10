@@ -6,7 +6,13 @@ import { fetchBrands } from '../redux/slices/brandSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import SortBy from '../components/SortBy/SortBy';
 import { useParams } from 'react-router-dom';
-import { setCategorieId, setCategorieLabel } from '../redux/slices/devicesSlice';
+import {
+  fetchFilters,
+  removeAllFilters,
+  setCategorieId,
+  setCategorieLabel,
+  setPage,
+} from '../redux/slices/devicesSlice';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -15,14 +21,25 @@ import { CSSTransition } from 'react-transition-group';
 const DevicesPage = () => {
   const dispatch = useDispatch();
   const { categorie } = useParams();
-  const { categorieLabel } = useSelector((state) => state.devices);
+  const { categorieLabel, brandId, activeFilters, minPrice, maxPrice } = useSelector(
+    (state) => state.devices,
+  );
   const { categories } = useSelector((state) => state.categories);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
 
   useEffect(() => {
     dispatch(fetchBrands());
     dispatch(setCategorieLabel(categorie));
+    dispatch(fetchFilters());
   }, []);
+
+  useEffect(() => {
+    dispatch(removeAllFilters());
+  }, []);
+
+  useEffect(() => {
+    dispatch(setPage(1));
+  }, [brandId, activeFilters, minPrice, maxPrice]);
 
   useEffect(() => {
     if (categories) {

@@ -17,7 +17,7 @@ const DevicesList = () => {
     minPrice,
     maxPrice,
     sortType,
-    screenSizeId,
+    activeFilters,
   } = useSelector((state) => state.devices);
   const dispatch = useDispatch();
 
@@ -30,15 +30,37 @@ const DevicesList = () => {
       maxPrice,
       sortName: sortType.name,
       sortFollowing: sortType.following,
+      activeFilters,
     });
-  }, [page, brandId, categorieId, minPrice, maxPrice, sortType, screenSizeId]);
+  }, [page, brandId, categorieId, minPrice, maxPrice, sortType, activeFilters]);
 
   const onChangeFilters = useCallback(
-    debounce(({ page, brandId, categorieId, minPrice, maxPrice, sortName, sortFollowing }) => {
-      dispatch(
-        fetchDevices({ page, brandId, categorieId, minPrice, maxPrice, sortName, sortFollowing }),
-      );
-    }, 500),
+    debounce(
+      ({
+        page,
+        brandId,
+        categorieId,
+        minPrice,
+        maxPrice,
+        sortName,
+        sortFollowing,
+        activeFilters,
+      }) => {
+        dispatch(
+          fetchDevices({
+            page,
+            brandId,
+            categorieId,
+            minPrice,
+            maxPrice,
+            sortName,
+            sortFollowing,
+            activeFilters,
+          }),
+        );
+      },
+      500,
+    ),
     [],
   );
 

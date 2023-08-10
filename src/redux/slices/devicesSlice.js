@@ -3,14 +3,38 @@ import axios from '../../helpers/axios';
 
 export const fetchDevices = createAsyncThunk(
   'devices/fetchDevices',
-  async ({ page, brandId, categorieId, minPrice, maxPrice, sortName, sortFollowing }) => {
-    const { data } = await axios.get('/devices', {
-      params: { page, brandId, categorieId, minPrice, maxPrice, sortName, sortFollowing },
+  async ({
+    page,
+    brandId,
+    categorieId,
+    minPrice,
+    maxPrice,
+    sortName,
+    sortFollowing,
+    activeFilters,
+  }) => {
+    const { data } = await axios.get('/devices/filter', {
+      params: {
+        page,
+        brandId,
+        categorieId,
+        minPrice,
+        maxPrice,
+        sortName,
+        sortFollowing,
+        ...activeFilters,
+      },
     });
 
     return data;
   },
 );
+
+export const fetchFilters = createAsyncThunk('devices/fetchFilters', async () => {
+  const { data } = await axios.get('/devices/filters');
+
+  return data;
+});
 
 const initialState = {
   devices: [],
@@ -38,8 +62,9 @@ const initialState = {
       name: 'price',
     },
   ],
-  screenSizeId: null,
-  screenSizesList: ['6”', '13”', '15”', '15.6”', '16”', '17.3”'],
+  activeFilters: {},
+  filters: [],
+  pagination: 0,
 };
 
 const devicesSlice = createSlice({
@@ -67,8 +92,22 @@ const devicesSlice = createSlice({
     setCategorieLabel: (state, action) => {
       state.categorieLabel = action.payload;
     },
-    setScreenSizeId: (state, action) => {
-      state.screenSizeId = action.payload;
+    setActiveFilters: (state, action) => {
+      state.activeFilters = {
+        ...state.activeFilters,
+        [action.payload.title]: action.payload.description,
+      };
+    },
+    removeFilter: (state, action) => {
+      let obj = state.activeFilters;
+      delete obj[action.payload.title];
+      state.activeFilters = obj;
+    },
+    removeAllFilters: (state) => {
+      state.activeFilters = {};
+      state.brandId = 0;
+      state.minPrice = 0;
+      state.maxPrice = 2000000;
     },
   },
   extraReducers: (builder) => {
@@ -82,18 +121,20 @@ const devicesSlice = createSlice({
     });
     builder.addCase(fetchDevices.fulfilled, (state, action) => {
       state.status = 'success';
-      if (state.screenSizeId !== null) {
-        let devices = action.payload.filter((device) =>
-          device.info.some(
-            (i) =>
-              i.title === 'Screen size' &&
-              i.description === state.screenSizesList[state.screenSizeId],
-          ),
-        );
-        state.devices = devices;
-      } else {
-        state.devices = action.payload;
-      }
+      state.devices = action.payload.result;
+      state.pagination = action.payload.pagination;
+    });
+    builder.addCase(fetchFilters.pending, (state) => {
+      state.status = 'loading';
+      state.filters = [];
+    });
+    builder.addCase(fetchFilters.rejected, (state) => {
+      state.status = 'error';
+      state.filters = [];
+    });
+    builder.addCase(fetchFilters.fulfilled, (state, action) => {
+      state.status = 'success';
+      state.filters = action.payload;
     });
   },
 });
@@ -108,5 +149,7 @@ export const {
   setMinPrice,
   setMaxPrice,
   setSortType,
-  setScreenSizeId,
+  setActiveFilters,
+  removeFilter,
+  removeAllFilters,
 } = devicesSlice.actions;

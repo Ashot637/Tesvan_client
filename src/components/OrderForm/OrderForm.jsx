@@ -101,7 +101,13 @@ const OrderForm = ({ device }) => {
         ids.push(device.id);
       }
     });
-    // data = { ...data, choice, devices: ids, phone };
+    data = {
+      ...data,
+      payment: paymentMethods.find((method) => method.id === paymentMethod).label,
+      delivery: deliveryMethods.find((method) => method.id === deliveryMethod).label,
+      devices: ids,
+      phone,
+    };
     axios.post('/orders', data).catch((e) => setIsError(true));
     if (isError) return;
     // if (!device) {

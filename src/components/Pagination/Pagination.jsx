@@ -6,19 +6,23 @@ import { setPage } from '../../redux/slices/devicesSlice';
 
 const Pagination = () => {
   const dispatch = useDispatch();
-  const { page } = useSelector((state) => state.devices);
+  const { page, pagination } = useSelector((state) => state.devices);
 
   return (
-    <ReactPaginate
-      className="pagination"
-      breakLabel="..."
-      nextLabel=">"
-      onPageChange={(e) => dispatch(setPage(e.selected + 1))}
-      pageRangeDisplayed={5}
-      pageCount={5}
-      previousLabel="<"
-      forcePage={page - 1}
-    />
+    <>
+      {!!pagination && (
+        <ReactPaginate
+          className="pagination"
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={(e) => dispatch(setPage(e.selected + 1))}
+          pageRangeDisplayed={pagination}
+          pageCount={pagination}
+          previousLabel="<"
+          forcePage={page - 1}
+        />
+      )}
+    </>
   );
 };
 

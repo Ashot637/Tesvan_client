@@ -3,6 +3,8 @@ import classes from './footer.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faClock, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+// import i18n from 'i18next';
+// import { useTranslation, initReactI18next } from 'react-i18next';
 
 import logo from '../../img/Logo.png';
 import visa from '../../img/visa.png';
@@ -11,7 +13,23 @@ import mastercard from '../../img/mastercard.png';
 import arca from '../../img/arca.png';
 import idram from '../../img/idramf.png';
 
+// const translationsEn = { test: '2022 The Content Folk All rights reserved' };
+// const translationsRu = { test: 'Наирян 39, Севан Армения' };
+// const translationsAm = { test: 'ՏԵՔՍՏ' };
+
+// i18n.use(initReactI18next).init({
+//   resources: {
+//     en: { translation: translationsEn },
+//     ru: { translation: translationsRu },
+//     am: { translation: translationsAm },
+//   },
+//   lng: 'en',
+//   fallbackLng: 'en',
+//   interpolation: { escapeValue: false },
+// });
+
 const Footer = () => {
+  // const { t } = useTranslation();
   return (
     <>
       <footer>
@@ -146,6 +164,10 @@ const Footer = () => {
       <div className="container">
         <div className={classes.bottom}>
           <p>&#169; 2022 The Content Folk All rights reserved</p>
+          {/* <p>&#169; {t('test')}</p>
+          <button onClick={() => i18n.changeLanguage('ru')}>Change Language to Russian</button>
+          <button onClick={() => i18n.changeLanguage('en')}>Change Language to English</button>
+          <button onClick={() => i18n.changeLanguage('am')}>Change Language to Armenian</button> */}
           <ul className={classes.payments}>
             <li>
               <img src={visa} alt="Payment with Visa" />

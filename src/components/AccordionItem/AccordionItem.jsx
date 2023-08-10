@@ -1,24 +1,37 @@
 import React, { useState } from 'react';
 import classes from './accordionItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { removeAllFilters } from '../../redux/slices/devicesSlice';
+import { useDispatch } from 'react-redux';
 
-const AccordionItem = ({ children, title }) => {
+const AccordionItem = ({ children, title, remove }) => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={classes.item}>
       <div
-        className={[classes.top, isOpen ? classes.active : undefined].join(' ')}
-        onClick={() => setIsOpen((isOpen) => !isOpen)}>
+        className={[classes.top, isOpen && !remove ? classes.active : undefined].join(' ')}
+        onClick={() => {
+          if (!remove) {
+            setIsOpen((isOpen) => !isOpen);
+          } else {
+            dispatch(removeAllFilters());
+          }
+        }}>
         <span>{title}</span>
-        <FontAwesomeIcon
-          className={classes.angle}
-          style={isOpen ? { transform: 'rotateX(180deg)' } : undefined}
-          icon={faAngleDown}
-        />
+        {!remove ? (
+          <FontAwesomeIcon
+            className={classes.angle}
+            style={isOpen ? { transform: 'rotateX(180deg)' } : undefined}
+            icon={faAngleDown}
+          />
+        ) : (
+          <FontAwesomeIcon className={classes.angle} icon={faTrash} />
+        )}
       </div>
-      {isOpen && <div className={classes.body}>{children}</div>}
+      {!remove && isOpen && <div className={classes.body}>{children}</div>}
     </div>
   );
 };

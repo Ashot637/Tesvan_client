@@ -4,16 +4,17 @@ import AccordionItem from '../AccordionItem/AccordionItem';
 import ReactSlider from 'react-slider';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  removeFilter,
   setBrandId,
+  setActiveFilters,
   setMaxPrice,
   setMinPrice,
-  setPage,
-  setScreenSizeId,
 } from '../../redux/slices/devicesSlice';
+
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { brands } = useSelector((state) => state.brands);
-  const { brandId, minPrice, maxPrice, screenSizeId, screenSizesList } = useSelector(
+  const { brandId, minPrice, maxPrice, activeFilters, filters } = useSelector(
     (state) => state.devices,
   );
 
@@ -21,15 +22,23 @@ const Sidebar = () => {
     dispatch(setBrandId(id));
   };
 
-  useEffect(() => {
-    dispatch(setPage(1));
-  }, [brandId]);
-
-  useEffect(() => {
-    onSelectBrand(0);
-  }, []);
-
-  useEffect(() => {}, [screenSizeId]);
+  const onSelectFilter = (title, description) => {
+    if (activeFilters[title] === description) {
+      dispatch(
+        removeFilter({
+          title,
+          description,
+        }),
+      );
+    } else {
+      dispatch(
+        setActiveFilters({
+          title,
+          description,
+        }),
+      );
+    }
+  };
 
   return (
     <div className={classes.sidebar}>
@@ -87,31 +96,29 @@ const Sidebar = () => {
             </div>
           </div>
         </AccordionItem>
-        <AccordionItem title={'Screen Size'}>
-          <ul className={classes.items}>
-            {screenSizesList.map((size, i) => {
-              return (
-                <li
-                  key={i}
-                  className={[classes.item, screenSizeId === i ? classes.active : undefined].join(
-                    ' ',
-                  )}
-                  onClick={() =>
-                    screenSizeId === i
-                      ? dispatch(setScreenSizeId(null))
-                      : dispatch(setScreenSizeId(i))
-                  }>
-                  {size}
-                </li>
-              );
-            })}
-          </ul>
-        </AccordionItem>
-        <AccordionItem title={'Price'} />
-        <AccordionItem title={'Price'} />
-        <AccordionItem title={'Price'} />
-        <AccordionItem title={'Price'} />
-        <AccordionItem title={'Price'} />
+        {filters &&
+          filters.map((filter) => {
+            return (
+              <AccordionItem key={filter.title} title={filter.title}>
+                <div className={classes.items}>
+                  {filter.description.map((desc) => {
+                    return (
+                      <div
+                        key={desc}
+                        className={[
+                          classes.item,
+                          activeFilters[filter.title] === desc ? classes.active : '',
+                        ].join(' ')}
+                        onClick={() => onSelectFilter(filter.title, desc)}>
+                        {desc}
+                      </div>
+                    );
+                  })}
+                </div>
+              </AccordionItem>
+            );
+          })}
+        <AccordionItem title={'Clear all'} remove />
       </div>
     </div>
   );

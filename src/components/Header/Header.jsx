@@ -69,7 +69,9 @@ const Header = () => {
           <ul className={classes.flex}>
             <li>
               <FontAwesomeIcon icon={faPhone} />
-              <span>+ (374) 91 75 19 00</span>
+              <a href="tel:+37491751900">
+                <span>+ (374) 91 75 19 00</span>
+              </a>
             </li>
             <li onClick={() => setIsOpenLanguage((isOpen) => !isOpen)}>
               <FontAwesomeIcon icon={faGlobe} />
