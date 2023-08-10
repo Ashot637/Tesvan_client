@@ -87,13 +87,16 @@ const SimpleDevice = ({ device, relateds }) => {
               <div className={classes.body}>
                 <div className={classes.images}>
                   <div className={classes.mainImg}>
-                    <img src={'http://localhost:8080/' + img.url} alt="Device" />
+                    <img src={'https://tesvan-electronics.onrender.com/' + img.url} alt="Device" />
                   </div>
                   <div className={classes.otherImages}>
                     {images.map((i) => {
                       return (
                         <div key={i.id} className={classes.otherImg} onClick={() => setImg(i)}>
-                          <img src={'http://localhost:8080/' + i.url} alt="Device" />
+                          <img
+                            src={'https://tesvan-electronics.onrender.com/' + i.url}
+                            alt="Device"
+                          />
                         </div>
                       );
                     })}

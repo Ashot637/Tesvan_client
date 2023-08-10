@@ -279,7 +279,10 @@ const OrderForm = ({ device }) => {
                       </td>
                       <td>
                         <div className={classes.deviceImg}>
-                          <img src={'http://localhost:8080/' + device.img} alt="Device Order" />
+                          <img
+                            src={'https://tesvan-electronics.onrender.com/' + device.img}
+                            alt="Device Order"
+                          />
                         </div>
                       </td>
                       <td className={classes.name}>{device.title}</td>
@@ -302,7 +305,10 @@ const OrderForm = ({ device }) => {
                       <FontAwesomeIcon icon={faClose} />
                     </div>
                     <div className={classes.deviceMobileImg}>
-                      <img src={'http://localhost:8080/' + device.img} alt="Device Order" />
+                      <img
+                        src={'https://tesvan-electronics.onrender.com/' + device.img}
+                        alt="Device Order"
+                      />
                     </div>
                     <div className={classes.info}>
                       <span>{device.title}</span>

@@ -17,7 +17,11 @@ const CartItem = ({ item, responsive }) => {
             <FontAwesomeIcon icon={faClose} />
           </td>
           <td>
-            <img src={'http://localhost:8080/' + item.img} alt="Cart item" width={90} />
+            <img
+              src={'https://tesvan-electronics.onrender.com/' + item.img}
+              alt="Cart item"
+              width={90}
+            />
           </td>
           <td className={classes.name}>{item.title}</td>
           <td>
@@ -49,7 +53,11 @@ const CartItem = ({ item, responsive }) => {
           </div>
           <div className={classes.device}>
             <div className={classes.img}>
-              <img src={'http://localhost:8080/' + item.img} alt="Cart item" width={75} />
+              <img
+                src={'https://tesvan-electronics.onrender.com/' + item.img}
+                alt="Cart item"
+                width={75}
+              />
             </div>
             <div className={classes.deviceInfo}>
               <p>{item.title}</p>

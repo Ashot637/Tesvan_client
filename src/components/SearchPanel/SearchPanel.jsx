@@ -69,7 +69,10 @@ const SearchPanel = () => {
                         setDevices([]);
                         setTerm('');
                       }}>
-                      <img src={'http://localhost:8080/' + device.img} alt="Searched Device" />
+                      <img
+                        src={'https://tesvan-electronics.onrender.com/' + device.img}
+                        alt="Searched Device"
+                      />
                     </Link>
                   </td>
                   <td width={'60%'}>

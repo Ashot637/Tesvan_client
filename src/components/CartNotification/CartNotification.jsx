@@ -32,7 +32,10 @@ const CartNotification = () => {
           <div className={classes.notification}>
             <p>Added to cart</p>
             <div className={classes.device}>
-              <img src={'http://localhost:8080/' + addedDevice.img} alt="Added to cart item" />
+              <img
+                src={'https://tesvan-electronics.onrender.com/' + addedDevice.img}
+                alt="Added to cart item"
+              />
               <div className={classes.title}>{addedDevice.title}</div>
             </div>
             <div className={classes.line} />

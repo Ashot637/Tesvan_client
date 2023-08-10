@@ -81,7 +81,10 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
                     <FontAwesomeIcon icon={faClose} />
                   </div>
                   <div className={classes.categorie}>Apple</div>
-                  <img src={'http://localhost:8080/' + device.img} alt="Comparing Item" />
+                  <img
+                    src={'https://tesvan-electronics.onrender.com/' + device.img}
+                    alt="Comparing Item"
+                  />
                   <div className={classes.name}>{device.title}</div>
                 </li>
                 {device.info &&

@@ -58,7 +58,10 @@ const CategoriesSlider = () => {
                   <Link
                     className={classes.slide}
                     to={`/categories/${categorie.title.toLowerCase()}`}>
-                    <img src={'http://localhost:8080/' + categorie.img} alt="Slide" />
+                    <img
+                      src={'https://tesvan-electronics.onrender.com/' + categorie.img}
+                      alt="Slide"
+                    />
                     <span>{categorie.title}</span>
                   </Link>
                 </SwiperSlide>
