@@ -33,7 +33,7 @@ const CartNotification = () => {
             <p>Added to cart</p>
             <div className={classes.device}>
               <img
-                src={'https://tesvan-electronics.onrender.com/' + addedDevice.img}
+                src={'http://localhost:8080/' + addedDevice?.images[0]}
                 alt="Added to cart item"
               />
               <div className={classes.title}>{addedDevice.title}</div>

@@ -1,0 +1,45 @@
+.sidebar {
+  width: 100%;
+  max-width: 280px;
+  background: var(--primary);
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+  row-gap: 20px;
+
+  .logo {
+    margin: 0 auto;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 15px;
+
+    li {
+      width: 100%;
+      font-weight: 700;
+      color: white;
+      font-size: 18px;
+      display: flex;
+    }
+
+    a {
+      padding: 10px;
+      display: block;
+
+      &:nth-child(2) {
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+.active {
+  color: var(--yellow);
+  background: rgba($color: var(--yellow), $alpha: 0.4);
+  border-radius: 10px;
+}

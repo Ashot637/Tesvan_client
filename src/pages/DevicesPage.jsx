@@ -30,8 +30,16 @@ const DevicesPage = () => {
   useEffect(() => {
     dispatch(fetchBrands());
     dispatch(setCategorieLabel(categorie));
-    dispatch(fetchFilters());
   }, []);
+
+  useEffect(() => {
+    let categorieId =
+      categories.find((c) => c.title.toLowerCase() === categorie) &&
+      categories.find((c) => c.title.toLowerCase() === categorie).id;
+    if (categorieId) {
+      dispatch(fetchFilters({ categorieId }));
+    }
+  }, [categorie]);
 
   useEffect(() => {
     dispatch(removeAllFilters());

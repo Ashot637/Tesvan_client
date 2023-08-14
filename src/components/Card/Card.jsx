@@ -6,14 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDevice } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
-import CardSkeleton from '../Skeletons/CardSkeleton';
 import { addDeviceComparing } from '../../redux/slices/compareSlice';
 
 import sale from '../../img/sale.png';
 import bestseller from '../../img/bestseller.png';
 import newCollection from '../../img/new-collection.png';
 
-const Card = ({ item, brands, loading }) => {
+const Card = ({ item, brands }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -60,10 +59,6 @@ const Card = ({ item, brands, loading }) => {
     navigate('/contacts/order');
   };
 
-  if (loading) {
-    return <CardSkeleton />;
-  }
-
   return (
     <div className={classes.item}>
       {location.pathname.includes('categories/') && !id && getItemTypeImg(item.typeId)}
@@ -93,7 +88,7 @@ const Card = ({ item, brands, loading }) => {
             item.id
         }>
         <div className={classes.imgHolder}>
-          <img src={'https://tesvan-electronics.onrender.com/' + item.img} alt="Macbook" />
+          <img src={'http://localhost:8080/' + item?.images[0]} alt="Macbook" />
         </div>
         <span className={classes.name}>{item.title}</span>
         {item?.quantity === 0 ? (

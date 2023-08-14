@@ -17,7 +17,7 @@ const ItemsMainPage = ({ typeId, title }) => {
     <>
       <Breadcrumbs />
       <Title title={title} />
-      {status === 'success' ? (
+      {status === 'success' &&
         categories.map((categorie) => {
           if (items.find((item) => item.categorieId === categorie.id)) {
             return (
@@ -32,10 +32,7 @@ const ItemsMainPage = ({ typeId, title }) => {
             );
           }
           return undefined;
-        })
-      ) : (
-        <ItemsSection loading title={'Loading'} main />
-      )}
+        })}
     </>
   );
 };

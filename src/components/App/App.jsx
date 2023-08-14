@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import HomePage from '../../pages/HomePage';
 import AboutUsPage from '../../pages/AboutUsPage';
 import CreditTermsPage from '../../pages/CreditTermsPage';
@@ -15,10 +15,27 @@ import OrderPage from '../../pages/OrderPage';
 import ComparePage from '../../pages/ComparePage';
 import ThanksPage from '../../pages/ThanksPage';
 
+import AdminHome from '../Admin/components/AdminHome/AdminHome';
+import AdminDevices from '../Admin/components/AdminDevices/AdminDevices';
+import AdminCategories from '../Admin/components/AdminCategories/AdminCategories';
+import AdminBrands from '../Admin/components/AdminBrands/AdminBrands';
+import AdminHeaderImages from '../Admin/components/AdminHeaderImages/AdminHeaderImages';
+import AdminSliderImages from '../Admin/components/AdminSliderImages/AdminSliderImages';
+import AdminMessages from '../Admin/components/AdminMessages/AdminMessages';
+import AdminOrders from '../Admin/components/AdminOrders/AdminOrders';
+import OrderInfo from '../Admin/components/OrderInfo/OrderInfo';
+import EditNewCategorie from '../Admin/components/EditNewCategorie/EditNewCategorie';
+import EditNewBrand from '../Admin/components/EditNewBrand/EditNewBrand';
+import EditNewDevice from '../Admin/components/EditNewDevice/EditNewDevice';
+import EditNewHeaderImg from '../Admin/components/EditNewHeaderImg/EditNewHeaderImg';
+import EditNewSliderImg from '../Admin/components/EditNewSliderImg/EditNewSliderImg';
+import AdminLogin from '../Admin/components/AdminLogin/AdminLogin';
+
 const App = () => {
+  const location = useLocation();
   return (
     <>
-      <Header />
+      {!location.pathname.includes('/admin') && <Header />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/categories" element={<CategoriesPage />} />
@@ -44,8 +61,37 @@ const App = () => {
         <Route path="/reject" element={<ThanksPage />} />
 
         <Route path="*" element={<Navigate to={'/'} />} />
+
+        <Route path="/admin" element={<AdminHome />}>
+          <Route path="login" element={<AdminLogin />} />
+          <Route path="devices" element={<AdminDevices />} />
+          <Route path="devices/:id" element={<EditNewDevice />} />
+          <Route path="devices/new" element={<EditNewDevice />} />
+
+          <Route path="brands" element={<AdminBrands />} />
+          <Route path="brands/:id" element={<EditNewBrand />} />
+          <Route path="brands/new" element={<EditNewBrand />} />
+
+          <Route path="categories" element={<AdminCategories />} />
+          <Route path="categories/:id" element={<EditNewCategorie />} />
+          <Route path="categories/new" element={<EditNewCategorie />} />
+
+          <Route path="slider-imgs" element={<AdminSliderImages />} />
+          <Route path="slider-imgs/:id" element={<EditNewSliderImg />} />
+          <Route path="slider-imgs/new" element={<EditNewSliderImg />} />
+
+          <Route path="header-imgs" element={<AdminHeaderImages />} />
+          <Route path="header-imgs/:id" element={<EditNewHeaderImg />} />
+          <Route path="header-imgs/new" element={<EditNewHeaderImg />} />
+
+          <Route path="messages" element={<AdminMessages />} />
+
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="orders/:id" element={<OrderInfo />} />
+        </Route>
       </Routes>
-      <Footer />
+
+      {!location.pathname.includes('/admin') && <Footer />}
       <ScrollToTop />
     </>
   );

@@ -1,0 +1,68 @@
+.login {
+  width: 100%;
+  background: var(--darkblue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    width: 100%;
+    max-width: 400px;
+    background: var(--primary);
+    border-radius: 10px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  button {
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: 1px solid grey;
+    color: var(--primary);
+    background: var(--yellow);
+    align-self: center;
+    cursor: pointer;
+    border: none;
+    margin-top: 25px;
+
+    &:disabled {
+      filter: grayscale(0.5);
+    }
+  }
+
+  p {
+    align-self: center;
+    color: var(--danger);
+    font-size: 14px;
+    margin-top: 15px;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  width: 100%;
+
+  label {
+    padding-left: 5px;
+    font-weight: 300;
+    color: white;
+  }
+
+  input {
+    border-radius: 5px;
+    border: 1px solid white;
+    padding: 15px 10px;
+    background: transparent;
+    width: 100%;
+    color: white;
+    margin-bottom: 10px;
+
+    &:focus {
+      outline: none;
+      border-color: var(--yellow);
+    }
+  }
+}

@@ -30,8 +30,8 @@ export const fetchDevices = createAsyncThunk(
   },
 );
 
-export const fetchFilters = createAsyncThunk('devices/fetchFilters', async () => {
-  const { data } = await axios.get('/devices/filters');
+export const fetchFilters = createAsyncThunk('devices/fetchFilters', async ({ categorieId }) => {
+  const { data } = await axios.get('/devices/filters', { params: { categorieId } });
 
   return data;
 });

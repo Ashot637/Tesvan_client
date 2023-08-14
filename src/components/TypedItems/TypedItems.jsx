@@ -11,10 +11,6 @@ const TypedItems = ({ title, typeId, link, limit }) => {
       .catch((e) => console.log(e));
   }, []);
 
-  if (!items.length) {
-    return <ItemsSection title={'Loading...'} loading />;
-  }
-
   return <ItemsSection title={title} items={items} link={link} />;
 };
 

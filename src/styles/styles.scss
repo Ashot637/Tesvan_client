@@ -71,6 +71,14 @@ button {
   border: none;
 }
 
+main {
+  background: var(--darkBlue);
+  display: flex;
+  column-gap: 30px;
+  min-height: 100vh;
+  padding: 30px 15px;
+}
+
 .flex {
   display: flex;
   column-gap: 20px;

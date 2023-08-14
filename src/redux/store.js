@@ -4,6 +4,7 @@ import { categoriesReducer } from './slices/categoriesSlice';
 import { devicesReducer } from './slices/devicesSlice';
 import { cartReducer } from './slices/cartSlice';
 import { compareReducer } from './slices/compareSlice';
+import { authReducer } from './slices/authSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     devices: devicesReducer,
     cart: cartReducer,
     compare: compareReducer,
+    auth: authReducer,
   },
 });
 

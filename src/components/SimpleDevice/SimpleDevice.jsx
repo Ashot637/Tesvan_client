@@ -24,13 +24,13 @@ const SimpleDevice = ({ device, relateds }) => {
   const { devices: comparingDevices } = useSelector((state) => state.compare);
   const [swiperRef, setSwiperRef] = useState();
   const [moreOpen, setMoreOpen] = useState(false);
-  const [images, setImages] = useState([
-    { id: 1, url: '3be6065e-2a43-4d93-a36b-0ddfa84ee083.png' },
-    { id: 2, url: '50453329-677b-49e8-8c4e-56fef39440d1.png' },
-    { id: 3, url: '3be6065e-2a43-4d93-a36b-0ddfa84ee083.png' },
-    { id: 4, url: '50453329-677b-49e8-8c4e-56fef39440d1.png' },
-  ]);
-  const [img, setImg] = useState(images[0]);
+  // const [images, setImages] = useState([
+  //   { id: 1, url: '3be6065e-2a43-4d93-a36b-0ddfa84ee083.png' },
+  //   { id: 2, url: '50453329-677b-49e8-8c4e-56fef39440d1.png' },
+  //   { id: 3, url: '3be6065e-2a43-4d93-a36b-0ddfa84ee083.png' },
+  //   { id: 4, url: '50453329-677b-49e8-8c4e-56fef39440d1.png' },
+  // ]);
+  const [img, setImg] = useState(device?.images[0]);
   const [count, setCount] = useState(1);
   const titles = ['Color', 'Memory', 'RAM'];
 
@@ -87,16 +87,13 @@ const SimpleDevice = ({ device, relateds }) => {
               <div className={classes.body}>
                 <div className={classes.images}>
                   <div className={classes.mainImg}>
-                    <img src={'https://tesvan-electronics.onrender.com/' + img.url} alt="Device" />
+                    <img src={'http://localhost:8080/' + img} alt="Device" />
                   </div>
                   <div className={classes.otherImages}>
-                    {images.map((i) => {
+                    {device.images.map((image) => {
                       return (
-                        <div key={i.id} className={classes.otherImg} onClick={() => setImg(i)}>
-                          <img
-                            src={'https://tesvan-electronics.onrender.com/' + i.url}
-                            alt="Device"
-                          />
+                        <div key={image} className={classes.otherImg} onClick={() => setImg(image)}>
+                          <img src={'http://localhost:8080/' + image} alt="Device" />
                         </div>
                       );
                     })}
@@ -153,7 +150,8 @@ const SimpleDevice = ({ device, relateds }) => {
                           })}
                       </tbody>
                     </table>
-                    <div className={classes.line}></div>
+                    {device?.quantity !== 0 && <div className={classes.line} />}
+
                     {device?.quantity === 0 ? (
                       <div className={classes.out}>
                         <span>Out of stock</span>

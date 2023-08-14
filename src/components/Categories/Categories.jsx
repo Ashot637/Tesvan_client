@@ -19,15 +19,11 @@ const Categories = () => {
                 to={`/categories/${categorie.title.toLowerCase()}`}
                 className={classes.categorie}
                 key={i}>
-                <img src={'https://tesvan-electronics.onrender.com/' + categorie.img} alt="Slide" />
+                <img src={'http://localhost:8080/' + categorie.img} alt="Slide" />
                 <span>{categorie.title}</span>
               </Link>
             );
           })}
-          <div className={classes.categorie}>
-            <img src={img} alt="Slide" />
-            <span>Others</span>
-          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,53 @@
+.table {
+  width: 100%;
+  background: var(--primary);
+  padding: 20px;
+  max-height: 91.99vh;
+  overflow-y: scroll;
+  display: block;
+  border-radius: 10px;
+  color: white;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--primary);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--darkBlue);
+  }
+
+  thead {
+    border-radius: 10px;
+
+    td {
+      padding: 15px 5px;
+    }
+  }
+
+  tbody {
+    tr {
+      height: 50px;
+
+      td {
+        padding: 15px 5px;
+        height: 80px;
+
+        &:last-child:hover {
+          color: var(--danger);
+        }
+
+        img {
+          max-height: 50px;
+          width: auto;
+        }
+      }
+    }
+
+    tr:hover {
+      color: var(--yellow);
+      cursor: pointer;
+    }
+  }
+}

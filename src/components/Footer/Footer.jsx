@@ -12,10 +12,11 @@ import maestro from '../../img/maestro.png';
 import mastercard from '../../img/mastercard.png';
 import arca from '../../img/arca.png';
 import idram from '../../img/idramf.png';
+import { NavLink } from 'react-router-dom';
 
 // const translationsEn = { test: '2022 The Content Folk All rights reserved' };
 // const translationsRu = { test: 'Наирян 39, Севан Армения' };
-// const translationsAm = { test: 'ՏԵՔՍՏ' };
+// const translationsAm = { test: 'Armenian' };
 
 // i18n.use(initReactI18next).init({
 //   resources: {
@@ -35,73 +36,36 @@ const Footer = () => {
       <footer>
         <div className="container">
           <div className={classes.inner}>
-            <table className={classes.table}>
-              <thead>
-                <tr className={classes.thead}>
-                  <td>Category name</td>
-                  <td>Category name</td>
-                  <td>Category name</td>
-                  <td>Category name</td>
-                  <td>Category name</td>
-                </tr>
-              </thead>
-              <tbody className={classes.tbody}>
-                <tr>
-                  <td valign="top">
-                    <ul>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                    </ul>
-                  </td>
-                  <td valign="top">
-                    <ul>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                    </ul>
-                  </td>
-                  <td valign="top">
-                    <ul>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                    </ul>
-                  </td>
-                  <td valign="top">
-                    <ul>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                    </ul>
-                  </td>
-                  <td valign="top">
-                    <ul>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                      <li>Brand name</li>
-                    </ul>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <ul className={classes.nav}>
+              <li>
+                <NavLink
+                  className={({ isActive }) => (isActive ? classes.active : undefined)}
+                  to={'/categories'}>
+                  Categories
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={({ isActive }) => (isActive ? classes.active : undefined)}
+                  to={'/about-us'}>
+                  About Us
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={({ isActive }) => (isActive ? classes.active : undefined)}
+                  to={'/credit-terms'}>
+                  Credit terms
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={({ isActive }) => (isActive ? classes.active : undefined)}
+                  to={'/contacts'}>
+                  Contacts
+                </NavLink>
+              </li>
+            </ul>
             <div className={classes.logo}>
               <img src={logo} width={46} alt="Logo" />
             </div>
@@ -119,7 +83,9 @@ const Footer = () => {
                 <div>
                   <FontAwesomeIcon icon={faPhone} />
                 </div>
-                <div>+ (374) 91 75 19 00</div>
+                <a href="tel:+37491751900">
+                  <span>+ (374) 91 75 19 00</span>
+                </a>
               </li>
               <li>
                 <div>

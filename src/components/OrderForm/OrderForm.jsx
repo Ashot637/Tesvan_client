@@ -95,17 +95,18 @@ const OrderForm = ({ device }) => {
     if (message) {
       data = { ...data, message };
     }
-    const ids = [];
+    const orderedDevices = [];
     devices.forEach((device) => {
-      for (let i = 0; i < device.count; i++) {
-        ids.push(device.id);
-      }
+      orderedDevices.push({
+        id: device.id,
+        count: device.count,
+      });
     });
     data = {
       ...data,
       payment: paymentMethods.find((method) => method.id === paymentMethod).label,
       delivery: deliveryMethods.find((method) => method.id === deliveryMethod).label,
-      devices: ids,
+      devices: JSON.stringify(orderedDevices),
       phone,
     };
     axios.post('/orders', data).catch((e) => setIsError(true));
@@ -280,7 +281,7 @@ const OrderForm = ({ device }) => {
                       <td>
                         <div className={classes.deviceImg}>
                           <img
-                            src={'https://tesvan-electronics.onrender.com/' + device.img}
+                            src={'http://localhost:8080/' + device?.images[0]}
                             alt="Device Order"
                           />
                         </div>
@@ -305,10 +306,7 @@ const OrderForm = ({ device }) => {
                       <FontAwesomeIcon icon={faClose} />
                     </div>
                     <div className={classes.deviceMobileImg}>
-                      <img
-                        src={'https://tesvan-electronics.onrender.com/' + device.img}
-                        alt="Device Order"
-                      />
+                      <img src={'http://localhost:8080/' + device?.images[0]} alt="Device Order" />
                     </div>
                     <div className={classes.info}>
                       <span>{device.title}</span>
