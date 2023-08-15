@@ -39,7 +39,7 @@ const DevicesPage = () => {
     if (categorieId) {
       dispatch(fetchFilters({ categorieId }));
     }
-  }, [categorie]);
+  }, [categorie, categories]);
 
   useEffect(() => {
     dispatch(removeAllFilters());

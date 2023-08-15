@@ -47,7 +47,7 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
         }),
       );
       for (let key of Object.keys(obj)) {
-        if (obj[key].every((v) => v === obj[key][0] && obj[key].length === obj['Color'].length)) {
+        if (obj[key].every((v) => v === obj[key][0] && obj[key].length === devices.length)) {
           setArr((arr) => arr.filter((t) => t !== key));
         }
       }

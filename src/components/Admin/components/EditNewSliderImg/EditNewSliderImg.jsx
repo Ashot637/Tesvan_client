@@ -9,6 +9,9 @@ const EditNewSliderImg = () => {
 
   const [title, setTitle] = useState('');
   const [deviceId, setDeviceId] = useState('');
+  const [selectedDevice, setSelectedDevice] = useState();
+  const [devices, setDevices] = useState();
+  const [isOpenDevices, setIsOpenDevices] = useState('');
   const fileRef = useRef();
   const [imageUrl, setImageUrl] = useState('');
 
@@ -18,13 +21,26 @@ const EditNewSliderImg = () => {
         setTitle(data.title);
         setImageUrl(data.img);
         setDeviceId(data.deviceId);
+        setIsOpenDevices(false);
+        axios.get('/device/' + data.deviceId).then(({ data }) => {
+          setSelectedDevice(data);
+        });
       });
     } else {
       setTitle('');
       setImageUrl('');
       setDeviceId('');
+      setIsOpenDevices(false);
     }
   }, [id]);
+
+  useEffect(() => {
+    axios.get('/devices').then(({ data }) => {
+      setDevices(data);
+      setSelectedDevice(data[0]);
+      setDeviceId(data[0].id);
+    });
+  }, []);
 
   const onUploadFile = async (event) => {
     try {
@@ -67,6 +83,12 @@ const EditNewSliderImg = () => {
     }
   };
 
+  const onChangeDeviceId = (item) => {
+    setSelectedDevice(item);
+    setIsOpenDevices(false);
+    setDeviceId(item.id);
+  };
+
   return (
     <form className={classes.form} onSubmit={onSubmit}>
       <div className={classes.field}>
@@ -79,13 +101,42 @@ const EditNewSliderImg = () => {
         />
       </div>
       <div className={classes.field}>
-        <label>Device Id</label>
-        <input
-          type="text"
-          className={classes.name}
-          value={deviceId}
-          onChange={(e) => setDeviceId(e.target.value)}
-        />
+        <label>Device</label>
+        <div
+          className={[
+            classes.select,
+            classes.selectDevice,
+            isOpenDevices ? classes.active : undefined,
+          ].join(' ')}
+          onClick={() => setIsOpenDevices((isOpenDevices) => !isOpenDevices)}>
+          {selectedDevice && (
+            <>
+              <img
+                src={'http://localhost:8080/' + selectedDevice.images[0]}
+                alt={selectedDevice.title}
+              />
+              <p>{selectedDevice?.title}</p>
+              <span>{selectedDevice.price} AMD</span>
+            </>
+          )}
+        </div>
+        {isOpenDevices && (
+          <div className={classes.options}>
+            {devices.map((item) => {
+              if (item.id === id) return undefined;
+              return (
+                <div
+                  className={[classes.select, classes.selectDevice].join(' ')}
+                  key={item.id}
+                  onClick={() => onChangeDeviceId(item)}>
+                  <img src={'http://localhost:8080/' + item.images[0]} alt={item.title} />
+                  <p>{item?.title}</p>
+                  <span>{item.price} AMD</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
       <div className={classes.upload} onClick={() => fileRef.current.click()}>
         {imageUrl ? 'Change image' : 'Upload image'}
