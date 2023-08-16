@@ -28,9 +28,8 @@ const DevicesPage = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchBrands());
     dispatch(setCategorieLabel(categorie));
-  }, []);
+  }, [categorie]);
 
   useEffect(() => {
     let categorieId =
@@ -38,6 +37,7 @@ const DevicesPage = () => {
       categories.find((c) => c.title.toLowerCase() === categorie).id;
     if (categorieId) {
       dispatch(fetchFilters({ categorieId }));
+      dispatch(fetchBrands({ categorieId }));
     }
   }, [categorie, categories]);
 
@@ -56,7 +56,7 @@ const DevicesPage = () => {
         dispatch(setCategorieId(id));
       }
     }
-  }, [categories]);
+  }, [categories, categorie]);
 
   return (
     <>

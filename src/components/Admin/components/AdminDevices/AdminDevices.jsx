@@ -57,11 +57,11 @@ const AdminDevices = () => {
               <td onClick={() => navigateToEdit(device.id)}>{device.price} AMD</td>
               <td onClick={() => navigateToEdit(device.id)}>
                 {categories.find((categorie) => categorie.id === device.categorieId) &&
-                  categories.find((categorie) => categorie.id === device.categorieId).title}
+                  categories.find((categorie) => categorie.id === device.categorieId).title_en}
               </td>
               <td onClick={() => navigateToEdit(device.id)}>
                 {brands.find((brand) => brand.id === device.brandId) &&
-                  brands.find((brand) => brand.id === device.brandId).title}
+                  brands.find((brand) => brand.id === device.brandId).title_en}
               </td>
               <td onClick={() => navigateToEdit(device.id)}>{device.quantity}</td>
               <td onClick={() => onDeleteDevice(device.id)}>

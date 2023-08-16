@@ -142,11 +142,22 @@ const EditNewDevice = () => {
   };
 
   const onAddInfo = () => {
-    setInfo((info) => [...info, { title: '', description: '', id: Date.now() }]);
+    setInfo((info) => [
+      ...info,
+      {
+        id: Date.now(),
+        title_en: '',
+        description_en: '',
+        title_am: '',
+        description_am: '',
+        title_ru: '',
+        description_ru: '',
+      },
+    ]);
   };
 
   const onDeleteInfo = (id) => {
-    if (+id < 30000) {
+    if (+id < 50000) {
       if (window.confirm('Are you sure?')) {
         axios.delete('/remove-info/' + id);
         setInfo((info) => info.filter((i) => i.id !== id));
@@ -194,12 +205,21 @@ const EditNewDevice = () => {
       'info',
       JSON.stringify(
         info
-          .filter((i) => i.title.trim() && i.description.trim())
+          .filter(
+            (i) =>
+              i.title_en.trim() &&
+              i.description_en.trim() &&
+              i.title_am.trim() &&
+              i.description_am.trim() &&
+              i.title_ru.trim() &&
+              i.description_ru.trim(),
+          )
           .map((i) => {
-            if (+i.id > 30000) {
-              return { title: i.title, description: i.description };
+            if (+i.id > 50000) {
+              let { id, ...data } = i;
+              return data;
             }
-            return { title: i.title, description: i.description, id: i.id };
+            return i;
           }),
       ),
     );
@@ -312,28 +332,64 @@ const EditNewDevice = () => {
       <div className={classes.infos}>
         {info.map((i) => {
           return (
-            <div className={classes.info} key={i.id}>
-              <div className={classes.field}>
-                <label>Info title</label>
-                <input
-                  type="text"
-                  value={i.title}
-                  onChange={(e) => onChangeInfo(i.id, 'title', e.target.value)}
-                />
+            <div className={classes.infoHolder} key={i.id}>
+              <p onClick={() => onDeleteInfo(i.id)} className={classes.removeInfo}>
+                Remove Info
+              </p>
+              <div className={classes.info}>
+                <div className={classes.field}>
+                  <label>Info title (En)</label>
+                  <input
+                    type="text"
+                    value={i.title_en}
+                    onChange={(e) => onChangeInfo(i.id, 'title_en', e.target.value)}
+                  />
+                </div>
+                <div className={classes.field}>
+                  <label>Info description (En)</label>
+                  <input
+                    type="text"
+                    value={i.description_en}
+                    onChange={(e) => onChangeInfo(i.id, 'description_en', e.target.value)}
+                  />
+                </div>
               </div>
-              <div className={classes.field}>
-                <label>Info description</label>
-                <input
-                  type="text"
-                  value={i.description}
-                  onChange={(e) => onChangeInfo(i.id, 'description', e.target.value)}
-                />
+              <div className={classes.info}>
+                <div className={classes.field}>
+                  <label>Info title (Am)</label>
+                  <input
+                    type="text"
+                    value={i.title_am}
+                    onChange={(e) => onChangeInfo(i.id, 'title_am', e.target.value)}
+                  />
+                </div>
+                <div className={classes.field}>
+                  <label>Info description (Am)</label>
+                  <input
+                    type="text"
+                    value={i.description_am}
+                    onChange={(e) => onChangeInfo(i.id, 'description_am', e.target.value)}
+                  />
+                </div>
               </div>
-              <FontAwesomeIcon
-                icon={faClose}
-                className={classes.removeInfo}
-                onClick={() => onDeleteInfo(i.id)}
-              />
+              <div className={classes.info}>
+                <div className={classes.field}>
+                  <label>Info title (Ru)</label>
+                  <input
+                    type="text"
+                    value={i.title_ru}
+                    onChange={(e) => onChangeInfo(i.id, 'title_ru', e.target.value)}
+                  />
+                </div>
+                <div className={classes.field}>
+                  <label>Info description (Ru)</label>
+                  <input
+                    type="text"
+                    value={i.description_ru}
+                    onChange={(e) => onChangeInfo(i.id, 'description_ru', e.target.value)}
+                  />
+                </div>
+              </div>
             </div>
           );
         })}

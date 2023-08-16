@@ -45,7 +45,7 @@ const AdminCategories = () => {
               <td onClick={() => navigateToEdit(categorie.id)}>
                 <img src={'http://localhost:8080/' + categorie.img} width={100} alt="categorie" />
               </td>
-              <td onClick={() => navigateToEdit(categorie.id)}>{categorie.title}</td>
+              <td onClick={() => navigateToEdit(categorie.id)}>{categorie.title_en}</td>
               <td onClick={() => onDeletecategorie(categorie.id)}>
                 <FontAwesomeIcon icon={faTrash} />
               </td>

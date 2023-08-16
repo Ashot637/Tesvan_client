@@ -14,22 +14,17 @@ import 'swiper/css';
 import Card from '../Card/Card';
 import getPrice from '../../helpers/getPrice';
 import { addDevice } from '../../redux/slices/cartSlice';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { addDeviceComparing } from '../../redux/slices/compareSlice';
 
 const SimpleDevice = ({ device, relateds }) => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const { brands } = useSelector((state) => state.brands);
   const { devices: comparingDevices } = useSelector((state) => state.compare);
   const [swiperRef, setSwiperRef] = useState();
   const [moreOpen, setMoreOpen] = useState(false);
-  // const [images, setImages] = useState([
-  //   { id: 1, url: '3be6065e-2a43-4d93-a36b-0ddfa84ee083.png' },
-  //   { id: 2, url: '50453329-677b-49e8-8c4e-56fef39440d1.png' },
-  //   { id: 3, url: '3be6065e-2a43-4d93-a36b-0ddfa84ee083.png' },
-  //   { id: 4, url: '50453329-677b-49e8-8c4e-56fef39440d1.png' },
-  // ]);
   const [img, setImg] = useState(device?.images[0]);
   const [count, setCount] = useState(1);
   const titles = ['Color', 'Memory', 'RAM'];
@@ -48,6 +43,11 @@ const SimpleDevice = ({ device, relateds }) => {
     };
 
     dispatch(addDevice(item));
+  };
+
+  const navigateToOrderOutOfStock = () => {
+    localStorage.setItem('outOfStockDeviceTitle', device.title);
+    navigate('/contacts/order');
   };
 
   useEffect(() => {
@@ -155,7 +155,7 @@ const SimpleDevice = ({ device, relateds }) => {
                     {device?.quantity === 0 ? (
                       <div className={classes.out}>
                         <span>Out of stock</span>
-                        <button>Contact us</button>
+                        <button onClick={() => navigateToOrderOutOfStock()}>Contact us</button>
                       </div>
                     ) : (
                       <>

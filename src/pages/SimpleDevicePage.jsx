@@ -25,7 +25,7 @@ const SimpleDevicePage = () => {
           setRelateds(data);
         });
     });
-    dispatch(fetchBrands());
+    dispatch(fetchBrands(0));
   }, [id]);
   return (
     <>

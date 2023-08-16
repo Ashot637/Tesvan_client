@@ -3,7 +3,7 @@ import classes from './intro.module.scss';
 import { Link } from 'react-router-dom';
 import axios from '../../helpers/axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
+import { Autoplay, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { useSelector } from 'react-redux';
@@ -33,7 +33,12 @@ const Intro = () => {
     <>
       {slides && devices && (
         <Swiper
-          modules={[Pagination]}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+            waitForTransition: true,
+          }}
+          modules={[Pagination, Autoplay]}
           pagination={{ clickable: true }}
           slidesPerView={1}
           className={classes.slider}>

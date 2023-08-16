@@ -44,8 +44,6 @@ const EditNewBrand = () => {
       axios
         .post('/brands', formData)
         .then(({ data }) => {
-          setTitle('');
-          setImageUrl('');
           navigate('/admin/brands');
         })
         .catch((e) => console.log(e));
@@ -53,8 +51,6 @@ const EditNewBrand = () => {
       axios
         .patch('/brand/' + id, formData)
         .then(({ data }) => {
-          setTitle('');
-          setImageUrl('');
           navigate('/admin/brands');
         })
         .catch((e) => console.log(e));

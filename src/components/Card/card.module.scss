@@ -286,6 +286,24 @@
   }
 }
 
+@media screen and (max-width: 610px) {
+  .itemType {
+    width: 45px;
+    top: -10px;
+    left: -13px;
+  }
+
+  .newCollectionImg {
+    top: -4px;
+    left: 10px;
+  }
+
+  .saleImg {
+    top: 0;
+    left: -3px;
+  }
+}
+
 @media screen and (max-width: 610px) and (min-width: 521px) {
   .body {
     &:hover {
@@ -362,22 +380,6 @@
   .contactUs {
     padding: 5px;
     font-size: 12px;
-  }
-
-  .itemType {
-    width: 45px;
-    top: -10px;
-    left: -13px;
-  }
-
-  .newCollectionImg {
-    top: -4px;
-    left: 10px;
-  }
-
-  .saleImg {
-    top: 0;
-    left: -3px;
   }
 }
 

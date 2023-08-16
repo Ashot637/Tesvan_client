@@ -15,7 +15,7 @@ const Brands = () => {
   const [swiperRef, setSwiperRef] = useState();
 
   useEffect(() => {
-    dispatch(fetchBrands());
+    dispatch(fetchBrands(0));
   }, []);
 
   const handlePrevious = useCallback(() => {

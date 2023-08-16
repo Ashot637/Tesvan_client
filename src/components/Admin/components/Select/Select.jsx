@@ -8,7 +8,9 @@ const Select = ({ state, setState, id, items, event, title }) => {
       <div
         className={[classes.select, state ? classes.active : undefined].join(' ')}
         onClick={() => setState((state) => !state)}>
-        {items.find((item) => item.id === id) && items.find((item) => item.id === id).title}
+        {items.find((item) => item.id === id) &&
+          (items.find((item) => item.id === id).title ||
+            items.find((item) => item.id === id).title_en)}
       </div>
       {state && (
         <div className={classes.options}>
@@ -16,7 +18,7 @@ const Select = ({ state, setState, id, items, event, title }) => {
             if (item.id === id) return undefined;
             return (
               <div className={classes.select} key={item.id} onClick={() => event(item.id)}>
-                {item.title}
+                {item.title || item.title_en}
               </div>
             );
           })}

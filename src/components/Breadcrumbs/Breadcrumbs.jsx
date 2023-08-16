@@ -6,20 +6,18 @@ const Breadcrumbs = ({ deviceTitle }) => {
   const location = useLocation();
   const [paths, setPaths] = useState();
   const { id } = useParams();
+  const [title, setTitle] = useState(deviceTitle);
 
   useEffect(() => {
     setPaths(location.pathname.split('/'));
     if (deviceTitle) {
       let newPaths = location.pathname.split('/');
-      let index = newPaths.findIndex((path) => path === id);
-      newPaths[index] = deviceTitle;
       setPaths(newPaths);
     }
     if (id && !deviceTitle) {
       axios.get('/device/' + id).then(({ data }) => {
         let newPaths = location.pathname.split('/');
-        let index = newPaths.findIndex((path) => path === id);
-        newPaths[index] = data.title;
+        setTitle(data.title);
         setPaths(newPaths);
       });
     }
@@ -28,19 +26,26 @@ const Breadcrumbs = ({ deviceTitle }) => {
   const renderCrumbs = () => {
     let currentLink = '';
     return paths.map((path, i) => {
-      currentLink += `${path}/`;
+      if ([...path.split(' ')].length > 1) {
+        currentLink += `${id}/`;
+      } else {
+        currentLink += `${path}/`;
+      }
       if (currentLink === '/') {
         return undefined;
       }
+
+      const url = i === paths.length - 1 ? undefined : currentLink.slice(0, currentLink.length - 1);
+
       return (
         <React.Fragment key={i}>
           <Link
-            to={i === paths.length - 1 ? undefined : currentLink.slice(0, currentLink.length - 1)}
+            to={url}
             className={[
               classes.breadcrumb,
               i === paths.length - 1 ? classes.current : undefined,
             ].join(' ')}>
-            {path}
+            {path == id ? title : path}
           </Link>
           <div className={classes.circle}></div>
         </React.Fragment>

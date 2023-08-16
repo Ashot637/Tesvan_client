@@ -7,18 +7,24 @@ const EditNewCategorie = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [title, setTitle] = useState('');
+  const [titleEn, setTitleEn] = useState('');
+  const [titleAm, setTitleAm] = useState('');
+  const [titleRu, setTitleRu] = useState('');
   const fileRef = useRef();
   const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     if (id) {
       axios.get('/categorie/' + id).then(({ data }) => {
-        setTitle(data.title);
+        setTitleEn(data.title_en);
+        setTitleAm(data.title_am);
+        setTitleRu(data.title_ru);
         setImageUrl(data.img);
       });
     } else {
-      setTitle('');
+      setTitleEn('');
+      setTitleAm('');
+      setTitleRu('');
       setImageUrl('');
     }
   }, [id]);
@@ -39,13 +45,13 @@ const EditNewCategorie = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('img', imageUrl);
-    formData.append('title', title);
+    formData.append('title_en', titleEn);
+    formData.append('title_am', titleAm);
+    formData.append('title_ru', titleRu);
     if (!id) {
       axios
         .post('/categories', formData)
         .then(({ data }) => {
-          setTitle('');
-          setImageUrl('');
           navigate('/admin/categories');
         })
         .catch((e) => console.log(e));
@@ -53,8 +59,6 @@ const EditNewCategorie = () => {
       axios
         .patch('/categorie/' + id, formData)
         .then(({ data }) => {
-          setTitle('');
-          setImageUrl('');
           navigate('/admin/categories');
         })
         .catch((e) => console.log(e));
@@ -64,12 +68,30 @@ const EditNewCategorie = () => {
   return (
     <form className={classes.form} onSubmit={onSubmit}>
       <div className={classes.field}>
-        <label>Categorie name</label>
+        <label>Categorie name (En)</label>
         <input
           type="text"
           className={classes.name}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={titleEn}
+          onChange={(e) => setTitleEn(e.target.value)}
+        />
+      </div>
+      <div className={classes.field}>
+        <label>Categorie name (Am)</label>
+        <input
+          type="text"
+          className={classes.name}
+          value={titleAm}
+          onChange={(e) => setTitleAm(e.target.value)}
+        />
+      </div>
+      <div className={classes.field}>
+        <label>Categorie name (Ru)</label>
+        <input
+          type="text"
+          className={classes.name}
+          value={titleRu}
+          onChange={(e) => setTitleRu(e.target.value)}
         />
       </div>
       <div className={classes.upload} onClick={() => fileRef.current.click()}>
@@ -77,7 +99,10 @@ const EditNewCategorie = () => {
       </div>
       <input type="file" style={{ display: 'none' }} ref={fileRef} onChange={onUploadFile} />
       {imageUrl && <img src={'http://localhost:8080/' + imageUrl} height={150} alt="Device" />}
-      <button type="submit" className={classes.btn} disabled={!title.trim() || !imageUrl}>
+      <button
+        type="submit"
+        className={classes.btn}
+        disabled={!titleEn.trim() || !titleAm.trim() || !titleRu.trim() || !imageUrl}>
         {id ? 'Edit' : 'Create'}
       </button>
     </form>

@@ -1,10 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from '../../helpers/axios';
 
 const getCartFromLs = () => {
-  const data = localStorage.getItem('cartItems');
-  const items = data ? JSON.parse(data) : [];
-
-  return items;
+  const localItems = localStorage.getItem('cartItems');
+  let cartItems = localItems ? JSON.parse(localItems) : [];
+  // if (cartItems.length) {
+  //   const ids = [...cartItems].map((item) => item.id);
+  //   axios.post('/devices/ids', { ids }).then(({ data }) => {
+  //     cartItems = cartItems.map((item) => {
+  //       return { ...item, quantity: data.find((d) => +d.id === +item.id).quantity };
+  //     });
+  //   });
+  // }
+  return cartItems;
 };
 
 const initialState = {

@@ -130,6 +130,15 @@
   width: 100%;
 }
 
+.infoHolder {
+  border: 1px solid var(--yellow);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
 .info {
   width: 100%;
   display: flex;
@@ -142,7 +151,7 @@
 .removeInfo {
   color: var(--danger);
   cursor: pointer;
-  font-size: 20px;
+  margin-left: auto;
 }
 
 .center {

@@ -23,7 +23,7 @@ import CartNotification from '../CartNotification/CartNotification';
 const languages = ['English', 'Armenian', 'Russian'];
 
 const Header = () => {
-  const { devices: comparengDevices } = useSelector((state) => state.compare);
+  const { devices: comparingDevices } = useSelector((state) => state.compare);
   const dispatch = useDispatch();
   const location = useLocation();
   const [language, setLaungage] = useState(languages[0]);
@@ -38,8 +38,8 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('compare', JSON.stringify(comparengDevices));
-  }, [comparengDevices]);
+    localStorage.setItem('compare', JSON.stringify(comparingDevices));
+  }, [comparingDevices]);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartDevices));
@@ -154,8 +154,8 @@ const Header = () => {
                 <CartNotification />
               </li>
               <li className={classes.compare}>
-                {comparengDevices.length ? (
-                  <div className={classes.count}>{comparengDevices.length}</div>
+                {comparingDevices.length ? (
+                  <div className={classes.count}>{comparingDevices.length}</div>
                 ) : undefined}
                 <NavLink
                   className={({ isActive }) => (isActive ? classes.active : undefined)}
