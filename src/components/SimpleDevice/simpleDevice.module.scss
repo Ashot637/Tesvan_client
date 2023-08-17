@@ -225,10 +225,18 @@
   padding: 3px 4px;
   font-size: 12px;
   cursor: pointer;
+  color: white;
+  background: none;
 
   &:hover {
     color: var(--yellow);
     border-color: var(--yellow);
+  }
+
+  &:disabled {
+    border-color: var(--grey);
+    color: var(--grey);
+    background: inherit;
   }
 }
 

@@ -3,15 +3,16 @@ import classes from './compare.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeAllComparing } from '../../redux/slices/compareSlice';
 import ComparingItems from '../ComparingItems/ComparingItems';
+import { useTranslation } from 'react-i18next';
 
 const filters = [
   {
     id: 1,
-    label: 'All',
+    label: 'all',
   },
   {
     id: 2,
-    label: 'Only differences',
+    label: 'differnces',
   },
 ];
 
@@ -20,11 +21,12 @@ const Compare = () => {
   const { devices } = useSelector((state) => state.compare);
   const { categories } = useSelector((state) => state.categories);
   const [selected, setSelected] = useState(1);
+  const { t } = useTranslation();
 
   return (
     <div className={classes.compare}>
       <div className={classes.top}>
-        <h2>Compare items</h2>
+        <h2>{t('compare')}</h2>
         <ul className={classes.filters}>
           {filters.map((filter) => {
             return (
@@ -32,12 +34,12 @@ const Compare = () => {
                 key={filter.id}
                 onClick={() => setSelected(filter.id)}
                 className={selected === filter.id ? classes.selected : undefined}>
-                {filter.label}
+                {t(filter.label)}
               </li>
             );
           })}
         </ul>
-        <p onClick={() => dispatch(removeAllComparing())}>Delete all</p>
+        <p onClick={() => dispatch(removeAllComparing())}>{t('deleteAll')}</p>
       </div>
       {!devices.length ? (
         <h3>Empty Comparing Items</h3>

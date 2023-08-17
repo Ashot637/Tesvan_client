@@ -27,6 +27,7 @@ const SimpleDevicePage = () => {
     });
     dispatch(fetchBrands(0));
   }, [id]);
+
   return (
     <>
       {device && (

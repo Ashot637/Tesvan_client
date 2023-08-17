@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './footer.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faClock, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-// import i18n from 'i18next';
-// import { useTranslation, initReactI18next } from 'react-i18next';
 
 import logo from '../../img/Logo.png';
 import visa from '../../img/visa.png';
@@ -13,56 +11,48 @@ import mastercard from '../../img/mastercard.png';
 import arca from '../../img/arca.png';
 import idram from '../../img/idramf.png';
 import { NavLink } from 'react-router-dom';
-
-// const translationsEn = { test: '2022 The Content Folk All rights reserved' };
-// const translationsRu = { test: 'Наирян 39, Севан Армения' };
-// const translationsAm = { test: 'Armenian' };
-
-// i18n.use(initReactI18next).init({
-//   resources: {
-//     en: { translation: translationsEn },
-//     ru: { translation: translationsRu },
-//     am: { translation: translationsAm },
-//   },
-//   lng: 'en',
-//   fallbackLng: 'en',
-//   interpolation: { escapeValue: false },
-// });
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
+  const [_, rerender] = useState();
+
+  useEffect(() => {
+    rerender('');
+  }, []);
+
   return (
-    <>
+    <React.Suspense>
       <footer>
         <div className="container">
           <div className={classes.inner}>
             <ul className={classes.nav}>
-              <li>
+              <li className={classes.link}>
                 <NavLink
                   className={({ isActive }) => (isActive ? classes.active : undefined)}
                   to={'/categories'}>
-                  Categories
+                  {t('categories')}
                 </NavLink>
               </li>
-              <li>
+              <li className={classes.link}>
                 <NavLink
                   className={({ isActive }) => (isActive ? classes.active : undefined)}
                   to={'/about-us'}>
-                  About Us
+                  {t('about')}
                 </NavLink>
               </li>
-              <li>
+              <li className={classes.link}>
                 <NavLink
                   className={({ isActive }) => (isActive ? classes.active : undefined)}
                   to={'/credit-terms'}>
-                  Credit terms
+                  {t('terms')}
                 </NavLink>
               </li>
-              <li>
+              <li className={classes.link}>
                 <NavLink
                   className={({ isActive }) => (isActive ? classes.active : undefined)}
                   to={'/contacts'}>
-                  Contacts
+                  {t('contacts')}
                 </NavLink>
               </li>
             </ul>
@@ -75,8 +65,9 @@ const Footer = () => {
                   <FontAwesomeIcon icon={faClock} />
                 </div>
                 <div>
-                  Mon-Sat 10:00 - 20:00 <br />
-                  Sunday 11:00 - 20:00
+                  {t('openDaysTop')}
+                  <br />
+                  {t('openDaysBottom')}
                 </div>
               </li>
               <li>
@@ -92,8 +83,9 @@ const Footer = () => {
                   <FontAwesomeIcon icon={faLocationDot} />
                 </div>
                 <div>
-                  39 Nairyan St <br />
-                  Sevan, Armenia
+                  {t('addressTop')}
+                  <br />
+                  {t('addressBottom')}
                 </div>
               </li>
             </ul>
@@ -122,7 +114,7 @@ const Footer = () => {
               className={classes.top}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               <FontAwesomeIcon icon={faAngleUp} />
-              <span>Top</span>
+              <span>{t('toTop')}</span>
             </div>
           </div>
         </div>
@@ -130,10 +122,6 @@ const Footer = () => {
       <div className="container">
         <div className={classes.bottom}>
           <p>&#169; 2022 The Content Folk All rights reserved</p>
-          {/* <p>&#169; {t('test')}</p>
-          <button onClick={() => i18n.changeLanguage('ru')}>Change Language to Russian</button>
-          <button onClick={() => i18n.changeLanguage('en')}>Change Language to English</button>
-          <button onClick={() => i18n.changeLanguage('am')}>Change Language to Armenian</button> */}
           <ul className={classes.payments}>
             <li>
               <img src={visa} alt="Payment with Visa" />
@@ -153,7 +141,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-    </>
+    </React.Suspense>
   );
 };
 

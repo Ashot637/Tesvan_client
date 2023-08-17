@@ -21,21 +21,17 @@ import { CSSTransition } from 'react-transition-group';
 const DevicesPage = () => {
   const dispatch = useDispatch();
   const { categorie } = useParams();
-  const { categorieLabel, brandId, activeFilters, minPrice, maxPrice } = useSelector(
-    (state) => state.devices,
-  );
+  const { brandId, activeFilters, minPrice, maxPrice } = useSelector((state) => state.devices);
   const { categories } = useSelector((state) => state.categories);
+  const [categorieTitle, setCategorieTitle] = useState('');
   const [isOpenFilter, setIsOpenFilter] = useState(false);
+  const { language } = useSelector((state) => state.language);
 
   useEffect(() => {
-    dispatch(setCategorieLabel(categorie));
-  }, [categorie]);
-
-  useEffect(() => {
-    let categorieId =
-      categories.find((c) => c.title.toLowerCase() === categorie) &&
-      categories.find((c) => c.title.toLowerCase() === categorie).id;
-    if (categorieId) {
+    let selectedCategorie = categories.find((c) => c.title_en.toLowerCase() === categorie);
+    if (selectedCategorie) {
+      let categorieId = selectedCategorie.id;
+      setCategorieTitle(selectedCategorie.title);
       dispatch(fetchFilters({ categorieId }));
       dispatch(fetchBrands({ categorieId }));
     }
@@ -43,7 +39,7 @@ const DevicesPage = () => {
 
   useEffect(() => {
     dispatch(removeAllFilters());
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     dispatch(setPage(1));
@@ -51,8 +47,8 @@ const DevicesPage = () => {
 
   useEffect(() => {
     if (categories) {
-      if (categories.find((c) => c.title.toLowerCase() === categorie)) {
-        let id = categories.find((c) => c.title.toLowerCase() === categorie).id;
+      if (categories.find((c) => c.title_en.toLowerCase() === categorie)) {
+        let id = categories.find((c) => c.title_en.toLowerCase() === categorie).id;
         dispatch(setCategorieId(id));
       }
     }
@@ -61,7 +57,7 @@ const DevicesPage = () => {
   return (
     <>
       <Breadcrumbs />
-      <Title title={categorieLabel}>
+      <Title title={categorieTitle}>
         <div className="flex between">
           <SortBy />
           <div className="block-850">

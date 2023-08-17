@@ -16,6 +16,7 @@ import getPrice from '../../helpers/getPrice';
 import { addDevice } from '../../redux/slices/cartSlice';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { addDeviceComparing } from '../../redux/slices/compareSlice';
+import { useTranslation } from 'react-i18next';
 
 const SimpleDevice = ({ device, relateds }) => {
   const dispatch = useDispatch();
@@ -28,12 +29,10 @@ const SimpleDevice = ({ device, relateds }) => {
   const [img, setImg] = useState(device?.images[0]);
   const [count, setCount] = useState(1);
   const titles = ['Color', 'Memory', 'RAM'];
+  const { t } = useTranslation();
 
   const onChangeCount = (i) => {
-    if (count === 1 && i < 0) {
-    } else {
-      setCount(count + i);
-    }
+    setCount(count + i);
   };
 
   const onAddToCart = (item) => {
@@ -114,9 +113,9 @@ const SimpleDevice = ({ device, relateds }) => {
                       </thead>
                       <tbody className={classes.tbody}>
                         <tr>
-                          <td>12 Months</td>
-                          <td>12 Months</td>
-                          <td>12 Months</td>
+                          <td>12 {t('months')}</td>
+                          <td>12 {t('months')}</td>
+                          <td>12 {t('months')}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -125,11 +124,11 @@ const SimpleDevice = ({ device, relateds }) => {
                   <div className={classes.ordering}>
                     <div className={classes.prices}>
                       <div className={classes.cash}>
-                        <b>Cash</b>
+                        <b>{t('withCash')}</b>
                         <span>{device.price.toLocaleString().replaceAll(',', ' ')} AMD</span>
                       </div>
                       <div className={classes.credit}>
-                        <b>Credit</b>
+                        <b>{t('withCard')}</b>
                         <span>{getPrice(device.price + 50000)} AMD</span>
                       </div>
                     </div>
@@ -154,28 +153,40 @@ const SimpleDevice = ({ device, relateds }) => {
 
                     {device?.quantity === 0 ? (
                       <div className={classes.out}>
-                        <span>Out of stock</span>
-                        <button onClick={() => navigateToOrderOutOfStock()}>Contact us</button>
+                        <span>{t('outOfStock')}</span>
+                        <button onClick={() => navigateToOrderOutOfStock()}>
+                          {t('contactUs')}
+                        </button>
                       </div>
                     ) : (
                       <>
                         <div className={classes.quantity}>
-                          <div>Quantity</div>
-                          <ul className={classes.counter}>
-                            <li className={classes.inc} onClick={() => onChangeCount(1)}>
+                          <div>{t('quantity')}</div>
+                          <div className={classes.counter}>
+                            <button
+                              className={classes.inc}
+                              onClick={() => onChangeCount(1)}
+                              disabled={count === device.quantity}>
                               <FontAwesomeIcon icon={faPlus} />
-                            </li>
-                            <li className={classes.count}>{count}</li>
-                            <li className={classes.dec}>
-                              <FontAwesomeIcon icon={faMinus} onClick={() => onChangeCount(-1)} />
-                            </li>
-                          </ul>
+                            </button>
+                            <p className={classes.count}>{count}</p>
+                            <button
+                              className={classes.dec}
+                              onClick={() => onChangeCount(-1)}
+                              disabled={count === 1}>
+                              <FontAwesomeIcon icon={faMinus} />
+                            </button>
+                          </div>
                         </div>
                         <div className={classes.btns}>
-                          <Link to={location.pathname + '/order'}>
-                            <button>Buy</button>
+                          <Link
+                            to={{
+                              pathname: location.pathname + '/order',
+                              search: '?quantity=' + count,
+                            }}>
+                            <button>{t('buy')}</button>
                           </Link>
-                          <button onClick={() => onAddToCart(device)}>Add to cart</button>
+                          <button onClick={() => onAddToCart(device)}>{t('addToCart')}</button>
                         </div>
                       </>
                     )}
@@ -187,7 +198,7 @@ const SimpleDevice = ({ device, relateds }) => {
                   className={classes.more}
                   onClick={() => setMoreOpen((moreOpen) => !moreOpen)}
                   style={moreOpen ? { filter: 'grayscale(0.5)' } : undefined}>
-                  More information
+                  {t('moreInformation')}
                 </div>
                 <table className={classes.moreInfo}>
                   <tbody>
@@ -206,7 +217,7 @@ const SimpleDevice = ({ device, relateds }) => {
             </div>
           )}
           <div className={classes.related}>
-            <span>Related Products</span>
+            <span>{t('relateds')}</span>
           </div>
         </div>
       </div>

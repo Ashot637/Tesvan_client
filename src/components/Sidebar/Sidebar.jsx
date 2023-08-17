@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classes from './sidebar.module.scss';
 import AccordionItem from '../AccordionItem/AccordionItem';
 import ReactSlider from 'react-slider';
@@ -10,6 +10,7 @@ import {
   setMaxPrice,
   setMinPrice,
 } from '../../redux/slices/devicesSlice';
+import { useTranslation } from 'react-i18next';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const Sidebar = () => {
   const { brandId, minPrice, maxPrice, activeFilters, filters } = useSelector(
     (state) => state.devices,
   );
+  const { t } = useTranslation();
 
   const onSelectBrand = (id) => {
     dispatch(setBrandId(id));
@@ -43,7 +45,7 @@ const Sidebar = () => {
   return (
     <div className={classes.sidebar}>
       <div className={classes.accordion}>
-        <AccordionItem title={'Brand'}>
+        <AccordionItem title={t('brand')}>
           <div className={classes.items}>
             {brands.map((brand) => {
               return (
@@ -59,7 +61,7 @@ const Sidebar = () => {
             })}
           </div>
         </AccordionItem>
-        <AccordionItem title={'Price'}>
+        <AccordionItem title={t('price')}>
           <div style={{ paddingTop: 15 }}>
             <ReactSlider
               className="horizontal-slider"
@@ -78,7 +80,7 @@ const Sidebar = () => {
             />
             <div className={classes.fields}>
               <div className={classes.field}>
-                <label>Min</label>
+                <label>{t('min')}</label>
                 <input
                   type="number"
                   value={minPrice}
@@ -86,7 +88,7 @@ const Sidebar = () => {
                 />
               </div>
               <div className={classes.field}>
-                <label>Max</label>
+                <label>{t('max')}</label>
                 <input
                   type="number"
                   value={maxPrice}
@@ -118,7 +120,7 @@ const Sidebar = () => {
               </AccordionItem>
             );
           })}
-        <AccordionItem title={'Clear all'} remove />
+        <AccordionItem title={t('clearAll')} remove />
       </div>
     </div>
   );

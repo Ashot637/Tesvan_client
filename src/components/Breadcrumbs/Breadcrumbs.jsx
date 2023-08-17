@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import classes from './breadcrumbs.module.scss';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import axios from '../../helpers/axios';
+
 const Breadcrumbs = ({ deviceTitle }) => {
   const location = useLocation();
   const [paths, setPaths] = useState();

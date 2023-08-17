@@ -17,21 +17,22 @@ import idram from '../../img/idram.png';
 
 import delivery from '../../img/delivery.png';
 import pickup from '../../img/pickup.png';
+import { useTranslation } from 'react-i18next';
 
 const paymentMethods = [
   {
     id: 1,
-    label: 'Cash',
+    label: 'cash',
     img: cash,
   },
   {
     id: 2,
-    label: 'Online',
+    label: 'online',
     img: cards,
   },
   {
     id: 3,
-    label: 'Pos terminal',
+    label: 'terminal',
     img: terminal,
   },
   {
@@ -44,12 +45,12 @@ const paymentMethods = [
 const deliveryMethods = [
   {
     id: 1,
-    label: 'Delivery',
+    label: 'delivery',
     img: delivery,
   },
   {
     id: 2,
-    label: 'Pickup',
+    label: 'pickup',
     img: pickup,
   },
 ];
@@ -64,6 +65,7 @@ const OrderForm = ({ device }) => {
   const [isError, setIsError] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(1);
   const [deliveryMethod, setDeliveryMethod] = useState(1);
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -127,30 +129,32 @@ const OrderForm = ({ device }) => {
       <div className="container">
         <div className={classes.blocks}>
           <div className={classes.block}>
-            <div className={classes.title}>Make order</div>
+            <div className={classes.title}>{t('makeOrder')}</div>
             <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
               <div className={classes.fields}>
                 <div className={classes.field}>
-                  <label>Name</label>
+                  <label>{t('name')}</label>
                   <input
                     {...register('name', {
                       required: 'Required!',
                     })}
                     type="text"
+                    autoComplete="off"
                     className={errors?.name ? classes.invalid : undefined}
                   />
-                  {errors?.name && <p>This field is required.</p>}
+                  {errors?.name && <p>{t('required')}</p>}
                 </div>
                 <div className={classes.field}>
-                  <label>Surname</label>
+                  <label>{t('surname')}</label>
                   <input
                     {...register('surname', {
                       required: 'Required!',
                     })}
                     type="text"
+                    autoComplete="off"
                     className={errors?.surname ? classes.invalid : undefined}
                   />
-                  {errors?.surname && <p>This field is required.</p>}
+                  {errors?.surname && <p>{t('required')}</p>}
                 </div>
                 <div
                   className={[
@@ -158,55 +162,59 @@ const OrderForm = ({ device }) => {
                     classes.phoneField,
                     !phoneValid && phone ? classes.fieldInvalid : undefined,
                   ].join(' ')}>
-                  <label>Phone</label>
+                  <label>{t('phone')}</label>
                   <Phone phone={phone} setPhone={setPhone} setPhoneValid={setPhoneValid} />
-                  {!phoneValid && phone && <p>Please enter valid phone number.</p>}
+                  {!phoneValid && phone && <p>{t('requiredPhone')}</p>}
                 </div>
                 <div className={classes.field}>
-                  <label>Email</label>
+                  <label>{t('email')}</label>
                   <input
                     {...register('email', {
-                      required: 'This field is required.',
+                      required: t('required'),
                       pattern: {
                         value:
                           /^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)[\\.]([a-zA-Z]{2,9})$/,
-                        message: 'Invalid email address.',
+                        message: t('requiredEmail'),
                       },
                     })}
+                    autoComplete="off"
                     type="text"
                     className={errors?.email ? classes.invalid : undefined}
                   />
                   {errors?.email && <p>{errors.email.message}</p>}
                 </div>
                 <div className={classes.field}>
-                  <label>Region</label>
+                  <label>{t('region')}</label>
                   <input
                     {...register('region', {
                       required: 'Required!',
                     })}
                     type="text"
+                    autoComplete="off"
                     className={errors?.region ? classes.invalid : undefined}
                   />
-                  {errors?.region && <p>This field is required.</p>}
+                  {errors?.region && <p>{t('required')}</p>}
                 </div>
                 <div className={classes.field}>
-                  <label>Delivery address</label>
+                  <label>{t('address')}</label>
                   <input
                     {...register('address', {
                       required: 'Required!',
                     })}
                     type="text"
+                    autoComplete="off"
                     className={errors?.address ? classes.invalid : undefined}
                   />
-                  {errors?.address && <p>This field is required.</p>}
+                  {errors?.address && <p>{t('required')}</p>}
                 </div>
                 <div className={[classes.field, classes.textarea].join(' ')}>
-                  <label>Add comment (optional)</label>
+                  <label>{t('addComment')}</label>
                   <textarea
                     rows={4}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     maxLength={160}
+                    autoComplete="off"
                     className={errors?.message ? classes.invalid : undefined}
                   />
                   <span className={classes.symbols}>{message.length}/160</span>
@@ -214,8 +222,8 @@ const OrderForm = ({ device }) => {
               </div>
               {isError && <div className={classes.error}>Something went wrong. Try again.</div>}
               <div className={classes.payment}>
-                <h3>Payment method</h3>
-                <span>Select payment method</span>
+                <h3>{t('paymentMethod')}</h3>
+                <span>{t('selectPaymentMethod')}</span>
                 <ul className={classes.methods}>
                   {paymentMethods.map((method) => {
                     return (
@@ -231,7 +239,7 @@ const OrderForm = ({ device }) => {
                         </div>
                         <div>
                           <div className={classes.radio}></div>
-                          <p>{method.label}</p>
+                          <p>{t(method.label)}</p>
                         </div>
                       </li>
                     );
@@ -239,8 +247,8 @@ const OrderForm = ({ device }) => {
                 </ul>
               </div>
               <div className={classes.payment}>
-                <h3>Delivery type</h3>
-                <span>Select delivery type</span>
+                <h3>{t('deliveryMethod')}</h3>
+                <span>{t('selectPaymentMethod')}</span>
                 <ul className={classes.methods}>
                   {deliveryMethods.map((method) => {
                     return (
@@ -256,7 +264,7 @@ const OrderForm = ({ device }) => {
                         </div>
                         <div>
                           <div className={classes.radio}></div>
-                          <p>{method.label}</p>
+                          <p>{t(method.label)}</p>
                         </div>
                       </li>
                     );
@@ -264,12 +272,12 @@ const OrderForm = ({ device }) => {
                 </ul>
               </div>
               <button type="submit" className={classes.btn} disabled={!isValid || !phoneValid}>
-                Confirm order
+                {t('confirmOrder')}
               </button>
             </form>
           </div>
           <div className={classes.block}>
-            <div className={classes.title}>Order details</div>
+            <div className={classes.title}>{t('orderDetails')}</div>
             <table className={classes.devices}>
               <tbody>
                 {devices.map((device) => {
@@ -318,25 +326,25 @@ const OrderForm = ({ device }) => {
             </div>
             <div className={classes.total}>
               <div className={classes.flex}>
-                <span>Total for payment </span>
+                <span>{t('total')}</span>
                 <span style={{ color: 'white' }}>{getPrice(totalPrice * 0.9)} AMD</span>
               </div>
               <div className={classes.flex}>
-                <span>Product, {devices.length} pcs </span>
+                <span>{t('productXpcs', { count: devices.length })}</span>
                 <span>{getPrice(totalPrice)} AMD</span>
               </div>
               <div className={classes.flex}>
-                <span>Discount </span>
+                <span>{t('discount')}</span>
                 <span>-10%</span>
               </div>
               <div className={classes.flex}>
-                <span>Delivery</span>
-                <span>Free</span>
+                <span>{t('delivery')}</span>
+                <span>{t('free')}</span>
               </div>
             </div>
           </div>
           <Link to={'/'} className={classes.back}>
-            {'<<'} Back to shopping
+            {'<<'} {t('back')}
           </Link>
         </div>
       </div>

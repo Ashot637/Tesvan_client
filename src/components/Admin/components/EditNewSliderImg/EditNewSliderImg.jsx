@@ -36,9 +36,11 @@ const EditNewSliderImg = () => {
 
   useEffect(() => {
     axios.get('/devices').then(({ data }) => {
-      setDevices(data);
-      setSelectedDevice(data[0]);
-      setDeviceId(data[0].id);
+      if (data.length) {
+        setDevices(data);
+        setSelectedDevice(data[0]);
+        setDeviceId(data[0].id);
+      }
     });
   }, []);
 
@@ -122,19 +124,20 @@ const EditNewSliderImg = () => {
         </div>
         {isOpenDevices && (
           <div className={classes.options}>
-            {devices.map((item) => {
-              if (item.id === id) return undefined;
-              return (
-                <div
-                  className={[classes.select, classes.selectDevice].join(' ')}
-                  key={item.id}
-                  onClick={() => onChangeDeviceId(item)}>
-                  <img src={'http://localhost:8080/' + item.images[0]} alt={item.title} />
-                  <p>{item?.title}</p>
-                  <span>{item.price} AMD</span>
-                </div>
-              );
-            })}
+            {devices?.length &&
+              devices.map((item) => {
+                if (item.id === id) return undefined;
+                return (
+                  <div
+                    className={[classes.select, classes.selectDevice].join(' ')}
+                    key={item.id}
+                    onClick={() => onChangeDeviceId(item)}>
+                    <img src={'http://localhost:8080/' + item.images[0]} alt={item.title} />
+                    <p>{item?.title}</p>
+                    <span>{item.price} AMD</span>
+                  </div>
+                );
+              })}
           </div>
         )}
       </div>

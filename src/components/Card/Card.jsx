@@ -11,6 +11,7 @@ import { addDeviceComparing } from '../../redux/slices/compareSlice';
 import sale from '../../img/sale.png';
 import bestseller from '../../img/bestseller.png';
 import newCollection from '../../img/new-collection.png';
+import { useTranslation } from 'react-i18next';
 
 const Card = ({ item, brands }) => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Card = ({ item, brands }) => {
   const { id } = useParams();
   const { categories } = useSelector((state) => state.categories);
   const { devices: comparingDevices } = useSelector((state) => state.compare);
+  const { t } = useTranslation();
 
   const onAddToCart = (item) => {
     item = {
@@ -92,7 +94,7 @@ const Card = ({ item, brands }) => {
         </div>
         <span className={classes.name}>{item.title}</span>
         {item?.quantity === 0 ? (
-          <div className={classes.out}>Out of stock</div>
+          <div className={classes.out}>{t('outOfStock')}</div>
         ) : (
           <>
             <span className={classes.price}>{getPrice(item.price)} AMD</span>
@@ -110,7 +112,7 @@ const Card = ({ item, brands }) => {
       </Link>
       {item?.quantity === 0 ? (
         <button className={classes.contactUs} onClick={() => navigateToOrderOutOfStock()}>
-          Contact us
+          {t('contactUs')}
         </button>
       ) : (
         <div className={classes.btns}>
@@ -123,9 +125,9 @@ const Card = ({ item, brands }) => {
                 item.id +
                 '/order'
             }>
-            <button>Buy</button>
+            <button>{t('buy')}</button>
           </Link>
-          <button onClick={() => onAddToCart(item)}>Add to cart</button>
+          <button onClick={() => onAddToCart(item)}>{t('addToCart')}</button>
         </div>
       )}
     </div>

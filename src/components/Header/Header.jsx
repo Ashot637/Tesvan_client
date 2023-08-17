@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from './header.module.scss';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,23 +19,46 @@ import SearchPanel from '../SearchPanel/SearchPanel';
 import { fetchCategories } from '../../redux/slices/categoriesSlice';
 import { createPortal } from 'react-dom';
 import CartNotification from '../CartNotification/CartNotification';
+import { changeLanguage } from '../../redux/slices/languageSlice';
 
-const languages = ['English', 'Armenian', 'Russian'];
+import i18n from 'i18next';
+import { useTranslation, initReactI18next } from 'react-i18next';
+import { translationsAm, translationsEn, translationsRu } from '../../languages/langauges';
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: translationsEn },
+    ru: { translation: translationsRu },
+    am: { translation: translationsAm },
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+  interpolation: { escapeValue: false },
+});
 
 const Header = () => {
   const { devices: comparingDevices } = useSelector((state) => state.compare);
   const dispatch = useDispatch();
   const location = useLocation();
-  const [language, setLaungage] = useState(languages[0]);
   const [isOpenSearchPanel, setisOpenSearchPanel] = useState(true);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenLanguage, setIsOpenLanguage] = useState(false);
   const { isOpen: isOpenCart, devices: cartDevices } = useSelector((state) => state.cart);
+  const { language, languagesList } = useSelector((state) => state.language);
   const [scrolling, setScrolling] = useState(false);
+  const mounted = useRef(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchCategories());
   }, []);
+
+  useEffect(() => {
+    if (mounted.current) {
+      window.location.reload();
+    }
+    mounted.current = true;
+  }, [language]);
 
   useEffect(() => {
     localStorage.setItem('compare', JSON.stringify(comparingDevices));
@@ -44,6 +67,11 @@ const Header = () => {
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartDevices));
   }, [cartDevices]);
+
+  useEffect(() => {
+    localStorage.setItem('language', JSON.stringify(language));
+    i18n.changeLanguage(language.title);
+  }, [language]);
 
   useEffect(() => {
     setisOpenSearchPanel(false);
@@ -62,6 +90,10 @@ const Header = () => {
     };
   }, []);
 
+  const onChangeLanguage = (lan) => {
+    dispatch(changeLanguage(lan));
+  };
+
   return (
     <>
       <div className="container">
@@ -75,7 +107,7 @@ const Header = () => {
             </li>
             <li onClick={() => setIsOpenLanguage((isOpen) => !isOpen)}>
               <FontAwesomeIcon icon={faGlobe} />
-              <div className="select">{language}</div>
+              <div className="select">{language.label}</div>
               <FontAwesomeIcon
                 className={classes.angle}
                 style={isOpenLanguage ? { transform: 'rotateX(180deg)' } : undefined}
@@ -83,10 +115,10 @@ const Header = () => {
               />
               {isOpenLanguage && (
                 <ul className={classes.options}>
-                  {languages.map((lan) => {
-                    return lan === language ? undefined : (
-                      <li key={lan} onClick={() => setLaungage(lan)}>
-                        {lan}
+                  {languagesList.map((lan) => {
+                    return lan.title === language.title ? undefined : (
+                      <li key={lan.title} onClick={() => onChangeLanguage(lan)}>
+                        {lan.label}
                       </li>
                     );
                   })}
@@ -112,28 +144,28 @@ const Header = () => {
                     <NavLink
                       className={({ isActive }) => (isActive ? classes.active : undefined)}
                       to={'/categories'}>
-                      Categories
+                      {t('categories')}
                     </NavLink>
                   </li>
                   <li className={classes.link}>
                     <NavLink
                       className={({ isActive }) => (isActive ? classes.active : undefined)}
                       to={'/about-us'}>
-                      About Us
+                      {t('about')}
                     </NavLink>
                   </li>
                   <li className={classes.link}>
                     <NavLink
                       className={({ isActive }) => (isActive ? classes.active : undefined)}
                       to={'/credit-terms'}>
-                      Credit terms
+                      {t('terms')}
                     </NavLink>
                   </li>
                   <li className={classes.link}>
                     <NavLink
                       className={({ isActive }) => (isActive ? classes.active : undefined)}
                       to={'/contacts'}>
-                      Contacts
+                      {t('contacts')}
                     </NavLink>
                   </li>
                 </ul>
@@ -178,28 +210,28 @@ const Header = () => {
                   <NavLink
                     className={({ isActive }) => (isActive ? classes.active : undefined)}
                     to={'/categories'}>
-                    Categories
+                    {t('categories')}
                   </NavLink>
                 </li>
                 <li>
                   <NavLink
                     className={({ isActive }) => (isActive ? classes.active : undefined)}
                     to={'/about-us'}>
-                    About Us
+                    {t('about')}
                   </NavLink>
                 </li>
                 <li>
                   <NavLink
                     className={({ isActive }) => (isActive ? classes.active : undefined)}
                     to={'/credit-terms'}>
-                    Credit terms
+                    {t('terms')}
                   </NavLink>
                 </li>
                 <li>
                   <NavLink
                     className={({ isActive }) => (isActive ? classes.active : undefined)}
                     to={'/contacts'}>
-                    Contacts
+                    {t('contacts')}
                   </NavLink>
                 </li>
               </ul>

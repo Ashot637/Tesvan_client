@@ -8,10 +8,12 @@ import { removeAll, toggleIsOpen } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
 import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
+import { useTranslation } from 'react-i18next';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { devices, isOpen } = useSelector((state) => state.cart);
+  const { t } = useTranslation();
 
   const totalPrice =
     devices.length &&
@@ -26,11 +28,11 @@ const Cart = () => {
           <div className={classes.close} onClick={() => dispatch(toggleIsOpen())}>
             <FontAwesomeIcon icon={faClose} />
           </div>
-          <div className={classes.title}>Your cart</div>
+          <div className={classes.title}>{t('cart')}</div>
           {devices.length ? (
             <>
               <div className={classes.deleteAll} onClick={() => dispatch(removeAll())}>
-                Delete all
+                {t('deleteAll')}
               </div>
               <table className={classes.items}>
                 <tbody>
@@ -46,15 +48,15 @@ const Cart = () => {
               </div>
               <div className={classes.order}>
                 <div className={classes.total}>
-                  <span>Total for payment:</span>
+                  <span>{t('total')}:</span>
                   <b>{getPrice(totalPrice)} AMD</b>
                 </div>
                 <div className={classes.btns}>
                   <div className={classes.back} onClick={() => dispatch(toggleIsOpen())}>
-                    {'<<'} Back to shoping
+                    {'<<'} {t('back')}
                   </div>
                   <Link to="/order" onClick={() => dispatch(toggleIsOpen())}>
-                    <button className={classes.done}>Make order</button>
+                    <button className={classes.done}>{t('makeOrder')}</button>
                   </Link>
                 </div>
               </div>

@@ -41,7 +41,6 @@ const initialState = {
   page: 1,
   brandId: 0,
   categorieId: 0,
-  categorieLabel: '',
   minPrice: 0,
   maxPrice: 2000000,
   status: 'waiting',
@@ -89,9 +88,6 @@ const devicesSlice = createSlice({
     setSortType: (state, action) => {
       state.sortType = action.payload;
     },
-    setCategorieLabel: (state, action) => {
-      state.categorieLabel = action.payload;
-    },
     setActiveFilters: (state, action) => {
       state.activeFilters = {
         ...state.activeFilters,
@@ -113,7 +109,6 @@ const devicesSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchDevices.pending, (state) => {
       state.status = 'loading';
-      state.devices = [];
     });
     builder.addCase(fetchDevices.rejected, (state) => {
       state.status = 'error';
@@ -126,14 +121,12 @@ const devicesSlice = createSlice({
     });
     builder.addCase(fetchFilters.pending, (state) => {
       state.status = 'loading';
-      state.filters = [];
     });
     builder.addCase(fetchFilters.rejected, (state) => {
       state.status = 'error';
       state.filters = [];
     });
     builder.addCase(fetchFilters.fulfilled, (state, action) => {
-      state.status = 'success';
       state.filters = action.payload;
     });
   },

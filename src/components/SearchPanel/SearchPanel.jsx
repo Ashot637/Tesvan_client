@@ -7,12 +7,15 @@ import getPrice from '../../helpers/getPrice';
 import { debounce } from 'debounce';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const SearchPanel = () => {
   const [term, setTerm] = useState('');
   const [devices, setDevices] = useState([]);
   const [empty, setEmpty] = useState(false);
   const { categories } = useSelector((state) => state.categories);
+  const { t } = useTranslation();
+
   useEffect(() => {
     setEmpty(false);
     onSearch(term);
@@ -45,7 +48,7 @@ const SearchPanel = () => {
         value={term}
         onChange={(e) => setTerm(e.target.value)}
         className={classes.searchPanel}
-        placeholder="enter your product name"
+        placeholder={t('placeholder')}
       />
       <button type="button" className={classes.searchIcon}>
         <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -113,7 +116,7 @@ const SearchPanel = () => {
           </tbody>
         </table>
       )}
-      {empty && <h2>Nothing Found</h2>}
+      {empty && <h2>{t('nothingFound')}</h2>}
     </form>
   );
 };

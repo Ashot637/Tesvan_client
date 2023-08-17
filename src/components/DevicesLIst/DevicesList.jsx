@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from '../Card/Card';
 import { fetchDevices } from '../../redux/slices/devicesSlice';
 import Pagination from '../Pagination/Pagination';
+import { useTranslation } from 'react-i18next';
 
 const DevicesList = () => {
   const { brands } = useSelector((state) => state.brands);
@@ -20,6 +21,7 @@ const DevicesList = () => {
     activeFilters,
   } = useSelector((state) => state.devices);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     onChangeFilters({
@@ -71,7 +73,7 @@ const DevicesList = () => {
           return <Card key={item.id} brands={brands} item={item} />;
         })}
         {!devices.length && status === 'success' && (
-          <h3 className={classes.nothing}>Nothing found</h3>
+          <h3 className={classes.nothing}>{t('nothingFound')}</h3>
         )}
       </div>
       <Pagination />

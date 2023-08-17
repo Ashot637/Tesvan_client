@@ -8,11 +8,13 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBrands } from '../../redux/slices/brandSlice';
+import { useTranslation } from 'react-i18next';
 
 const Brands = () => {
   const dispatch = useDispatch();
   const { brands } = useSelector((state) => state.brands);
   const [swiperRef, setSwiperRef] = useState();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchBrands(0));
@@ -28,7 +30,7 @@ const Brands = () => {
 
   return (
     <div className={classes.brands}>
-      <h1 className={classes.title}>Brands</h1>
+      <h1 className={classes.title}>{t('brands')}</h1>
       <div className={classes.inner}>
         <button onClick={handlePrevious}>
           <FontAwesomeIcon icon={faAngleLeft} />

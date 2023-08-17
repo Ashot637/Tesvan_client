@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import axios from '../../helpers/axios';
 import Phone from '../Phone/Phone';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Contacts = () => {
   const location = useLocation();
@@ -22,6 +23,8 @@ const Contacts = () => {
     mode: 'onChange',
   });
   const [outOfStockDevice, setOutOfStockDevice] = useState();
+  const [_, rerender] = useState();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (location.pathname.includes('/contacts/order')) {
@@ -45,37 +48,49 @@ const Contacts = () => {
     setChecked(false);
   };
 
+  useEffect(() => {
+    rerender('');
+  }, []);
+
   return (
     <div className={classes.contacts}>
       <div className="container">
         <div className={classes.inner}>
-          <h3 className={classes.title}>Contact Us</h3>
+          <h3 className={classes.title}>{t('contactUs')}</h3>
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
             {(!isValid || !checked || !phoneValid) && (
-              <div className={classes.required}>All fields are required</div>
+              <div className={classes.required}>{t('fieldsRequired')}</div>
             )}
             <div className={classes.fields}>
               <div className={classes.field}>
-                <label>Name</label>
+                <label>{t('name')}</label>
                 <input
                   {...register('name', {
                     required: 'Required!',
+                    validate: (value) => {
+                      return !!value.trim();
+                    },
                   })}
+                  autoComplete="off"
                   type="text"
                   className={errors?.name ? classes.invalid : undefined}
                 />
-                {errors?.name && <p>This field is required.</p>}
+                {errors?.name && <p>{t('required')}</p>}
               </div>
               <div className={classes.field}>
-                <label>Surname</label>
+                <label>{t('surname')}</label>
                 <input
                   {...register('surname', {
                     required: 'Required!',
+                    validate: (value) => {
+                      return !!value.trim();
+                    },
                   })}
+                  autoComplete="off"
                   type="text"
                   className={errors?.surname ? classes.invalid : undefined}
                 />
-                {errors?.surname && <p>This field is required.</p>}
+                {errors?.surname && <p>{t('required')}</p>}
               </div>
               <div
                 className={[
@@ -83,40 +98,48 @@ const Contacts = () => {
                   classes.phoneField,
                   !phoneValid && phone ? classes.fieldInvalid : undefined,
                 ].join(' ')}>
-                <label>Phone</label>
+                <label>{t('phone')}</label>
                 <Phone phone={phone} setPhone={setPhone} setPhoneValid={setPhoneValid} />
-                {!phoneValid && phone && <p>Please enter valid phone number.</p>}
+                {!phoneValid && phone && <p>{t('requiredPhone')}</p>}
               </div>
               <div className={classes.field}>
-                <label>Email</label>
+                <label>{t('email')}</label>
                 <input
                   {...register('email', {
-                    required: 'This field is required.',
+                    required: t('required'),
                     pattern: {
                       value:
                         /^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)[\\.]([a-zA-Z]{2,9})$/,
-                      message: 'Invalid email address.',
+                      message: t('requiredEmail'),
+                    },
+                    validate: (value) => {
+                      return !!value.trim();
                     },
                   })}
+                  autoComplete="off"
                   type="text"
                   className={errors?.email ? classes.invalid : undefined}
                 />
                 {errors?.email && <p>{errors.email.message}</p>}
               </div>
               <div className={classes.field}>
-                <label>Message</label>
+                <label>{t('message')}</label>
                 <textarea
                   rows={4}
                   {...register('message', {
                     required: 'Required!',
+                    validate: (value) => {
+                      return !!value.trim();
+                    },
                   })}
+                  autoComplete="off"
                   defaultValue={
                     outOfStockDevice ? 'I want to order ' + outOfStockDevice + ' ' : undefined
                   }
                   maxLength={160}
                   className={errors?.message ? classes.invalid : undefined}
                 />
-                {errors?.message && <p>This field is required.</p>}
+                {errors?.message && <p>{t('required')}</p>}
                 <span className={classes.symbols}>
                   {watch('message') ? watch('message').length : 0}/160
                 </span>
@@ -125,13 +148,13 @@ const Contacts = () => {
             <div className={classes.terms}>
               <input type="checkbox" ref={checkboxRef} style={{ display: 'none' }} />
               <div className={classes.checkbox} onClick={onAcceptTerms}></div>
-              Lorem ipsum <a href="/">Privacy Policy</a>
+              <a href="/">{t('policy')}</a>
             </div>
             <button
               className={classes.btn}
               type="submit"
               disabled={!isValid || !checked || !phoneValid}>
-              Send
+              {t('send')}
             </button>
           </form>
         </div>

@@ -5,9 +5,11 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card';
+import { useTranslation } from 'react-i18next';
 
 const ItemsSection = ({ title, items, main, link }) => {
   const { brands } = useSelector((state) => state.brands);
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -21,7 +23,7 @@ const ItemsSection = ({ title, items, main, link }) => {
         </div>
         {!main && (
           <Link to={link} className={classes.all}>
-            <span>View all</span>
+            <span>{t('viewAll')}</span>
             <FontAwesomeIcon icon={faAngleRight} />
           </Link>
         )}
