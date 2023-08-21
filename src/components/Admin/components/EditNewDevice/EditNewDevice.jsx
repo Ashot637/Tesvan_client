@@ -59,6 +59,8 @@ const EditNewDevice = () => {
       title: 'Bestseller',
     },
   ];
+  const langauges = ['Eng', 'Arm', 'Ru'];
+  const [language, setLanguage] = useState(langauges[0]);
 
   useEffect(() => {
     axios.get('/brands').then(({ data }) => setBrands(data));
@@ -242,6 +244,96 @@ const EditNewDevice = () => {
     }
   };
 
+  const renderInfos = () => {
+    let content;
+    if (language === 'Eng') {
+      content = info.map((i) => {
+        return (
+          <div className={classes.info}>
+            <div className={classes.field}>
+              <label>Info title (Eng)</label>
+              <input
+                type="text"
+                value={i.title_en}
+                onChange={(e) => onChangeInfo(i.id, 'title_en', e.target.value)}
+              />
+            </div>
+            <div className={classes.field}>
+              <label>Info description (Eng)</label>
+              <input
+                type="text"
+                value={i.description_en}
+                onChange={(e) => onChangeInfo(i.id, 'description_en', e.target.value)}
+              />
+            </div>
+            <FontAwesomeIcon
+              onClick={() => onDeleteInfo(i.id)}
+              className={classes.removeInfo}
+              icon={faClose}
+            />
+          </div>
+        );
+      });
+    } else if (language === 'Ru') {
+      content = info.map((i) => {
+        return (
+          <div className={classes.info}>
+            <div className={classes.field}>
+              <label>Info title (Ru)</label>
+              <input
+                type="text"
+                value={i.title_ru}
+                onChange={(e) => onChangeInfo(i.id, 'title_ru', e.target.value)}
+              />
+            </div>
+            <div className={classes.field}>
+              <label>Info description (Ru)</label>
+              <input
+                type="text"
+                value={i.description_ru}
+                onChange={(e) => onChangeInfo(i.id, 'description_ru', e.target.value)}
+              />
+            </div>
+            <FontAwesomeIcon
+              onClick={() => onDeleteInfo(i.id)}
+              className={classes.removeInfo}
+              icon={faClose}
+            />
+          </div>
+        );
+      });
+    } else {
+      content = info.map((i) => {
+        return (
+          <div className={classes.info}>
+            <div className={classes.field}>
+              <label>Info title (Arm)</label>
+              <input
+                type="text"
+                value={i.title_am}
+                onChange={(e) => onChangeInfo(i.id, 'title_am', e.target.value)}
+              />
+            </div>
+            <div className={classes.field}>
+              <label>Info description (Arm)</label>
+              <input
+                type="text"
+                value={i.description_am}
+                onChange={(e) => onChangeInfo(i.id, 'description_am', e.target.value)}
+              />
+            </div>
+            <FontAwesomeIcon
+              onClick={() => onDeleteInfo(i.id)}
+              className={classes.removeInfo}
+              icon={faClose}
+            />
+          </div>
+        );
+      });
+    }
+    return content;
+  };
+
   return (
     <form className={classes.form} onSubmit={onSubmit}>
       <div className={classes.field}>
@@ -329,71 +421,16 @@ const EditNewDevice = () => {
           </Fragment>
         );
       })}
-      <div className={classes.infos}>
-        {info.map((i) => {
+      <ul className={classes.languages}>
+        {langauges.map((lan) => {
           return (
-            <div className={classes.infoHolder} key={i.id}>
-              <p onClick={() => onDeleteInfo(i.id)} className={classes.removeInfo}>
-                Remove Info
-              </p>
-              <div className={classes.info}>
-                <div className={classes.field}>
-                  <label>Info title (En)</label>
-                  <input
-                    type="text"
-                    value={i.title_en}
-                    onChange={(e) => onChangeInfo(i.id, 'title_en', e.target.value)}
-                  />
-                </div>
-                <div className={classes.field}>
-                  <label>Info description (En)</label>
-                  <input
-                    type="text"
-                    value={i.description_en}
-                    onChange={(e) => onChangeInfo(i.id, 'description_en', e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className={classes.info}>
-                <div className={classes.field}>
-                  <label>Info title (Am)</label>
-                  <input
-                    type="text"
-                    value={i.title_am}
-                    onChange={(e) => onChangeInfo(i.id, 'title_am', e.target.value)}
-                  />
-                </div>
-                <div className={classes.field}>
-                  <label>Info description (Am)</label>
-                  <input
-                    type="text"
-                    value={i.description_am}
-                    onChange={(e) => onChangeInfo(i.id, 'description_am', e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className={classes.info}>
-                <div className={classes.field}>
-                  <label>Info title (Ru)</label>
-                  <input
-                    type="text"
-                    value={i.title_ru}
-                    onChange={(e) => onChangeInfo(i.id, 'title_ru', e.target.value)}
-                  />
-                </div>
-                <div className={classes.field}>
-                  <label>Info description (Ru)</label>
-                  <input
-                    type="text"
-                    value={i.description_ru}
-                    onChange={(e) => onChangeInfo(i.id, 'description_ru', e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
+            <li className={language === lan && classes.active} onClick={() => setLanguage(lan)}>
+              {lan}
+            </li>
           );
         })}
-      </div>
+      </ul>
+      <div className={classes.infos}>{renderInfos()}</div>
       <div className={classes.addInfo} onClick={onAddInfo}>
         Add info
       </div>
@@ -405,7 +442,8 @@ const EditNewDevice = () => {
           !price ||
           (!oldPrice && oldPrice !== 0) ||
           images.filter((image) => image.url).length < 2 ||
-          quantity < 1
+          quantity < 0 ||
+          !info.length
         }>
         {id ? 'Edit' : 'Create'}
       </button>

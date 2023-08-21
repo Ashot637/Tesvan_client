@@ -1,4 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from '../../helpers/axios';
+
+export const fetchCompareingDevcies = createAsyncThunk(
+  'compare/fetchCompareingDevcies',
+  async ({ ids }) => {
+    const { data } = await axios.post('/devices/ids', { ids });
+    return data;
+  },
+);
 
 const getComparingFromLS = () => {
   const data = localStorage.getItem('compare');
@@ -8,7 +17,8 @@ const getComparingFromLS = () => {
 };
 
 const initialState = {
-  devices: getComparingFromLS(),
+  devicesIds: getComparingFromLS(),
+  devices: [],
 };
 
 const compareSlice = createSlice({
@@ -16,20 +26,28 @@ const compareSlice = createSlice({
   initialState,
   reducers: {
     addDeviceComparing: (state, action) => {
-      let findItem = state.devices.find((device) => device.id === action.payload.id);
+      let findItem = state.devicesIds.find((id) => id === action.payload);
 
       if (!findItem) {
-        state.devices.push(action.payload);
+        state.devicesIds.push(action.payload);
       } else {
-        state.devices = state.devices.filter((device) => device.id !== action.payload.id);
+        state.devicesIds = state.devicesIds.filter((id) => id !== action.payload);
       }
     },
     removeDeviceComparing: (state, action) => {
-      state.devices = state.devices.filter((device) => device.id !== action.payload);
+      state.devicesIds = state.devicesIds.filter((id) => id !== action.payload);
     },
     removeAllComparing: (state) => {
-      state.devices = [];
+      state.devicesIds = [];
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCompareingDevcies.fulfilled, (state, action) => {
+      state.devices = action.payload;
+    });
+    builder.addCase(fetchCompareingDevcies.rejected, (state) => {
+      state.devices = [];
+    });
   },
 });
 

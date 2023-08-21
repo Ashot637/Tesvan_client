@@ -14,7 +14,7 @@ const ItemsSection = ({ title, items, main, link }) => {
   return (
     <div>
       <div className="container">
-        <h1 className={main ? classes.mainTitle : classes.title}>{title}</h1>
+        <h1 className={main ? classes.mainTitle : classes.title}>{t(title)}</h1>
         <div className={classes.grid}>
           {items &&
             items.map((item) => {

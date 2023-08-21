@@ -50,12 +50,12 @@ const App = () => {
         <Route path="/contacts" element={<ContactsPage />} />
         <Route path="/contacts/order" element={<ContactsPage />} />
 
-        <Route path="/sale" element={<ItemsMainPage typeId={1} title={'Sale'} />} />
+        <Route path="/sale" element={<ItemsMainPage typeId={1} title={'sale'} />} />
         <Route
           path="/new-collection"
-          element={<ItemsMainPage typeId={2} title={'New Collection'} />}
+          element={<ItemsMainPage typeId={2} title={'newCollection'} />}
         />
-        <Route path="/bestsellers" element={<ItemsMainPage typeId={3} title={'Bestsellers'} />} />
+        <Route path="/bestsellers" element={<ItemsMainPage typeId={3} title={'bestsellers'} />} />
 
         <Route path="/thanks" element={<ThanksPage success />} />
         <Route path="/reject" element={<ThanksPage />} />

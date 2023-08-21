@@ -82,7 +82,7 @@ const OrderForm = ({ device }) => {
     if (device) {
       setDevices(device);
     } else {
-      setDevices(cartDevices);
+      setDevices(cartDevices.filter((device) => device.quantity !== 0));
     }
   }, [id]);
 
@@ -137,6 +137,9 @@ const OrderForm = ({ device }) => {
                   <input
                     {...register('name', {
                       required: 'Required!',
+                      validate: (value) => {
+                        return !!value.trim();
+                      },
                     })}
                     type="text"
                     autoComplete="off"
@@ -149,6 +152,9 @@ const OrderForm = ({ device }) => {
                   <input
                     {...register('surname', {
                       required: 'Required!',
+                      validate: (value) => {
+                        return !!value.trim();
+                      },
                     })}
                     type="text"
                     autoComplete="off"
@@ -176,6 +182,9 @@ const OrderForm = ({ device }) => {
                           /^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)[\\.]([a-zA-Z]{2,9})$/,
                         message: t('requiredEmail'),
                       },
+                      validate: (value) => {
+                        return !!value.trim();
+                      },
                     })}
                     autoComplete="off"
                     type="text"
@@ -188,6 +197,9 @@ const OrderForm = ({ device }) => {
                   <input
                     {...register('region', {
                       required: 'Required!',
+                      validate: (value) => {
+                        return !!value.trim();
+                      },
                     })}
                     type="text"
                     autoComplete="off"
@@ -200,6 +212,9 @@ const OrderForm = ({ device }) => {
                   <input
                     {...register('address', {
                       required: 'Required!',
+                      validate: (value) => {
+                        return !!value.trim();
+                      },
                     })}
                     type="text"
                     autoComplete="off"

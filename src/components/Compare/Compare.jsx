@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './compare.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeAllComparing } from '../../redux/slices/compareSlice';
+import { fetchCompareingDevcies, removeAllComparing } from '../../redux/slices/compareSlice';
 import ComparingItems from '../ComparingItems/ComparingItems';
 import { useTranslation } from 'react-i18next';
 
@@ -18,10 +18,15 @@ const filters = [
 
 const Compare = () => {
   const dispatch = useDispatch();
-  const { devices } = useSelector((state) => state.compare);
+  const { devices, devicesIds } = useSelector((state) => state.compare);
+
   const { categories } = useSelector((state) => state.categories);
   const [selected, setSelected] = useState(1);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    dispatch(fetchCompareingDevcies({ ids: devicesIds }));
+  }, []);
 
   return (
     <div className={classes.compare}>
@@ -41,7 +46,7 @@ const Compare = () => {
         </ul>
         <p onClick={() => dispatch(removeAllComparing())}>{t('deleteAll')}</p>
       </div>
-      {!devices.length ? (
+      {!devicesIds.length ? (
         <h3>Empty Comparing Items</h3>
       ) : (
         categories &&

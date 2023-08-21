@@ -22,7 +22,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <React.Suspense>
+    <>
       <footer>
         <div className="container">
           <div className={classes.inner}>
@@ -141,7 +141,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-    </React.Suspense>
+    </>
   );
 };
 

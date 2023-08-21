@@ -1,17 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import axios from '../../helpers/axios';
 
 const getCartFromLs = () => {
   const localItems = localStorage.getItem('cartItems');
   let cartItems = localItems ? JSON.parse(localItems) : [];
-  // if (cartItems.length) {
-  //   const ids = [...cartItems].map((item) => item.id);
-  //   axios.post('/devices/ids', { ids }).then(({ data }) => {
-  //     cartItems = cartItems.map((item) => {
-  //       return { ...item, quantity: data.find((d) => +d.id === +item.id).quantity };
-  //     });
-  //   });
-  // }
   return cartItems;
 };
 
@@ -66,7 +57,12 @@ const cartSlice = createSlice({
         });
       }
 
-      state.notificationShow = true;
+      if (!state.isOpen) {
+        state.notificationShow = true;
+      }
+    },
+    setDevices: (state, action) => {
+      state.devices = action.payload;
     },
     removeDevice: (state, action) => {
       state.devices = state.devices.filter((device) => device.id !== action.payload);
@@ -94,6 +90,7 @@ const cartSlice = createSlice({
 export const cartReducer = cartSlice.reducer;
 
 export const {
+  setDevices,
   addDevice,
   removeDevice,
   removeAll,

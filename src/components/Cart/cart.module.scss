@@ -1,5 +1,5 @@
 .overlay {
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
   z-index: 999;
@@ -67,6 +67,10 @@
     td {
       padding: 9px;
       border-bottom: 1px solid var(--primary);
+
+      div {
+        max-width: 185px;
+      }
     }
   }
 }
@@ -102,6 +106,25 @@
   padding: 3px 4px;
   font-size: 8px;
   cursor: pointer;
+}
+
+.outOfStock {
+  margin-right: 5px;
+}
+
+.contactUs {
+  border-radius: 2px;
+  border: 1px solid var(--yellow);
+  color: var(--yellow);
+  background: transparent;
+  padding: 5px;
+  font-size: 14px;
+  width: fit-content;
+  margin-left: auto;
+
+  &:hover {
+    filter: brightness(0.8);
+  }
 }
 
 .order {
@@ -145,6 +168,11 @@
   padding: 10px 55px;
   color: var(--primary);
   background: var(--yellow);
+
+  &:disabled {
+    filter: grayscale(0.5);
+    cursor: not-allowed;
+  }
 }
 
 .cards {

@@ -22,22 +22,10 @@ import CartNotification from '../CartNotification/CartNotification';
 import { changeLanguage } from '../../redux/slices/languageSlice';
 
 import i18n from 'i18next';
-import { useTranslation, initReactI18next } from 'react-i18next';
-import { translationsAm, translationsEn, translationsRu } from '../../languages/langauges';
-
-i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: translationsEn },
-    ru: { translation: translationsRu },
-    am: { translation: translationsAm },
-  },
-  lng: 'en',
-  fallbackLng: 'en',
-  interpolation: { escapeValue: false },
-});
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
-  const { devices: comparingDevices } = useSelector((state) => state.compare);
+  const { devicesIds: comparingDevices } = useSelector((state) => state.compare);
   const dispatch = useDispatch();
   const location = useLocation();
   const [isOpenSearchPanel, setisOpenSearchPanel] = useState(true);

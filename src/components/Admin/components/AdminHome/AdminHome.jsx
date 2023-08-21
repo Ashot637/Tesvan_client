@@ -12,6 +12,7 @@ const AdminHome = () => {
 
   useEffect(() => {
     dispatch(fetchAuthMe());
+    localStorage.removeItem('language');
   }, []);
 
   if (

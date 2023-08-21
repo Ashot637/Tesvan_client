@@ -134,7 +134,7 @@ const Contacts = () => {
                   })}
                   autoComplete="off"
                   defaultValue={
-                    outOfStockDevice ? 'I want to order ' + outOfStockDevice + ' ' : undefined
+                    outOfStockDevice ? `${t('iWantToOrder')} ` + outOfStockDevice + ' ' : undefined
                   }
                   maxLength={160}
                   className={errors?.message ? classes.invalid : undefined}

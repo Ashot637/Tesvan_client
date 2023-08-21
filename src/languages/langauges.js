@@ -67,6 +67,7 @@ export const translationsEn = {
   moreInformation: 'More information',
   relateds: 'Related Products',
   quantity: 'Quantity',
+  iWantToOrder: 'I want to order',
 };
 export const translationsRu = {
   categories: 'Категории',
@@ -137,5 +138,6 @@ export const translationsRu = {
   moreInformation: 'Подробнее о товаре',
   relateds: 'Похожие продукты',
   quantity: 'Количество',
+  iWantToOrder: 'Я хочу заказать',
 };
 export const translationsAm = { test: 'Armenian' };

@@ -19,7 +19,7 @@ const Card = ({ item, brands }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { categories } = useSelector((state) => state.categories);
-  const { devices: comparingDevices } = useSelector((state) => state.compare);
+  const { devicesIds: comparingDevices } = useSelector((state) => state.compare);
   const { t } = useTranslation();
 
   const onAddToCart = (item) => {
@@ -32,7 +32,7 @@ const Card = ({ item, brands }) => {
   };
 
   const onAddToCompare = (item) => {
-    dispatch(addDeviceComparing(item));
+    dispatch(addDeviceComparing(item.id));
   };
 
   const getItemTypeImg = (id) => {
@@ -73,9 +73,7 @@ const Card = ({ item, brands }) => {
           icon={faCodeCompare}
           className={[
             classes.compare,
-            comparingDevices.find((devices) => devices.id === item.id)
-              ? classes.selected
-              : undefined,
+            comparingDevices.find((id) => id === item.id) ? classes.selected : undefined,
           ].join(' ')}
           onClick={() => onAddToCompare(item)}
         />

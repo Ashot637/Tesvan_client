@@ -23,7 +23,7 @@ const SimpleDevice = ({ device, relateds }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { brands } = useSelector((state) => state.brands);
-  const { devices: comparingDevices } = useSelector((state) => state.compare);
+  const { devicesIds: comparingDevices } = useSelector((state) => state.compare);
   const [swiperRef, setSwiperRef] = useState();
   const [moreOpen, setMoreOpen] = useState(false);
   const [img, setImg] = useState(device?.images[0]);
@@ -76,11 +76,9 @@ const SimpleDevice = ({ device, relateds }) => {
                   icon={faCodeCompare}
                   className={[
                     classes.compare,
-                    comparingDevices.find((devices) => devices.id === device.id)
-                      ? classes.selected
-                      : undefined,
+                    comparingDevices.find((id) => id === device.id) ? classes.selected : undefined,
                   ].join(' ')}
-                  onClick={() => dispatch(addDeviceComparing(device))}
+                  onClick={() => dispatch(addDeviceComparing(device.id))}
                 />
               </div>
               <div className={classes.body}>

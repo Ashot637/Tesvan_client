@@ -7,7 +7,9 @@ const instance = axios.create({
 instance.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
   const language = JSON.parse(localStorage.getItem('language'));
-  config.headers.language = `${language.title}`;
+  if (language) {
+    config.headers.language = `${language.title}`;
+  }
   return config;
 });
 
