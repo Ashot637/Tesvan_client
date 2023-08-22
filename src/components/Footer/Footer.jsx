@@ -38,14 +38,14 @@ const Footer = () => {
                 <NavLink
                   className={({ isActive }) => (isActive ? classes.active : undefined)}
                   to={'/about-us'}>
-                  {t('about')}
+                  {t('about-us')}
                 </NavLink>
               </li>
               <li className={classes.link}>
                 <NavLink
                   className={({ isActive }) => (isActive ? classes.active : undefined)}
                   to={'/credit-terms'}>
-                  {t('terms')}
+                  {t('credit-terms')}
                 </NavLink>
               </li>
               <li className={classes.link}>

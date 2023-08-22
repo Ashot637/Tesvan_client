@@ -96,11 +96,11 @@ const Cart = () => {
                   <div className={classes.back} onClick={() => dispatch(toggleIsOpen())}>
                     {'<<'} {t('back')}
                   </div>
-                  <Link to="/order" onClick={() => dispatch(toggleIsOpen())}>
+                  <Link to="/make-order" onClick={() => dispatch(toggleIsOpen())}>
                     <button
                       disabled={devices.find((device) => device.quantity === 0)}
                       className={classes.done}>
-                      {t('makeOrder')}
+                      {t('make-order')}
                     </button>
                   </Link>
                 </div>

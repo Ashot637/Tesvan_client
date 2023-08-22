@@ -10,7 +10,6 @@ import {
   fetchFilters,
   removeAllFilters,
   setCategorieId,
-  setCategorieLabel,
   setPage,
 } from '../redux/slices/devicesSlice';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';

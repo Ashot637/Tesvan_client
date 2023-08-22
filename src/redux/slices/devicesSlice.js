@@ -138,7 +138,6 @@ export const {
   setPage,
   setBrandId,
   setCategorieId,
-  setCategorieLabel,
   setMinPrice,
   setMaxPrice,
   setSortType,

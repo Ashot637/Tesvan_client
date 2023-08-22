@@ -145,7 +145,6 @@ const SimpleDevice = ({ device, relateds }) => {
                       </tbody>
                     </table>
                     {device?.quantity !== 0 && <div className={classes.line} />}
-
                     {device?.quantity === 0 ? (
                       <div className={classes.out}>
                         <span>{t('outOfStock')}</span>
@@ -176,7 +175,7 @@ const SimpleDevice = ({ device, relateds }) => {
                         <div className={classes.btns}>
                           <Link
                             to={{
-                              pathname: location.pathname + '/order',
+                              pathname: location.pathname + '/make-order',
                               search: '?quantity=' + count,
                             }}>
                             <button>{t('buy')}</button>

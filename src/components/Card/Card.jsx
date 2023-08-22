@@ -83,7 +83,7 @@ const Card = ({ item, brands }) => {
         to={
           categories.find((c) => c.id === item.categorieId) &&
           '/categories/' +
-            categories.find((c) => c.id === item.categorieId).title.toLowerCase() +
+            categories.find((c) => c.id === item.categorieId).title_en.toLowerCase() +
             '/' +
             item.id
         }>
@@ -118,10 +118,10 @@ const Card = ({ item, brands }) => {
             to={
               categories.find((c) => c.id === item.categorieId) &&
               '/categories/' +
-                categories.find((c) => c.id === item.categorieId).title.toLowerCase() +
+                categories.find((c) => c.id === item.categorieId).title_en.toLowerCase() +
                 '/' +
                 item.id +
-                '/order'
+                '/make-order'
             }>
             <button>{t('buy')}</button>
           </Link>

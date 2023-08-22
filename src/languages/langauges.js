@@ -25,7 +25,7 @@ export const translationsEn = {
   max: 'Max',
   outOfStock: 'Out of stock',
   contactUs: 'Contact us',
-  makeOrder: 'Make order',
+  'make-order': 'Make order',
   name: 'Name',
   surname: 'Surname',
   email: 'Email',
@@ -68,11 +68,12 @@ export const translationsEn = {
   relateds: 'Related Products',
   quantity: 'Quantity',
   iWantToOrder: 'I want to order',
+  home: 'Home',
 };
 export const translationsRu = {
   categories: 'Категории',
-  about: 'O нас',
-  terms: 'Условия кредита',
+  'about-us': 'O нас',
+  'credit-terms': 'Условия кредита',
   contacts: 'Контакты',
   placeholder: 'введите название вашего продукта',
   sale: 'Распродажа',
@@ -96,7 +97,7 @@ export const translationsRu = {
   max: 'Мах',
   outOfStock: 'Нет в наличии',
   contactUs: 'Связаться с нами',
-  makeOrder: 'Сделать заказ',
+  'make-order': 'Сделать заказ',
   name: 'Имя',
   surname: 'Фамилия',
   phone: 'Номер телефона',
@@ -139,5 +140,6 @@ export const translationsRu = {
   relateds: 'Похожие продукты',
   quantity: 'Количество',
   iWantToOrder: 'Я хочу заказать',
+  home: 'Дом',
 };
 export const translationsAm = { test: 'Armenian' };
