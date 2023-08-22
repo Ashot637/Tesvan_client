@@ -36,9 +36,11 @@ const compareSlice = createSlice({
     },
     removeDeviceComparing: (state, action) => {
       state.devicesIds = state.devicesIds.filter((id) => id !== action.payload);
+      state.devices = state.devices.filter((device) => device.id !== action.payload);
     },
     removeAllComparing: (state) => {
       state.devicesIds = [];
+      state.devices = [];
     },
   },
   extraReducers: (builder) => {

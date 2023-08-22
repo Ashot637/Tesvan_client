@@ -134,16 +134,13 @@ const SimpleDevice = ({ device, relateds }) => {
                     <table className={classes.characteristics}>
                       <tbody>
                         {device.info &&
-                          device.info.map((i, index) => {
-                            let currentInfo = device.info.find(
-                              (information) => information.title === titles[index],
-                            );
-                            return currentInfo ? (
+                          device.info.slice(0, 3).map((i) => {
+                            return (
                               <tr key={i.id}>
-                                <td>{titles[index]}</td>
-                                <td>{currentInfo.description}</td>
+                                <td>{i.title}</td>
+                                <td>{i.description}</td>
                               </tr>
-                            ) : undefined;
+                            );
                           })}
                       </tbody>
                     </table>

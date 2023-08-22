@@ -61,7 +61,7 @@ const AdminDevices = () => {
               </td>
               <td onClick={() => navigateToEdit(device.id)}>
                 {brands.find((brand) => brand.id === device.brandId) &&
-                  brands.find((brand) => brand.id === device.brandId).title_en}
+                  brands.find((brand) => brand.id === device.brandId).title}
               </td>
               <td onClick={() => navigateToEdit(device.id)}>{device.quantity}</td>
               <td onClick={() => onDeleteDevice(device.id)}>

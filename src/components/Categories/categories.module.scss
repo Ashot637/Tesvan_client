@@ -1,7 +1,7 @@
 .inner {
   gap: 11px 20px;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   padding-bottom: 60px;
 }
 
@@ -14,8 +14,8 @@
   background: var(--primary);
   font-size: 50px;
   padding: 10px 50px;
-  max-width: 205px;
   cursor: pointer;
+  border-radius: 3px;
   border-bottom: 1px solid transparent;
 
   &:hover {
@@ -37,23 +37,74 @@
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1150px) {
+  .categorie {
+    padding: 10px 30px;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .inner {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .categorie {
+    img {
+      width: 85px;
+    }
+  }
   .inner {
     column-gap: 10px;
   }
+}
+
+@media screen and (max-width: 710px) {
   .categorie {
-    max-width: 150px;
+    row-gap: 7px;
     img {
       width: 66px;
     }
     span {
-      font-size: 18px;
+      font-size: 16px;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .inner {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .inner {
+    column-gap: 10px;
+  }
+}
+
+@media screen and (max-width: 495px) {
+  .inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 495px) and (min-width: 380px) {
+  .inner {
+    column-gap: 20px;
+  }
+
+  .categorie {
+    img {
+      width: 75px;
     }
   }
 }
 
 @media screen and (max-width: 330px) {
   .categorie {
-    max-width: 145px;
+    padding: 10px 25px;
   }
 }

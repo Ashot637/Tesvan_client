@@ -249,7 +249,7 @@ const EditNewDevice = () => {
     if (language === 'Eng') {
       content = info.map((i) => {
         return (
-          <div className={classes.info}>
+          <div key={i.id} className={classes.info}>
             <div className={classes.field}>
               <label>Info title (Eng)</label>
               <input
@@ -277,7 +277,7 @@ const EditNewDevice = () => {
     } else if (language === 'Ru') {
       content = info.map((i) => {
         return (
-          <div className={classes.info}>
+          <div key={i.id} className={classes.info}>
             <div className={classes.field}>
               <label>Info title (Ru)</label>
               <input
@@ -305,7 +305,7 @@ const EditNewDevice = () => {
     } else {
       content = info.map((i) => {
         return (
-          <div className={classes.info}>
+          <div key={i.id} className={classes.info}>
             <div className={classes.field}>
               <label>Info title (Arm)</label>
               <input
@@ -424,7 +424,10 @@ const EditNewDevice = () => {
       <ul className={classes.languages}>
         {langauges.map((lan) => {
           return (
-            <li className={language === lan && classes.active} onClick={() => setLanguage(lan)}>
+            <li
+              className={language === lan ? classes.active : undefined}
+              key={lan}
+              onClick={() => setLanguage(lan)}>
               {lan}
             </li>
           );
