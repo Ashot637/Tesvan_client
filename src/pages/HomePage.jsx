@@ -11,7 +11,7 @@ const HomePage = () => {
       <Intro />
       <CategoriesSlider />
       <TypedItems title={'sale'} typeId={1} link={'sale'} limit={8} />
-      <TypedItems title={'newCollection'} typeId={2} link={'new-collection'} limit={8} />
+      <TypedItems title={'new-collection'} typeId={2} link={'new-collection'} limit={8} />
       <Slider />
       <TypedItems title={'bestsellers'} typeId={3} link={'bestsellers'} limit={4} />
       <Brands />

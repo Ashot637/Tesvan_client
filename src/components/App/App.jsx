@@ -53,7 +53,7 @@ const App = () => {
         <Route path="/sale" element={<ItemsMainPage typeId={1} title={'sale'} />} />
         <Route
           path="/new-collection"
-          element={<ItemsMainPage typeId={2} title={'newCollection'} />}
+          element={<ItemsMainPage typeId={2} title={'new-collection'} />}
         />
         <Route path="/bestsellers" element={<ItemsMainPage typeId={3} title={'bestsellers'} />} />
 

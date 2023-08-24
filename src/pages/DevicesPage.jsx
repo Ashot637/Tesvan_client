@@ -5,7 +5,7 @@ import DevicesList from '../components/DevicesLIst/DevicesList';
 import { fetchBrands } from '../redux/slices/brandSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import SortBy from '../components/SortBy/SortBy';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   fetchFilters,
   removeAllFilters,
@@ -19,6 +19,7 @@ import { CSSTransition } from 'react-transition-group';
 
 const DevicesPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { categorie } = useParams();
   const { brandId, activeFilters, minPrice, maxPrice } = useSelector((state) => state.devices);
   const { categories } = useSelector((state) => state.categories);
@@ -33,6 +34,12 @@ const DevicesPage = () => {
       setCategorieTitle(selectedCategorie.title);
       dispatch(fetchFilters({ categorieId }));
       dispatch(fetchBrands({ categorieId }));
+    } else if (
+      categories.length &&
+      categorie &&
+      !categories.find((c) => c.title_en.toLowerCase() === categorie)
+    ) {
+      navigate('/');
     }
   }, [categorie, categories]);
 

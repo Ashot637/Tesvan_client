@@ -185,6 +185,7 @@ const OrderForm = ({ device }) => {
                         return !!value.trim();
                       },
                     })}
+                    maxLength={60}
                     autoComplete="off"
                     type="text"
                     className={errors?.email ? classes.invalid : undefined}
