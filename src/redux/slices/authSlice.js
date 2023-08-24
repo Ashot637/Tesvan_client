@@ -3,7 +3,11 @@ import axios from '../../helpers/axios';
 import jwt_decode from 'jwt-decode';
 
 export const fetchLogin = createAsyncThunk('auth/fetchLogin', async (params) => {
-  const { data } = await axios.post('/auth/login', { ...params });
+  await axios.post('/auth/login', { ...params });
+});
+
+export const fetchCode = createAsyncThunk('auth/fetchCode', async ({ numbers }) => {
+  const { data } = await axios.post('/verifyCode', { numbers });
   const res = jwt_decode(data);
   localStorage.setItem('token', data);
   return res;
@@ -19,7 +23,9 @@ export const fetchAuthMe = createAsyncThunk('auth/fetchAuthMe', async () => {
 const initialState = {
   admin: null,
   status: 'waiting',
+  waitingCode: false,
   inValid: false,
+  inValidCode: false,
 };
 
 const authSlice = createSlice({
@@ -32,17 +38,11 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchLogin.pending, (state) => {
-      state.status = 'loading';
-      state.admin = null;
-    });
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
-      state.status = 'success';
-      state.admin = action.payload;
+      state.waitingCode = true;
+      state.inValid = false;
     });
     builder.addCase(fetchLogin.rejected, (state) => {
-      state.status = 'error';
-      state.admin = null;
       state.inValid = true;
     });
     builder.addCase(fetchAuthMe.pending, (state) => {
@@ -54,8 +54,21 @@ const authSlice = createSlice({
       state.admin = action.payload;
     });
     builder.addCase(fetchAuthMe.rejected, (state) => {
+      state.admin = null;
+      state.status = 'error';
+    });
+    builder.addCase(fetchCode.pending, (state) => {
+      state.status = 'loading';
+      state.admin = null;
+    });
+    builder.addCase(fetchCode.fulfilled, (state, action) => {
+      state.status = 'success';
+      state.admin = action.payload;
+    });
+    builder.addCase(fetchCode.rejected, (state) => {
       state.status = 'error';
       state.admin = null;
+      state.inValidCode = true;
     });
   },
 });

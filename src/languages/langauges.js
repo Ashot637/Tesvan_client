@@ -1,7 +1,7 @@
 export const translationsEn = {
   categories: 'Categories',
-  about: 'About Us',
-  terms: 'Credit terms',
+  'about-us': 'About Us',
+  'credit-terms': 'Credit terms',
   contacts: 'Contacts',
   placeholder: 'enter your product name',
   sale: 'Sale',

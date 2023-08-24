@@ -297,3 +297,15 @@ main {
   box-shadow: none;
   background: transparent;
 }
+
+.notification {
+  opacity: 1;
+}
+
+.notification-success {
+  background-color: var(--yellow) !important;
+}
+
+.notification-error {
+  background-color: var(--danger) !important;
+}

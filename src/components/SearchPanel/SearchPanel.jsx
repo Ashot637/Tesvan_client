@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classes from './searchPanel.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -14,11 +14,30 @@ const SearchPanel = () => {
   const [devices, setDevices] = useState([]);
   const [empty, setEmpty] = useState(false);
   const { categories } = useSelector((state) => state.categories);
+  const searchRef = useRef();
   const { t } = useTranslation();
 
   useEffect(() => {
     setEmpty(false);
     onSearch(term);
+  }, [term]);
+
+  useEffect(() => {
+    const closePopup = (e) => {
+      if (!searchRef.current?.contains(e.target)) {
+        setTerm('');
+        setDevices([]);
+      }
+    };
+    if (term) {
+      document.body.addEventListener('mousedown', closePopup);
+    } else {
+      document.body.removeEventListener('mousedown', closePopup);
+    }
+
+    return () => {
+      document.body.removeEventListener('mousedown', closePopup);
+    };
   }, [term]);
 
   const onSearch = useCallback(
@@ -42,7 +61,7 @@ const SearchPanel = () => {
   );
 
   return (
-    <form className={classes.search} onSubmit={(e) => e.preventDefault()}>
+    <form className={classes.search} ref={searchRef} onSubmit={(e) => e.preventDefault()}>
       <input
         type="text"
         value={term}

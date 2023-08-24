@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classes from './slider.module.scss';
-import iphone from '../../img/iphone.png';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { useSelector } from 'react-redux';
@@ -34,8 +32,6 @@ const Slider = () => {
     <div className={[classes.slider, 'phone-slider'].join(' ')}>
       {slides && devices && (
         <Swiper
-          modules={[Pagination]}
-          pagination={true}
           slidesPerView={2}
           spaceBetween={40}
           centeredSlides={true}

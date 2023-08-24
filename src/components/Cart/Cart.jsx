@@ -24,12 +24,12 @@ const Cart = () => {
 
   useEffect(() => {
     const ids = devices.map((device) => device.id);
-    devices = devices.map((d) => {
+    let items = devices.map((d) => {
       let { quantity, ...data } = d;
       return data;
     });
     axios.post('/devices/ids', { ids }).then(({ data }) => {
-      let newDevices = mergeArrays(data, devices);
+      let newDevices = mergeArrays(data, items);
       newDevices = newDevices.map((device) => {
         if (device.quantity < device.count) {
           return {
@@ -63,10 +63,16 @@ const Cart = () => {
   };
 
   return (
-    <div className={classes.overlay}>
+    <div
+      className={classes.overlay}
+      onClick={(e) => {
+        if (e.target.classList[0]?.includes('overlay')) {
+          dispatch(toggleIsOpen(false));
+        }
+      }}>
       <CSSTransition in={isOpen} timeout={400} classNames="cart" unmountOnExit>
         <div className={classes.cart}>
-          <div className={classes.close} onClick={() => dispatch(toggleIsOpen())}>
+          <div className={classes.close} onClick={() => dispatch(toggleIsOpen(false))}>
             <FontAwesomeIcon icon={faClose} />
           </div>
           <div className={classes.title}>{t('cart')}</div>

@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 import classes from './adminLogin.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLogin } from '../../../../redux/slices/authSlice';
+import { fetchCode, fetchLogin } from '../../../../redux/slices/authSlice';
 import { Navigate } from 'react-router-dom';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [numbers, setNumbers] = useState('');
   const dispatch = useDispatch();
-  const { admin, inValid } = useSelector((state) => state.auth);
+  const { admin, inValid, waitingCode, inValidCode } = useSelector((state) => state.auth);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      fetchLogin({
-        email,
-        password,
-      }),
-    );
+    if (waitingCode) {
+      dispatch(fetchCode({ numbers }));
+    } else {
+      dispatch(
+        fetchLogin({
+          email,
+          password,
+        }),
+      );
+    }
   };
 
   if (admin) {
@@ -35,7 +40,14 @@ const AdminLogin = () => {
           <label>Password</label>
           <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
+        {waitingCode && (
+          <div className={classes.field}>
+            <label>6 Digit code</label>
+            <input type="number" value={numbers} onChange={(e) => setNumbers(e.target.value)} />
+          </div>
+        )}
         {inValid && <p>Invalid email or password</p>}
+        {inValidCode && <p>Invalid Code</p>}
         <button type="submit" disabled={!email.trim() || !password.trim()}>
           Log in
         </button>

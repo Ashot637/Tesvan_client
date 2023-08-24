@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './card.module.scss';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { faCodeCompare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { addDevice } from '../../redux/slices/cartSlice';
+import { addDevice, toggleIsOpen } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
 import { addDeviceComparing } from '../../redux/slices/compareSlice';
 
@@ -20,16 +20,26 @@ const Card = ({ item, brands }) => {
   const { id } = useParams();
   const { categories } = useSelector((state) => state.categories);
   const { devicesIds: comparingDevices } = useSelector((state) => state.compare);
+  const { devices } = useSelector((state) => state.cart);
+  const [inCart, setInCart] = useState();
   const { t } = useTranslation();
 
   const onAddToCart = (item) => {
-    item = {
-      ...item,
-      count: 1,
-    };
+    if (inCart) {
+      dispatch(toggleIsOpen());
+    } else {
+      item = {
+        ...item,
+        count: 1,
+      };
 
-    dispatch(addDevice(item));
+      dispatch(addDevice(item));
+    }
   };
+
+  useEffect(() => {
+    setInCart(devices.find((device) => device.id === item.id));
+  }, [devices]);
 
   const onAddToCompare = (item) => {
     dispatch(addDeviceComparing(item.id));
@@ -125,7 +135,9 @@ const Card = ({ item, brands }) => {
             }>
             <button>{t('buy')}</button>
           </Link>
-          <button onClick={() => onAddToCart(item)}>{t('addToCart')}</button>
+          <button onClick={() => onAddToCart(item)}>
+            {inCart ? 'Added to Cart' : t('addToCart')}
+          </button>
         </div>
       )}
     </div>

@@ -211,10 +211,10 @@
     width: 5px;
   }
   &::-webkit-scrollbar-track {
-    background: var(--darkBlue);
+    background: var(--primary);
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--primary);
+    background: var(--darkBlue);
   }
 
   tr {

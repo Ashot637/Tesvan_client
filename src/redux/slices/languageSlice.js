@@ -1,4 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import en from '../../img/en.webp';
+import am from '../../img/am.webp';
+import ru from '../../img/ru.png';
 
 const getLanguageFromLS = () => {
   const language = localStorage.getItem('language');
@@ -6,6 +9,7 @@ const getLanguageFromLS = () => {
     JSON.parse(language) || {
       label: 'English',
       title: 'en',
+      img: en,
     }
   );
 };
@@ -16,14 +20,17 @@ const initialState = {
     {
       label: 'English',
       title: 'en',
+      img: en,
     },
     {
       label: 'Russian',
       title: 'ru',
+      img: ru,
     },
     {
       label: 'Armenian',
       title: 'am',
+      img: am,
     },
   ],
 };

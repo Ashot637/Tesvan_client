@@ -5,9 +5,16 @@ import { faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { addDevice, minusDevice, removeDevice } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
+import { useNavigate } from 'react-router-dom';
 
 const CartItem = memo(({ item, responsive }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const navigateToOrderOutOfStock = () => {
+    localStorage.setItem('outOfStockDeviceTitle', item.title);
+    navigate('/contacts/order');
+  };
 
   return (
     <>
@@ -97,7 +104,9 @@ const CartItem = memo(({ item, responsive }) => {
             </div>
           </div>
           {item.quantity === 0 ? (
-            <span className={classes.contactUs}>Contact Us</span>
+            <span onClick={navigateToOrderOutOfStock} className={classes.contactUs}>
+              Contact Us
+            </span>
           ) : (
             <div className={classes.devicePrice}>{getPrice(item.price * item.count)} AMD</div>
           )}

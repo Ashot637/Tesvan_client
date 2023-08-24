@@ -62,7 +62,6 @@ const OrderForm = ({ device }) => {
   const [message, setMessage] = useState('');
   const [phone, setPhone] = useState('');
   const [phoneValid, setPhoneValid] = useState(false);
-  const [isError, setIsError] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(1);
   const [deliveryMethod, setDeliveryMethod] = useState(1);
   const { t } = useTranslation();
@@ -111,14 +110,15 @@ const OrderForm = ({ device }) => {
       devices: JSON.stringify(orderedDevices),
       phone,
     };
-    axios.post('/orders', data).catch((e) => setIsError(true));
-    if (isError) return;
-    // if (!device) {
-    //   dispatch(removeAll());
-    // }
+    axios.post('/orders', data).catch((e) => {
+      console.log(e); //
+    });
+    if (!device) {
+      dispatch(removeAll());
+    }
     reset();
     setMessage('');
-    setIsError(false);
+    setPhone('');
     navigate('/');
   };
 
@@ -129,7 +129,7 @@ const OrderForm = ({ device }) => {
       <div className="container">
         <div className={classes.blocks}>
           <div className={classes.block}>
-            <div className={classes.title}>{t('makeOrder')}</div>
+            <div className={classes.title}>{t('make-order')}</div>
             <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
               <div className={classes.fields}>
                 <div className={classes.field}>
@@ -178,8 +178,7 @@ const OrderForm = ({ device }) => {
                     {...register('email', {
                       required: t('required'),
                       pattern: {
-                        value:
-                          /^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)[\\.]([a-zA-Z]{2,9})$/,
+                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                         message: t('requiredEmail'),
                       },
                       validate: (value) => {
@@ -235,7 +234,6 @@ const OrderForm = ({ device }) => {
                   <span className={classes.symbols}>{message.length}/160</span>
                 </div>
               </div>
-              {isError && <div className={classes.error}>Something went wrong. Try again.</div>}
               <div className={classes.payment}>
                 <h3>{t('paymentMethod')}</h3>
                 <span>{t('selectPaymentMethod')}</span>

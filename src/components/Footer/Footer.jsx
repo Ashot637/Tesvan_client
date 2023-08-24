@@ -24,7 +24,7 @@ const Footer = () => {
   return (
     <>
       <footer>
-        <div className="container">
+        <div className="container" style={{ overflowX: 'hidden' }}>
           <div className={classes.inner}>
             <ul className={classes.nav}>
               <li className={classes.link}>

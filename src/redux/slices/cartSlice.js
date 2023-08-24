@@ -77,8 +77,12 @@ const cartSlice = createSlice({
         findItem.count--;
       }
     },
-    toggleIsOpen: (state) => {
-      state.isOpen = !state.isOpen;
+    toggleIsOpen: (state, action) => {
+      if (action.payload === false) {
+        state.isOpen = action.payload;
+      } else {
+        state.isOpen = !state.isOpen;
+      }
       state.notificationShow = false;
     },
     setNotificationShow: (state, action) => {

@@ -13,7 +13,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Card from '../Card/Card';
 import getPrice from '../../helpers/getPrice';
-import { addDevice } from '../../redux/slices/cartSlice';
+import { addDevice, toggleIsOpen } from '../../redux/slices/cartSlice';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { addDeviceComparing } from '../../redux/slices/compareSlice';
 import { useTranslation } from 'react-i18next';
@@ -24,11 +24,12 @@ const SimpleDevice = ({ device, relateds }) => {
   const navigate = useNavigate();
   const { brands } = useSelector((state) => state.brands);
   const { devicesIds: comparingDevices } = useSelector((state) => state.compare);
+  const { devices } = useSelector((state) => state.cart);
+  const [inCart, setInCart] = useState();
   const [swiperRef, setSwiperRef] = useState();
   const [moreOpen, setMoreOpen] = useState(false);
   const [img, setImg] = useState(device?.images[0]);
   const [count, setCount] = useState(1);
-  const titles = ['Color', 'Memory', 'RAM'];
   const { t } = useTranslation();
 
   const onChangeCount = (i) => {
@@ -36,12 +37,16 @@ const SimpleDevice = ({ device, relateds }) => {
   };
 
   const onAddToCart = (item) => {
-    item = {
-      ...item,
-      count,
-    };
+    if (inCart) {
+      dispatch(toggleIsOpen());
+    } else {
+      item = {
+        ...item,
+        count,
+      };
 
-    dispatch(addDevice(item));
+      dispatch(addDevice(item));
+    }
   };
 
   const navigateToOrderOutOfStock = () => {
@@ -52,6 +57,10 @@ const SimpleDevice = ({ device, relateds }) => {
   useEffect(() => {
     setCount(1);
   }, [location]);
+
+  useEffect(() => {
+    setInCart(devices.find((item) => item.id === device.id));
+  }, [devices]);
 
   const handlePrevious = useCallback(() => {
     swiperRef?.slidePrev();
@@ -180,7 +189,9 @@ const SimpleDevice = ({ device, relateds }) => {
                             }}>
                             <button>{t('buy')}</button>
                           </Link>
-                          <button onClick={() => onAddToCart(device)}>{t('addToCart')}</button>
+                          <button onClick={() => onAddToCart(device)}>
+                            {inCart ? 'Added to cart' : t('addToCart')}
+                          </button>
                         </div>
                       </>
                     )}

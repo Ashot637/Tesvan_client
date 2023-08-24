@@ -5,6 +5,11 @@ import axios from '../../helpers/axios';
 import Phone from '../Phone/Phone';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 const Contacts = () => {
   const location = useLocation();
@@ -43,9 +48,20 @@ const Contacts = () => {
       return;
     }
     let formData = { ...data, phone };
-    axios.post('/contacts', formData);
-    reset();
-    setChecked(false);
+    axios
+      .post('/contacts1', formData)
+      .then(() => {
+        NotificationManager.success('Success message', 'Title here', '2000');
+        // reset();
+        // setPhone('');
+        // setChecked(false);
+      })
+      .catch(() => {
+        NotificationManager.error('Error message', 'Title here', '2000');
+        // reset();
+        // setPhone('');
+        // setChecked(false);
+      });
   };
 
   useEffect(() => {
@@ -108,14 +124,14 @@ const Contacts = () => {
                   {...register('email', {
                     required: t('required'),
                     pattern: {
-                      value:
-                        /^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)[\\.]([a-zA-Z]{2,9})$/,
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                       message: t('requiredEmail'),
                     },
                     validate: (value) => {
                       return !!value.trim();
                     },
                   })}
+                  maxLength={60}
                   autoComplete="off"
                   type="text"
                   className={errors?.email ? classes.invalid : undefined}
@@ -147,7 +163,9 @@ const Contacts = () => {
             </div>
             <div className={classes.terms}>
               <input type="checkbox" ref={checkboxRef} style={{ display: 'none' }} />
-              <div className={classes.checkbox} onClick={onAcceptTerms}></div>
+              <div className={classes.checkbox} onClick={onAcceptTerms}>
+                {checked && <FontAwesomeIcon icon={faCheck} className={classes.check} />}
+              </div>
               <a href="/">{t('policy')}</a>
             </div>
             <button
@@ -159,6 +177,7 @@ const Contacts = () => {
           </form>
         </div>
       </div>
+      <NotificationContainer />
     </div>
   );
 };

@@ -32,7 +32,6 @@ const CategoriesSlider = () => {
             onSwiper={setSwiperRef}
             slidesPerView={5}
             slidesOffsetAfter={0}
-            freeMode={true}
             breakpoints={{
               200: {
                 slidesPerView: 2,

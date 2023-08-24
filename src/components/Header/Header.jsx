@@ -7,7 +7,6 @@ import {
   faBars,
   faCartShopping,
   faCodeCompare,
-  faGlobe,
   faMagnifyingGlass,
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
@@ -35,6 +34,7 @@ const Header = () => {
   const { language, languagesList } = useSelector((state) => state.language);
   const [scrolling, setScrolling] = useState(false);
   const mounted = useRef(false);
+  const langRef = useRef(false);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -78,6 +78,23 @@ const Header = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const closePopup = (e) => {
+      if (!langRef.current?.contains(e.target)) {
+        setIsOpenLanguage(false);
+      }
+    };
+    if (isOpenLanguage) {
+      document.body.addEventListener('mousedown', closePopup);
+    } else {
+      document.body.removeEventListener('mousedown', closePopup);
+    }
+
+    return () => {
+      document.body.removeEventListener('mousedown', closePopup);
+    };
+  }, [isOpenLanguage]);
+
   const onChangeLanguage = (lan) => {
     dispatch(changeLanguage(lan));
   };
@@ -93,8 +110,8 @@ const Header = () => {
                 <span>+ (374) 91 75 19 00</span>
               </a>
             </li>
-            <li onClick={() => setIsOpenLanguage((isOpen) => !isOpen)}>
-              <FontAwesomeIcon icon={faGlobe} />
+            <li ref={langRef} onClick={() => setIsOpenLanguage((isOpen) => !isOpen)}>
+              <img src={language.img} alt={language.label} width={20} height={10} />
               <div className="select">{language.label}</div>
               <FontAwesomeIcon
                 className={classes.angle}
@@ -106,7 +123,8 @@ const Header = () => {
                   {languagesList.map((lan) => {
                     return lan.title === language.title ? undefined : (
                       <li key={lan.title} onClick={() => onChangeLanguage(lan)}>
-                        {lan.label}
+                        <img src={lan.img} alt={language.label} width={20} height={10} />
+                        <p>{lan.label}</p>
                       </li>
                     );
                   })}
