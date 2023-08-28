@@ -93,13 +93,16 @@ const SimpleDevice = ({ device, relateds }) => {
               <div className={classes.body}>
                 <div className={classes.images}>
                   <div className={classes.mainImg}>
-                    <img src={'http://localhost:8080/' + img} alt="Device" />
+                    <img src={'http://tesvan-electronics.onrender.com/' + img} alt="Device" />
                   </div>
                   <div className={classes.otherImages}>
                     {device.images.map((image) => {
                       return (
                         <div key={image} className={classes.otherImg} onClick={() => setImg(image)}>
-                          <img src={'http://localhost:8080/' + image} alt="Device" />
+                          <img
+                            src={'http://tesvan-electronics.onrender.com/' + image}
+                            alt="Device"
+                          />
                         </div>
                       );
                     })}

@@ -76,7 +76,7 @@ const Slider = () => {
                       <button>{t('buy')}</button>
                     </Link>
                   </div>
-                  <img src={'http://localhost:8080/' + slide.img} alt="Slide" />
+                  <img src={'http://tesvan-electronics.onrender.com/' + slide.img} alt="Slide" />
                 </div>
               </SwiperSlide>
             );

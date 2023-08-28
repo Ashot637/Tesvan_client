@@ -51,7 +51,11 @@ const AdminDevices = () => {
             <tr key={device.id}>
               <td onClick={() => navigateToEdit(device.id)}>{device.id}</td>
               <td onClick={() => navigateToEdit(device.id)}>
-                <img src={'http://localhost:8080/' + device.images[0]} width={100} alt="Device" />
+                <img
+                  src={'http://tesvan-electronics.onrender.com/' + device.images[0]}
+                  width={100}
+                  alt="Device"
+                />
               </td>
               <td onClick={() => navigateToEdit(device.id)}>{device.title}</td>
               <td onClick={() => navigateToEdit(device.id)}>{device.price} AMD</td>

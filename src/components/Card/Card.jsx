@@ -98,7 +98,7 @@ const Card = ({ item, brands }) => {
             item.id
         }>
         <div className={classes.imgHolder}>
-          <img src={'http://localhost:8080/' + item?.images[0]} alt="Macbook" />
+          <img src={'http://tesvan-electronics.onrender.com/' + item?.images[0]} alt="Macbook" />
         </div>
         <span className={classes.name}>{item.title}</span>
         {item?.quantity === 0 ? (

@@ -68,7 +68,7 @@ const Brands = () => {
               return (
                 <SwiperSlide key={i}>
                   <div className={classes.slide}>
-                    <img src={'http://localhost:8080/' + brand.img} alt="Brand" />
+                    <img src={'http://tesvan-electronics.onrender.com/' + brand.img} alt="Brand" />
                   </div>
                 </SwiperSlide>
               );

@@ -56,7 +56,10 @@ const Intro = () => {
                       <span>{slide.description}</span>
                     </div>
                     <div className={classes.img}>
-                      <img src={'http://localhost:8080/' + slide.img} alt="Slide" />
+                      <img
+                        src={'http://tesvan-electronics.onrender.com/' + slide.img}
+                        alt="Slide"
+                      />
                     </div>
                   </div>
                 </Link>
