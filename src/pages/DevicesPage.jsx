@@ -5,7 +5,7 @@ import DevicesList from '../components/DevicesLIst/DevicesList';
 import { fetchBrands } from '../redux/slices/brandSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import SortBy from '../components/SortBy/SortBy';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   fetchFilters,
   removeAllFilters,
@@ -16,16 +16,17 @@ import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { CSSTransition } from 'react-transition-group';
+import Page404 from './404';
 
 const DevicesPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { categorie } = useParams();
   const { brandId, activeFilters, minPrice, maxPrice } = useSelector((state) => state.devices);
   const { categories } = useSelector((state) => state.categories);
   const [categorieTitle, setCategorieTitle] = useState('');
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const { language } = useSelector((state) => state.language);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     let selectedCategorie = categories.find((c) => c.title_en.toLowerCase() === categorie);
@@ -39,7 +40,7 @@ const DevicesPage = () => {
       categorie &&
       !categories.find((c) => c.title_en.toLowerCase() === categorie)
     ) {
-      navigate('/');
+      setIsError(true);
     }
   }, [categorie, categories]);
 
@@ -59,6 +60,10 @@ const DevicesPage = () => {
       }
     }
   }, [categories, categorie]);
+
+  if (isError) {
+    return <Page404 />;
+  }
 
   return (
     <>

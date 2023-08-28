@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import SimpleDevice from '../components/SimpleDevice/SimpleDevice';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from '../helpers/axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBrands } from '../redux/slices/brandSlice';
+import Page404 from './404';
 
 const SimpleDevicePage = () => {
   const { id, categorie } = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [device, setDevice] = useState();
   const [relateds, setRelateds] = useState();
   const { categories } = useSelector((state) => state.categories);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     let localDevice;
@@ -30,7 +31,7 @@ const SimpleDevicePage = () => {
           });
       })
       .catch(() => {
-        navigate('/');
+        setIsError(true);
       });
     dispatch(fetchBrands(0));
   }, [id]);
@@ -44,9 +45,13 @@ const SimpleDevicePage = () => {
         (c) => +c.id === +device.categorieId && c.title_en.toLowerCase() === categorie,
       )
     ) {
-      navigate('/');
+      setIsError(true);
     }
   }, [categorie, categories, device]);
+
+  if (isError) {
+    return <Page404 />;
+  }
 
   return (
     <>

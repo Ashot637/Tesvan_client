@@ -49,7 +49,7 @@ const Contacts = () => {
     }
     let formData = { ...data, phone };
     axios
-      .post('/contacts1', formData)
+      .post('/contacts', formData)
       .then(() => {
         NotificationManager.success('Success message', 'Title here', '2000');
         // reset();

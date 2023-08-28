@@ -4,6 +4,7 @@ import OrderForm from '../components/OrderForm/OrderForm';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from '../helpers/axios';
 import { useSelector } from 'react-redux';
+import Page404 from './404';
 
 const OrderPage = () => {
   const { id, categorie } = useParams();
@@ -11,6 +12,7 @@ const OrderPage = () => {
   const navigate = useNavigate();
   const [device, setDevice] = useState();
   const { categories } = useSelector((state) => state.categories);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -21,7 +23,7 @@ const OrderPage = () => {
         .then(({ data }) =>
           setDevice([{ ...data, count: data.quantity < quantity ? data.quantity : quantity }]),
         )
-        .catch(() => navigate('/'));
+        .catch(() => setIsError(true));
     }
   }, [id, categorie]);
 
@@ -34,9 +36,13 @@ const OrderPage = () => {
         (c) => +c.id === +device[0].categorieId && c.title_en.toLowerCase() === categorie,
       )
     ) {
-      navigate('/');
+      setIsError(true);
     }
   }, [categorie, categories, device]);
+
+  if (isError) {
+    return <Page404 />;
+  }
 
   return (
     <>

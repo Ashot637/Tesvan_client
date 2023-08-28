@@ -2,22 +2,12 @@ import React, { Suspense, lazy } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-// import HomePage from '../../pages/HomePage';
-// import AboutUsPage from '../../pages/AboutUsPage';
-// import CreditTermsPage from '../../pages/CreditTermsPage';
-// import ContactsPage from '../../pages/ContactsPage';
-// import CategoriesPage from '../../pages/CategoriesPage';
-// import ItemsMainPage from '../../pages/ItemsMainPage';
-// import SimpleDevicePage from '../../pages/SimpleDevicePage';
-// import DevicesPage from '../../pages/DevicesPage';
-// import OrderPage from '../../pages/OrderPage';
-// import ComparePage from '../../pages/ComparePage';
-// import ThanksPage from '../../pages/ThanksPage';
 
 import ScrollToTop from '../../helpers/ScrollToTop';
 
 import { CategoriesPage, SimpleDevicePage, DevicesPage } from '../../pages';
 import Spinner from '../Spinner/Spinner';
+import Page404 from '../../pages/404';
 
 const HomePage = lazy(() => import('../../pages/HomePage'));
 const ContactsPage = lazy(() => import('../../pages/ContactsPage'));
@@ -83,7 +73,7 @@ const App = () => {
         <Route path="/thanks" element={<ThanksPage success />} />
         <Route path="/reject" element={<ThanksPage />} />
 
-        <Route path="*" element={<Navigate to={'/'} />} />
+        <Route path="*" element={<Page404 />} />
 
         <Route path="/admin" element={<AdminHome />}>
           <Route path="login" element={<AdminLogin />} />

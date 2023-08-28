@@ -22,8 +22,9 @@ const Pagination = () => {
             });
             dispatch(setPage(e.selected + 1));
           }}
-          pageRangeDisplayed={pagination}
-          pageCount={5}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={2}
+          pageCount={10}
           previousLabel="<"
           forcePage={page - 1}
         />

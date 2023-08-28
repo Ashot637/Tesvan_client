@@ -4,7 +4,7 @@ import classes from './spinner.module.scss';
 const Spinner = () => {
   return (
     <div className={classes.overlay}>
-      <span class={classes.loader}></span>;
+      <span className={classes.loader}></span>;
     </div>
   );
 };

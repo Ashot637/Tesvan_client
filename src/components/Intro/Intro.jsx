@@ -7,31 +7,27 @@ import { Autoplay, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { useSelector } from 'react-redux';
+import useSWR from 'swr';
+
+const fetcher = (url) => axios.get(url).then(({ data }) => data);
 
 const Intro = () => {
-  const [slides, setSlides] = useState();
-  const [devices, setDevices] = useState();
+  const { data: slides } = useSWR('/img/header', fetcher, { suspense: true });
+  const [devices, setDevices] = useState(Array(slides?.length));
   const { categories } = useSelector((state) => state.categories);
 
   useEffect(() => {
-    axios
-      .get('/img/header')
-      .then(({ data }) => {
-        setSlides(data);
-        return data;
-      })
-      .then((data) => {
-        let devicesIds = data.map((d) => d.deviceId);
-        axios.post('/devices/ids', { ids: devicesIds }).then(({ data }) => {
-          setDevices(data);
-        });
-      })
-      .catch((e) => console.log(e));
-  }, []);
+    if (slides?.length) {
+      let devicesIds = slides.map((slide) => slide.deviceId);
+      axios.post('/devices/ids', { ids: devicesIds }).then(({ data }) => {
+        setDevices(data);
+      });
+    }
+  }, [slides]);
 
   return (
     <>
-      {slides && devices && (
+      {slides ? (
         <Swiper
           autoplay={{
             delay: 3000,
@@ -48,11 +44,11 @@ const Intro = () => {
                 <Link
                   to={
                     devices[i] &&
-                    categories.find((c) => c.id === devices[i].categorieId) &&
+                    categories.find((c) => c.id === devices[i]?.categorieId) &&
                     '/categories/' +
-                      categories.find((c) => c.id === devices[i].categorieId).title.toLowerCase() +
+                      categories.find((c) => c.id === devices[i]?.categorieId).title.toLowerCase() +
                       '/' +
-                      devices[i].id
+                      devices[i]?.id
                   }>
                   <div className={classes.slide}>
                     <div className={classes.text}>
@@ -68,9 +64,13 @@ const Intro = () => {
             );
           })}
         </Swiper>
-      )}
+      ) : undefined}
     </>
   );
+};
+
+const SuspenseTrigger = () => {
+  throw new Promise(() => {});
 };
 
 export default Intro;
