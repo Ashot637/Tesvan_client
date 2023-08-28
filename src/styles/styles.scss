@@ -171,11 +171,11 @@ main {
   transition: opacity 300ms, transform 300ms;
 }
 .notification-exit {
-  opacity: 1;
+  opacity: 1 !important;
 }
 .notification-exit-active {
-  opacity: 0;
-  transform: scale(0.9);
+  opacity: 0 !important;
+  transform: scale(0.9) !important;
   transition: opacity 300ms, transform 300ms;
 }
 

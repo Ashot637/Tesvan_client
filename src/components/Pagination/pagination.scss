@@ -27,4 +27,11 @@
       background: var(--yellow) !important;
     }
   }
+
+  li.disabled {
+    opacity: 0.5;
+    a {
+      cursor: auto;
+    }
+  }
 }

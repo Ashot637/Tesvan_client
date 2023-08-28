@@ -15,9 +15,15 @@ const Pagination = () => {
           className="pagination"
           breakLabel="..."
           nextLabel=">"
-          onPageChange={(e) => dispatch(setPage(e.selected + 1))}
+          onPageChange={(e) => {
+            window.scrollTo({
+              top: 100,
+              behavior: 'smooth',
+            });
+            dispatch(setPage(e.selected + 1));
+          }}
           pageRangeDisplayed={pagination}
-          pageCount={pagination}
+          pageCount={5}
           previousLabel="<"
           forcePage={page - 1}
         />

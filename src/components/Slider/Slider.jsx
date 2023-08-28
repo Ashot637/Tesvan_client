@@ -6,11 +6,13 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { useSelector } from 'react-redux';
 import axios from '../../helpers/axios';
+import { useTranslation } from 'react-i18next';
 
 const Slider = () => {
   const [slides, setSlides] = useState();
   const [devices, setDevices] = useState();
   const { categories } = useSelector((state) => state.categories);
+  const { t } = useTranslation();
 
   useEffect(() => {
     axios
@@ -71,7 +73,7 @@ const Slider = () => {
                           '/' +
                           devices[i].id
                       }>
-                      <button>Buy</button>
+                      <button>{t('buy')}</button>
                     </Link>
                   </div>
                   <img src={'http://localhost:8080/' + slide.img} alt="Slide" />

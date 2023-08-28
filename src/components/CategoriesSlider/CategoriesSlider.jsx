@@ -11,8 +11,6 @@ const CategoriesSlider = () => {
   const [swiperRef, setSwiperRef] = useState();
   const { categories } = useSelector((state) => state.categories);
 
-  useEffect(() => {}, []);
-
   const handlePrevious = useCallback(() => {
     swiperRef?.slidePrev();
   }, [swiperRef]);

@@ -3,11 +3,14 @@ import classes from './adminLogin.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCode, fetchLogin } from '../../../../redux/slices/authSlice';
 import { Navigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [numbers, setNumbers] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { admin, inValid, waitingCode, inValidCode } = useSelector((state) => state.auth);
 
@@ -38,7 +41,16 @@ const AdminLogin = () => {
         </div>
         <div className={classes.field}>
           <label>Password</label>
-          <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <FontAwesomeIcon
+            className={classes.eye}
+            onClick={() => setShowPassword((showPassword) => !showPassword)}
+            icon={showPassword ? faEyeSlash : faEye}
+          />
         </div>
         {waitingCode && (
           <div className={classes.field}>

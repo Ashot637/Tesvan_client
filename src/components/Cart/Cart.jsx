@@ -6,13 +6,14 @@ import CartItem from '../CartItem/CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeAll, setDevices, toggleIsOpen } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useTranslation } from 'react-i18next';
 import axios from '../../helpers/axios';
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   let { devices, isOpen } = useSelector((state) => state.cart);
   const { t } = useTranslation();
 
@@ -102,7 +103,14 @@ const Cart = () => {
                   <div className={classes.back} onClick={() => dispatch(toggleIsOpen())}>
                     {'<<'} {t('back')}
                   </div>
-                  <Link to="/make-order" onClick={() => dispatch(toggleIsOpen())}>
+                  <Link
+                    to="/make-order"
+                    onClick={() => {
+                      dispatch(toggleIsOpen());
+                      // if (location.pathname.includes('/make-order')) {
+                      //   window.location.reload();
+                      // }
+                    }}>
                     <button
                       disabled={devices.find((device) => device.quantity === 0)}
                       className={classes.done}>

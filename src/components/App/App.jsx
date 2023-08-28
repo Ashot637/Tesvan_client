@@ -1,40 +1,63 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import HomePage from '../../pages/HomePage';
-import AboutUsPage from '../../pages/AboutUsPage';
-import CreditTermsPage from '../../pages/CreditTermsPage';
-import ContactsPage from '../../pages/ContactsPage';
-import CategoriesPage from '../../pages/CategoriesPage';
-import ItemsMainPage from '../../pages/ItemsMainPage';
-import SimpleDevicePage from '../../pages/SimpleDevicePage';
-import ScrollToTop from '../../helpers/ScrollToTop';
-import DevicesPage from '../../pages/DevicesPage';
-import OrderPage from '../../pages/OrderPage';
-import ComparePage from '../../pages/ComparePage';
-import ThanksPage from '../../pages/ThanksPage';
+// import HomePage from '../../pages/HomePage';
+// import AboutUsPage from '../../pages/AboutUsPage';
+// import CreditTermsPage from '../../pages/CreditTermsPage';
+// import ContactsPage from '../../pages/ContactsPage';
+// import CategoriesPage from '../../pages/CategoriesPage';
+// import ItemsMainPage from '../../pages/ItemsMainPage';
+// import SimpleDevicePage from '../../pages/SimpleDevicePage';
+// import DevicesPage from '../../pages/DevicesPage';
+// import OrderPage from '../../pages/OrderPage';
+// import ComparePage from '../../pages/ComparePage';
+// import ThanksPage from '../../pages/ThanksPage';
 
-import AdminHome from '../Admin/components/AdminHome/AdminHome';
-import AdminDevices from '../Admin/components/AdminDevices/AdminDevices';
-import AdminCategories from '../Admin/components/AdminCategories/AdminCategories';
-import AdminBrands from '../Admin/components/AdminBrands/AdminBrands';
-import AdminHeaderImages from '../Admin/components/AdminHeaderImages/AdminHeaderImages';
-import AdminSliderImages from '../Admin/components/AdminSliderImages/AdminSliderImages';
-import AdminMessages from '../Admin/components/AdminMessages/AdminMessages';
-import AdminOrders from '../Admin/components/AdminOrders/AdminOrders';
-import OrderInfo from '../Admin/components/OrderInfo/OrderInfo';
-import EditNewCategorie from '../Admin/components/EditNewCategorie/EditNewCategorie';
-import EditNewBrand from '../Admin/components/EditNewBrand/EditNewBrand';
-import EditNewDevice from '../Admin/components/EditNewDevice/EditNewDevice';
-import EditNewHeaderImg from '../Admin/components/EditNewHeaderImg/EditNewHeaderImg';
-import EditNewSliderImg from '../Admin/components/EditNewSliderImg/EditNewSliderImg';
-import AdminLogin from '../Admin/components/AdminLogin/AdminLogin';
+import ScrollToTop from '../../helpers/ScrollToTop';
+
+import { CategoriesPage, SimpleDevicePage, DevicesPage } from '../../pages';
+import Spinner from '../Spinner/Spinner';
+
+const HomePage = lazy(() => import('../../pages/HomePage'));
+const ContactsPage = lazy(() => import('../../pages/ContactsPage'));
+const OrderPage = lazy(() => import('../../pages/OrderPage'));
+const AboutUsPage = lazy(() => import('../../pages/AboutUsPage'));
+const CreditTermsPage = lazy(() => import('../../pages/CreditTermsPage'));
+const ThanksPage = lazy(() => import('../../pages/ThanksPage'));
+const ItemsMainPage = lazy(() => import('../../pages/ItemsMainPage'));
+const ComparePage = lazy(() => import('../../pages/ComparePage'));
+
+const AdminHome = lazy(() => import('../Admin/components/AdminHome/AdminHome'));
+const AdminDevices = lazy(() => import('../Admin/components/AdminDevices/AdminDevices'));
+const AdminCategories = lazy(() => import('../Admin/components/AdminCategories/AdminCategories'));
+const AdminBrands = lazy(() => import('../Admin/components/AdminBrands/AdminBrands'));
+const AdminHeaderImages = lazy(() =>
+  import('../Admin/components/AdminHeaderImages/AdminHeaderImages'),
+);
+const AdminSliderImages = lazy(() =>
+  import('../Admin/components/AdminSliderImages/AdminSliderImages'),
+);
+const AdminMessages = lazy(() => import('../Admin/components/AdminMessages/AdminMessages'));
+const AdminOrders = lazy(() => import('../Admin/components/AdminOrders/AdminOrders'));
+const OrderInfo = lazy(() => import('../Admin/components/OrderInfo/OrderInfo'));
+const EditNewCategorie = lazy(() =>
+  import('../Admin/components/EditNewCategorie/EditNewCategorie'),
+);
+const EditNewBrand = lazy(() => import('../Admin/components/EditNewBrand/EditNewBrand'));
+const EditNewDevice = lazy(() => import('../Admin/components/EditNewDevice/EditNewDevice'));
+const EditNewHeaderImg = lazy(() =>
+  import('../Admin/components/EditNewHeaderImg/EditNewHeaderImg'),
+);
+const EditNewSliderImg = lazy(() =>
+  import('../Admin/components/EditNewSliderImg/EditNewSliderImg'),
+);
+const AdminLogin = lazy(() => import('../Admin/components/AdminLogin/AdminLogin'));
 
 const App = () => {
   const location = useLocation();
   return (
-    <>
+    <Suspense fallback={<Spinner />}>
       {!location.pathname.includes('/admin') && <Header />}
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -93,7 +116,7 @@ const App = () => {
 
       {!location.pathname.includes('/admin') && <Footer />}
       <ScrollToTop />
-    </>
+    </Suspense>
   );
 };
 

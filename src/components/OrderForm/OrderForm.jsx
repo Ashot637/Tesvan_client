@@ -83,7 +83,10 @@ const OrderForm = ({ device }) => {
     } else {
       setDevices(cartDevices.filter((device) => device.quantity !== 0));
     }
-  }, [id]);
+    if (cartDevices.length === 0) {
+      navigate('/');
+    }
+  }, [id, cartDevices]);
 
   const onRemoveItem = (id) => {
     setDevices((devices) => devices.filter((device) => device.id !== id));

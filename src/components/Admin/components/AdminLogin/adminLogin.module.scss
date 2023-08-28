@@ -44,6 +44,7 @@
   flex-direction: column;
   row-gap: 5px;
   width: 100%;
+  position: relative;
 
   label {
     padding-left: 5px;
@@ -64,5 +65,13 @@
       outline: none;
       border-color: var(--yellow);
     }
+  }
+
+  .eye {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    color: white;
+    cursor: pointer;
   }
 }
