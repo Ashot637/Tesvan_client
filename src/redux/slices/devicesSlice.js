@@ -5,7 +5,7 @@ export const fetchDevices = createAsyncThunk(
   'devices/fetchDevices',
   async ({
     page,
-    brandId,
+    brandIds,
     categorieId,
     minPrice,
     maxPrice,
@@ -16,7 +16,7 @@ export const fetchDevices = createAsyncThunk(
     const { data } = await axios.get('/devices/filter', {
       params: {
         page,
-        brandId,
+        brandIds,
         categorieId,
         minPrice,
         maxPrice,
@@ -39,7 +39,7 @@ export const fetchFilters = createAsyncThunk('devices/fetchFilters', async ({ ca
 const initialState = {
   devices: [],
   page: 1,
-  brandId: 0,
+  brandIds: [],
   categorieId: 0,
   minPrice: 0,
   maxPrice: 2000000,
@@ -74,7 +74,11 @@ const devicesSlice = createSlice({
       state.page = action.payload;
     },
     setBrandId: (state, action) => {
-      state.brandId = action.payload;
+      if (state.brandIds.includes(action.payload)) {
+        state.brandIds = state.brandIds.filter((id) => id !== action.payload);
+      } else {
+        state.brandIds = [...state.brandIds, action.payload];
+      }
     },
     setCategorieId: (state, action) => {
       state.categorieId = action.payload;
@@ -89,19 +93,36 @@ const devicesSlice = createSlice({
       state.sortType = action.payload;
     },
     setActiveFilters: (state, action) => {
-      state.activeFilters = {
-        ...state.activeFilters,
-        [action.payload.title]: action.payload.description,
-      };
+      if (state.activeFilters[action.payload.title]) {
+        state.activeFilters = {
+          ...state.activeFilters,
+          [action.payload.title]: [
+            ...state.activeFilters[action.payload.title],
+            action.payload.description,
+          ],
+        };
+      } else {
+        state.activeFilters = {
+          ...state.activeFilters,
+          [action.payload.title]: [action.payload.description],
+        };
+      }
     },
     removeFilter: (state, action) => {
-      let obj = state.activeFilters;
-      delete obj[action.payload.title];
-      state.activeFilters = obj;
+      if (state.activeFilters[action.payload.title].length === 1) {
+        delete state.activeFilters[action.payload.title];
+      } else {
+        state.activeFilters = {
+          ...state.activeFilters,
+          [action.payload.title]: state.activeFilters[action.payload.title].filter(
+            (desc) => desc !== action.payload.description,
+          ),
+        };
+      }
     },
     removeAllFilters: (state) => {
       state.activeFilters = {};
-      state.brandId = 0;
+      state.brandIds = [];
       state.minPrice = 0;
       state.maxPrice = 2000000;
     },

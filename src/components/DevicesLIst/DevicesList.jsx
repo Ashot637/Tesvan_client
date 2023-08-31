@@ -13,7 +13,7 @@ const DevicesList = memo(() => {
     devices,
     status,
     page,
-    brandId,
+    brandIds,
     categorieId,
     minPrice,
     maxPrice,
@@ -26,7 +26,7 @@ const DevicesList = memo(() => {
   useEffect(() => {
     onChangeFilters({
       page,
-      brandId,
+      brandIds,
       categorieId,
       minPrice,
       maxPrice,
@@ -34,13 +34,13 @@ const DevicesList = memo(() => {
       sortFollowing: sortType.following,
       activeFilters,
     });
-  }, [page, brandId, categorieId, minPrice, maxPrice, sortType, activeFilters]);
+  }, [page, brandIds, categorieId, minPrice, maxPrice, sortType, activeFilters]);
 
   const onChangeFilters = useCallback(
     debounce(
       ({
         page,
-        brandId,
+        brandIds,
         categorieId,
         minPrice,
         maxPrice,
@@ -51,7 +51,7 @@ const DevicesList = memo(() => {
         dispatch(
           fetchDevices({
             page,
-            brandId,
+            brandIds,
             categorieId,
             minPrice,
             maxPrice,

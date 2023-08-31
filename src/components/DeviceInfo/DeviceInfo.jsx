@@ -9,7 +9,16 @@ const DeviceInfo = memo(({ info }) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    axios.get('deviceInfoCategories').then(({ data }) => setDeviceInfoCategories(data));
+    axios.get('deviceInfoCategories').then(({ data }) => {
+      let item = data.find((d) => d.title_en === 'Others');
+      let index = data.indexOf(item);
+
+      if (index !== -1) {
+        data.splice(index, 1);
+        data.push(item);
+      }
+      setDeviceInfoCategories(data);
+    });
   }, []);
 
   return (

@@ -16,7 +16,7 @@ import { debounce } from 'debounce';
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { brands } = useSelector((state) => state.brands);
-  const { brandId, activeFilters, filters, minPrice, maxPrice } = useSelector(
+  const { brandIds, minPrice, maxPrice, activeFilters, filters } = useSelector(
     (state) => state.devices,
   );
   const [min, setMin] = useState(minPrice);
@@ -28,7 +28,7 @@ const Sidebar = () => {
   };
 
   const onSelectFilter = (title, description) => {
-    if (activeFilters[title] === description) {
+    if (activeFilters[title]?.includes(description)) {
       dispatch(
         removeFilter({
           title,
@@ -76,10 +76,10 @@ const Sidebar = () => {
               return (
                 <div
                   key={brand.id}
-                  className={[classes.item, brandId === brand.id ? classes.active : ''].join(' ')}
-                  onClick={() =>
-                    brandId === brand.id ? onSelectBrand(0) : onSelectBrand(brand.id)
-                  }>
+                  className={[classes.item, brandIds.includes(brand.id) ? classes.active : ''].join(
+                    ' ',
+                  )}
+                  onClick={() => onSelectBrand(brand.id)}>
                   {brand.title}
                 </div>
               );
@@ -126,7 +126,7 @@ const Sidebar = () => {
                         key={desc}
                         className={[
                           classes.item,
-                          activeFilters[filter.title] === desc ? classes.active : '',
+                          activeFilters[filter.title]?.includes(desc) ? classes.active : '',
                         ].join(' ')}
                         onClick={() => onSelectFilter(filter.title, desc)}>
                         {desc}

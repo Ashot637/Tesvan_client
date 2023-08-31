@@ -14,6 +14,17 @@
 
 body {
   background: var(--darkBlue);
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--primary);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--yellow);
+    border-radius: 10px;
+  }
 }
 
 ul {
@@ -261,6 +272,22 @@ main {
 .PhoneInputCountry {
   left: 20px;
   top: 11px;
+}
+
+.PhoneInputCountrySelect {
+  background: var(--primary);
+  color: white;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--darkBlue);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--yellow);
+    border-radius: 10px;
+  }
 }
 
 .PhoneInputCountrySelectArrow {

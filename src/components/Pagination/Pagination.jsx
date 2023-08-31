@@ -32,7 +32,7 @@ const Pagination = () => {
           }}
           pageRangeDisplayed={5}
           marginPagesDisplayed={2}
-          pageCount={10}
+          pageCount={pagination}
           previousLabel="<"
           forcePage={page - 1}
         />

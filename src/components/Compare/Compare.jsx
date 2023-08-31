@@ -59,9 +59,6 @@ const Compare = () => {
                   title={categorie.title}
                   isFilterMode={selected === 2}
                 />
-                <br />
-                <br />
-                <br />
               </React.Fragment>
             );
           }

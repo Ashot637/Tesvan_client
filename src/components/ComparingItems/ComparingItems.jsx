@@ -66,7 +66,7 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
   };
 
   return (
-    <>
+    <div className={classes.comparingItems}>
       <div className="container">
         <div className={classes.title}>{title}</div>
       </div>
@@ -189,7 +189,7 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
             );
           })}
       </div> */}
-    </>
+    </div>
   );
 };
 
