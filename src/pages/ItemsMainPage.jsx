@@ -5,6 +5,7 @@ import axios from '../helpers/axios';
 import { useSelector } from 'react-redux';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 const ItemsMainPage = ({ typeId, title }) => {
   const [items, setItems] = useState([]);
@@ -17,6 +18,9 @@ const ItemsMainPage = ({ typeId, title }) => {
 
   return (
     <>
+      <Helmet>
+        <title>{title[0].toUpperCase() + title.slice(1)} | Tesvan Electronics</title>
+      </Helmet>
       <Breadcrumbs />
       <Title title={t(title)} />
       {status === 'success' &&

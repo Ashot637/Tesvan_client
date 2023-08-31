@@ -21,7 +21,6 @@ const AdminBrands = () => {
   const onDeletebrand = (id) => {
     if (window.confirm('Are you sure?')) {
       axios.delete('/brand/' + id).then(({ data }) => {
-        alert('Deleted');
         setBrands((brands) => brands.filter((brand) => brand.id !== id));
       });
     }
@@ -43,11 +42,7 @@ const AdminBrands = () => {
             <tr key={brand.id}>
               <td onClick={() => navigateToEdit(brand.id)}>{brand.id}</td>
               <td onClick={() => navigateToEdit(brand.id)}>
-                <img
-                  src={'http://tesvan-electronics.onrender.com/' + brand.img}
-                  width={100}
-                  alt="brand"
-                />
+                <img src={'http://localhost:8080/' + brand.img} width={100} alt="brand" />
               </td>
               <td onClick={() => navigateToEdit(brand.id)}>{brand.title}</td>
               <td onClick={() => onDeletebrand(brand.id)}>

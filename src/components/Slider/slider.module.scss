@@ -8,6 +8,10 @@
   background: white;
   padding-left: 75px;
   column-gap: 50px;
+
+  img {
+    height: auto;
+  }
 }
 
 .info {
@@ -17,7 +21,7 @@
   flex-direction: column;
   row-gap: 23px;
   height: 100%;
-  margin-bottom: 50px;
+  text-align: center;
 
   button {
     padding: 17px 47px;

@@ -17,7 +17,6 @@ const AdminOrders = () => {
   const onDeleteOrder = (id) => {
     if (window.confirm('Are you sure?')) {
       axios.delete('/orders/' + id).then(({ data }) => {
-        alert('Deleted');
         setOrders((orders) => orders.filter((order) => order.id !== id));
       });
     }

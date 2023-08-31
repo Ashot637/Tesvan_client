@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import ScrollToTop from '../../helpers/ScrollToTop';
 
@@ -20,6 +20,9 @@ const ComparePage = lazy(() => import('../../pages/ComparePage'));
 
 const AdminHome = lazy(() => import('../Admin/components/AdminHome/AdminHome'));
 const AdminDevices = lazy(() => import('../Admin/components/AdminDevices/AdminDevices'));
+const AdminDeviceInfoCategorie = lazy(() =>
+  import('../Admin/components/AdminDeviceInfoCategorie/AdminDeviceInfoCategorie'),
+);
 const AdminCategories = lazy(() => import('../Admin/components/AdminCategories/AdminCategories'));
 const AdminBrands = lazy(() => import('../Admin/components/AdminBrands/AdminBrands'));
 const AdminHeaderImages = lazy(() =>
@@ -41,6 +44,9 @@ const EditNewHeaderImg = lazy(() =>
 );
 const EditNewSliderImg = lazy(() =>
   import('../Admin/components/EditNewSliderImg/EditNewSliderImg'),
+);
+const EditNewDeviceInfoCategorie = lazy(() =>
+  import('../Admin/components/EditNewDeviceInfoCategorie/EditNewDeviceInfoCategorie'),
 );
 const AdminLogin = lazy(() => import('../Admin/components/AdminLogin/AdminLogin'));
 
@@ -101,6 +107,10 @@ const App = () => {
 
           <Route path="orders" element={<AdminOrders />} />
           <Route path="orders/:id" element={<OrderInfo />} />
+
+          <Route path="device-info-categorie" element={<AdminDeviceInfoCategorie />} />
+          <Route path="device-info-categorie/:id" element={<EditNewDeviceInfoCategorie />} />
+          <Route path="device-info-categorie/new" element={<EditNewDeviceInfoCategorie />} />
         </Route>
       </Routes>
 

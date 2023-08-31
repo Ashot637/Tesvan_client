@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import classes from './itemsSection.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Card from '../Card/Card';
 import { useTranslation } from 'react-i18next';
 
-const ItemsSection = ({ title, items, main, link }) => {
+const ItemsSection = memo(({ title, items, main, link }) => {
   const { brands } = useSelector((state) => state.brands);
   const { t } = useTranslation();
 
@@ -30,6 +30,6 @@ const ItemsSection = ({ title, items, main, link }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ItemsSection;

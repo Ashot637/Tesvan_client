@@ -91,14 +91,18 @@ const Card = ({ item, brands }) => {
       <Link
         className={classes.body}
         to={
-          categories.find((c) => c.id === item.categorieId) &&
           '/categories/' +
-            categories.find((c) => c.id === item.categorieId).title_en.toLowerCase() +
-            '/' +
-            item.id
+          categories.find((c) => c.id === item.categorieId)?.title_en.toLowerCase() +
+          '/' +
+          item.id
         }>
         <div className={classes.imgHolder}>
-          <img src={'http://tesvan-electronics.onrender.com/' + item?.images[0]} alt="Macbook" />
+          <img
+            src={'http://localhost:8080/' + item?.images[0]}
+            alt="Macbook"
+            width={259}
+            height={175}
+          />
         </div>
         <span className={classes.name}>{item.title}</span>
         {item?.quantity === 0 ? (
@@ -126,17 +130,16 @@ const Card = ({ item, brands }) => {
         <div className={classes.btns}>
           <Link
             to={
-              categories.find((c) => c.id === item.categorieId) &&
               '/categories/' +
-                categories.find((c) => c.id === item.categorieId).title_en.toLowerCase() +
-                '/' +
-                item.id +
-                '/make-order'
+              categories.find((c) => c.id === item.categorieId)?.title_en.toLowerCase() +
+              '/' +
+              item.id +
+              '/make-order'
             }>
             <button>{t('buy')}</button>
           </Link>
           <button onClick={() => onAddToCart(item)}>
-            {inCart ? 'Added to Cart' : t('addToCart')}
+            {inCart ? t('addedToCart') : t('addToCart')}
           </button>
         </div>
       )}

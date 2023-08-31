@@ -6,8 +6,6 @@
 }
 
 .img {
-  width: 580px;
-  height: auto;
   border-radius: 5px;
 }
 
@@ -38,6 +36,7 @@
     column-gap: 20px;
   }
   .img {
+    width: 520px;
     height: auto;
   }
 
@@ -46,13 +45,17 @@
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   .title {
     font-size: 24px;
   }
 
   .subtitle {
     font-size: 16px;
+  }
+
+  .img {
+    width: 420px;
   }
 }
 

@@ -84,6 +84,18 @@ const AdminSidebar = () => {
             Orders
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            className={({ isActive }) => (isActive ? classes.active : undefined)}
+            to={'device-info-categorie'}>
+            Device info categories
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? classes.active : undefined)}
+            to={'device-info-categorie/new'}>
+            New
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

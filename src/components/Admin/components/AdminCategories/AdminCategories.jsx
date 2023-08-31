@@ -21,7 +21,6 @@ const AdminCategories = () => {
   const onDeletecategorie = (id) => {
     if (window.confirm('Are you sure?')) {
       axios.delete('/categorie/' + id).then(({ data }) => {
-        alert('Deleted');
         setCategories((categories) => categories.filter((categorie) => categorie.id !== id));
       });
     }
@@ -43,11 +42,7 @@ const AdminCategories = () => {
             <tr key={categorie.id}>
               <td onClick={() => navigateToEdit(categorie.id)}>{categorie.id}</td>
               <td onClick={() => navigateToEdit(categorie.id)}>
-                <img
-                  src={'http://tesvan-electronics.onrender.com/' + categorie.img}
-                  width={100}
-                  alt="categorie"
-                />
+                <img src={'http://localhost:8080/' + categorie.img} width={100} alt="categorie" />
               </td>
               <td onClick={() => navigateToEdit(categorie.id)}>{categorie.title_en}</td>
               <td onClick={() => onDeletecategorie(categorie.id)}>

@@ -6,10 +6,12 @@ import { useDispatch } from 'react-redux';
 import { addDevice, minusDevice, removeDevice } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const CartItem = memo(({ item, responsive }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const navigateToOrderOutOfStock = () => {
     localStorage.setItem('outOfStockDeviceTitle', item.title);
@@ -24,11 +26,7 @@ const CartItem = memo(({ item, responsive }) => {
             <FontAwesomeIcon icon={faClose} />
           </td>
           <td>
-            <img
-              src={'http://tesvan-electronics.onrender.com/' + item?.images[0]}
-              alt="Cart item"
-              width={90}
-            />
+            <img src={'http://localhost:8080/' + item?.images[0]} alt="Cart item" width={90} />
           </td>
           <td className={classes.name}>
             <div>{item.title}</div>
@@ -37,7 +35,7 @@ const CartItem = memo(({ item, responsive }) => {
             <ul className={classes.counter}>
               {item.quantity === 0 ? (
                 <>
-                  <li className={classes.outOfStock}>Out of stock</li>
+                  <li className={classes.outOfStock}>{t('outOfStock')}</li>
                 </>
               ) : (
                 <>
@@ -63,7 +61,7 @@ const CartItem = memo(({ item, responsive }) => {
           </td>
           <td>
             {item.quantity === 0 ? (
-              <span className={classes.contactUs}>Contact Us</span>
+              <span className={classes.contactUs}>{t('contactUs')}</span>
             ) : (
               <b>{getPrice(item.price * item.count)} AMD</b>
             )}
@@ -76,17 +74,13 @@ const CartItem = memo(({ item, responsive }) => {
           </div>
           <div className={classes.device}>
             <div className={classes.img}>
-              <img
-                src={'http://tesvan-electronics.onrender.com/' + item?.images[0]}
-                alt="Cart item"
-                width={75}
-              />
+              <img src={'http://localhost:8080/' + item?.images[0]} alt="Cart item" width={75} />
             </div>
             <div className={classes.deviceInfo}>
               <p>{item.title}</p>
               <ul className={classes.counter}>
                 {item.quantity === 0 ? (
-                  <li className={classes.outOfStock}>Out of stock</li>
+                  <li className={classes.outOfStock}>{t('outOfStock')}</li>
                 ) : (
                   <>
                     <li
@@ -113,7 +107,7 @@ const CartItem = memo(({ item, responsive }) => {
           </div>
           {item.quantity === 0 ? (
             <span onClick={navigateToOrderOutOfStock} className={classes.contactUs}>
-              Contact Us
+              {t('contactUs')}
             </span>
           ) : (
             <div className={classes.devicePrice}>{getPrice(item.price * item.count)} AMD</div>

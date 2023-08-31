@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import classes from './devicesList.module.scss';
 import { debounce } from 'debounce';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import { fetchDevices } from '../../redux/slices/devicesSlice';
 import Pagination from '../Pagination/Pagination';
 import { useTranslation } from 'react-i18next';
 
-const DevicesList = () => {
+const DevicesList = memo(() => {
   const { brands } = useSelector((state) => state.brands);
   const {
     devices,
@@ -79,6 +79,6 @@ const DevicesList = () => {
       <Pagination />
     </div>
   );
-};
+});
 
 export default DevicesList;

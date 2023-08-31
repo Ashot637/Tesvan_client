@@ -1,7 +1,3 @@
-.simpleDevice {
-  padding-bottom: 60px;
-}
-
 .device {
   padding: 50px 50px 30px 115px;
   background: var(--primary);
@@ -266,53 +262,11 @@
   }
 }
 
-.more {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--yellow);
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-
 .related {
   color: white;
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 20px;
-}
-
-.slider {
-  display: flex;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
-
-  > button {
-    background: none;
-    font-size: 40px;
-    color: white;
-    flex: 2;
-  }
-}
-
-.moreInfo {
-  width: 100%;
-  font-size: 20px;
-  color: white;
-
-  tr {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 50px;
-    border-bottom: 1px solid var(--darkBlue);
-
-    td {
-      &:last-child {
-        color: var(--lightGrey);
-      }
-    }
-  }
 }
 
 .out {
@@ -331,29 +285,6 @@
     border: 1px solid var(--yellow);
     color: var(--yellow);
     background: transparent;
-  }
-}
-
-.grid {
-  display: none;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  padding: 0 10px;
-}
-
-@media screen and (max-width: 1267px) {
-  .slider {
-    > button {
-      display: none;
-    }
-  }
-}
-
-@media screen and (max-width: 1267px) and (min-width: 950px) {
-  .slider {
-    img {
-      max-height: 155px;
-    }
   }
 }
 
@@ -387,19 +318,6 @@
 @media screen and (max-width: 950px) {
   .body {
     column-gap: 45px;
-  }
-
-  .slider {
-    display: none;
-  }
-  .grid {
-    display: grid;
-  }
-}
-
-@media screen and (max-width: 920px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -525,21 +443,9 @@
   }
 }
 
-@media screen and (max-width: 610px) {
-  .grid {
-    gap: 10px;
-  }
-}
-
 @media screen and (max-width: 560px) {
   .body {
     padding: 0;
-  }
-}
-
-@media screen and (max-width: 520px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -612,22 +518,6 @@
   .dec {
     font-size: 8px;
   }
-
-  .more {
-    font-size: 16px;
-    margin-bottom: 0;
-  }
-
-  .moreInfo {
-    font-size: 16px;
-
-    tbody {
-      tr {
-        padding-left: 0;
-        padding-right: 0;
-      }
-    }
-  }
 }
 
 @media screen and (max-width: 380px) {
@@ -662,11 +552,5 @@
     img {
       max-height: 38px;
     }
-  }
-}
-
-@media screen and (max-width: 750px) and (min-width: 560px) {
-  .more {
-    padding-left: 30px;
   }
 }

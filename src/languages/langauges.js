@@ -69,6 +69,8 @@ export const translationsEn = {
   quantity: 'Quantity',
   iWantToOrder: 'I want to order',
   home: 'Home',
+  addedToCart: 'Added to Cart',
+  openCart: 'Open cart',
 };
 export const translationsRu = {
   categories: 'Категории',
@@ -141,5 +143,7 @@ export const translationsRu = {
   quantity: 'Количество',
   iWantToOrder: 'Я хочу заказать',
   home: 'Дом',
+  addedToCart: '---------------------------------',
+  openCart: '----------------',
 };
 export const translationsAm = { test: 'Armenian' };

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import classes from './breadcrumbs.module.scss';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import axios from '../../helpers/axios';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-const Breadcrumbs = ({ deviceTitle }) => {
+const Breadcrumbs = memo(({ deviceTitle }) => {
   const location = useLocation();
   const [paths, setPaths] = useState();
   const { id, categorie } = useParams();
@@ -80,6 +80,6 @@ const Breadcrumbs = ({ deviceTitle }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Breadcrumbs;

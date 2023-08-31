@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import classes from './categoriesSlider.module.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,7 +23,7 @@ const CategoriesSlider = () => {
     <div className={classes.categories}>
       <div className="container">
         <div className={classes.flex}>
-          <button onClick={handlePrevious}>
+          <button onClick={handlePrevious} aria-label="Previus slide">
             <FontAwesomeIcon icon={faAngleLeft} />
           </button>
           <Swiper
@@ -56,8 +56,10 @@ const CategoriesSlider = () => {
                     className={classes.slide}
                     to={`/categories/${categorie.title_en.toLowerCase()}`}>
                     <img
-                      src={'http://tesvan-electronics.onrender.com/' + categorie.img}
+                      src={'http://localhost:8080/' + categorie.img}
                       alt="Slide"
+                      height={105}
+                      width={105}
                     />
                     <span>{categorie.title}</span>
                   </Link>
@@ -65,7 +67,7 @@ const CategoriesSlider = () => {
               );
             })}
           </Swiper>
-          <button className={classes.next} onClick={handleNext}>
+          <button className={classes.next} onClick={handleNext} aria-label="Next slide">
             <FontAwesomeIcon icon={faAngleRight} />
           </button>
         </div>

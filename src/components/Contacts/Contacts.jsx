@@ -49,15 +49,15 @@ const Contacts = () => {
     }
     let formData = { ...data, phone };
     axios
-      .post('/contacts', formData)
+      .post('/contacts5', formData)
       .then(() => {
-        NotificationManager.success('Success message', 'Title here', '2000');
+        NotificationManager.success('Success message', 'Title here', 2000);
         // reset();
         // setPhone('');
         // setChecked(false);
       })
       .catch(() => {
-        NotificationManager.error('Error message', 'Title here', '2000');
+        NotificationManager.error('Error message', 'Title here', 2000);
         // reset();
         // setPhone('');
         // setChecked(false);

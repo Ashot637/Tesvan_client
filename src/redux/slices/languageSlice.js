@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import en from '../../img/en.webp';
 import am from '../../img/am.webp';
-import ru from '../../img/ru.png';
+import ru from '../../img/ru.webp';
 
 const getLanguageFromLS = () => {
   const language = localStorage.getItem('language');

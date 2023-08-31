@@ -83,7 +83,7 @@ const OrderForm = ({ device }) => {
     } else {
       setDevices(cartDevices.filter((device) => device.quantity !== 0));
     }
-    if (cartDevices.length === 0) {
+    if (!device && !cartDevices.length) {
       navigate('/');
     }
   }, [id, cartDevices]);
@@ -306,7 +306,7 @@ const OrderForm = ({ device }) => {
                       <td>
                         <div className={classes.deviceImg}>
                           <img
-                            src={'http://tesvan-electronics.onrender.com/' + device?.images[0]}
+                            src={'http://localhost:8080/' + device?.images[0]}
                             alt="Device Order"
                           />
                         </div>
@@ -331,10 +331,7 @@ const OrderForm = ({ device }) => {
                       <FontAwesomeIcon icon={faClose} />
                     </div>
                     <div className={classes.deviceMobileImg}>
-                      <img
-                        src={'http://tesvan-electronics.onrender.com/' + device?.images[0]}
-                        alt="Device Order"
-                      />
+                      <img src={'http://localhost:8080/' + device?.images[0]} alt="Device Order" />
                     </div>
                     <div className={classes.info}>
                       <span>{device.title}</span>

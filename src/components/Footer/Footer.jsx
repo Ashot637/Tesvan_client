@@ -57,7 +57,7 @@ const Footer = () => {
               </li>
             </ul>
             <div className={classes.logo}>
-              <img src={logo} width={46} alt="Logo" />
+              <img src={logo} width={46} height={55.19} alt="Logo" />
             </div>
             <ul className={classes.info}>
               <li>
@@ -90,7 +90,10 @@ const Footer = () => {
               </li>
             </ul>
             <div className={classes.social}>
-              <a href="/" className={classes.socialLink}>
+              <a
+                href="https://www.upwork.com/ag/tesvan/"
+                aria-label="Tesvan upwork"
+                className={classes.socialLink}>
                 <svg
                   width="21"
                   height="15"
@@ -103,10 +106,16 @@ const Footer = () => {
                   />
                 </svg>
               </a>
-              <a href="/" className={classes.socialLink}>
+              <a
+                href="https://www.facebook.com/tesvanllc"
+                aria-label="Tesvan facebook"
+                className={classes.socialLink}>
                 <FontAwesomeIcon icon={faFacebookF} />
               </a>
-              <a href="/" className={classes.socialLink}>
+              <a
+                href="https://www.linkedin.com/company/tesvan/"
+                aria-label="Tesvan linkedIn"
+                className={classes.socialLink}>
                 <FontAwesomeIcon icon={faLinkedinIn} />
               </a>
             </div>

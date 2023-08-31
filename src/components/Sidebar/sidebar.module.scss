@@ -23,12 +23,21 @@
   padding: 8px 25px;
   border-radius: 25px;
   cursor: pointer;
+
+  &:hover {
+    color: var(--yellow);
+    border-color: var(--yellow);
+  }
 }
 
 .active {
   color: var(--primary);
   background: var(--yellow);
   border-color: var(--yellow);
+
+  &:hover {
+    color: var(--primary);
+  }
 }
 
 .fields {

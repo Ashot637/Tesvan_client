@@ -162,6 +162,30 @@
   justify-content: space-between;
   column-gap: 20px;
   margin-bottom: 15px;
+
+  select {
+    font: 400 12px/1.3 sans-serif;
+    -webkit-appearance: none;
+    appearance: none;
+    color: white;
+    border: 1px solid var(--yellow);
+    line-height: 1;
+    outline: 0;
+    padding: 0.65em 2.5em 0.55em 0.75em;
+    border-radius: 2px;
+    background-color: var(--primary);
+    background-image: linear-gradient(dimgray, dimgray),
+      linear-gradient(-135deg, transparent 50%, var(--yellow) 50%),
+      linear-gradient(-225deg, transparent 50%, var(--yellow) 50%),
+      linear-gradient(var(--yellow) 42%, #006fc2 42%);
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size: 1px 100%, 20px 22px, 20px 22px, 20px 100%;
+    background-position: right 20px center, right bottom, right bottom, right bottom;
+
+    option {
+      border-radius: none !important;
+    }
+  }
 }
 
 .removeInfo {

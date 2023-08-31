@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classes from './sidebar.module.scss';
 import AccordionItem from '../AccordionItem/AccordionItem';
 import ReactSlider from 'react-slider';
@@ -11,13 +11,16 @@ import {
   setMinPrice,
 } from '../../redux/slices/devicesSlice';
 import { useTranslation } from 'react-i18next';
+import { debounce } from 'debounce';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { brands } = useSelector((state) => state.brands);
-  const { brandId, minPrice, maxPrice, activeFilters, filters } = useSelector(
+  const { brandId, activeFilters, filters, minPrice, maxPrice } = useSelector(
     (state) => state.devices,
   );
+  const [min, setMin] = useState(minPrice);
+  const [max, setMax] = useState(maxPrice);
   const { t } = useTranslation();
 
   const onSelectBrand = (id) => {
@@ -41,6 +44,28 @@ const Sidebar = () => {
       );
     }
   };
+
+  const debouncedMaxPriceChange = useCallback(
+    debounce((maxValue) => {
+      dispatch(setMaxPrice(maxValue));
+    }, 750),
+    [],
+  );
+
+  const debouncedMinPriceChange = useCallback(
+    debounce((minValue) => {
+      dispatch(setMinPrice(minValue));
+    }, 750),
+    [],
+  );
+
+  useEffect(() => {
+    debouncedMaxPriceChange(max);
+  }, [max, debouncedMaxPriceChange]);
+
+  useEffect(() => {
+    debouncedMinPriceChange(min);
+  }, [min, debouncedMinPriceChange]);
 
   return (
     <div className={classes.sidebar}>
@@ -67,13 +92,13 @@ const Sidebar = () => {
               className="horizontal-slider"
               thumbClassName="example-thumb"
               trackClassName="example-track"
-              defaultValue={[+minPrice, +maxPrice]}
-              value={[+minPrice, +maxPrice]}
+              defaultValue={[+min, +max]}
+              value={[+min, +max]}
               min={0}
               max={2000000}
               onChange={(arr) => {
-                dispatch(setMinPrice(arr[0]));
-                dispatch(setMaxPrice(arr[1]));
+                setMin(arr[0]);
+                setMax(arr[1]);
               }}
               pearling
               minDistance={20000}
@@ -81,19 +106,11 @@ const Sidebar = () => {
             <div className={classes.fields}>
               <div className={classes.field}>
                 <label>{t('min')}</label>
-                <input
-                  type="number"
-                  value={minPrice}
-                  onChange={(e) => dispatch(setMinPrice(e.target.value))}
-                />
+                <input type="number" value={min} onChange={(e) => setMin(e.target.value)} />
               </div>
               <div className={classes.field}>
                 <label>{t('max')}</label>
-                <input
-                  type="number"
-                  value={maxPrice}
-                  onChange={(e) => dispatch(setMaxPrice(e.target.value))}
-                />
+                <input type="number" value={max} onChange={(e) => setMax(e.target.value)} />
               </div>
             </div>
           </div>

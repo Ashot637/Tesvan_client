@@ -72,9 +72,7 @@ const EditNewBrand = () => {
         {imageUrl ? 'Change image' : 'Upload image'}
       </div>
       <input type="file" style={{ display: 'none' }} ref={fileRef} onChange={onUploadFile} />
-      {imageUrl && (
-        <img src={'http://tesvan-electronics.onrender.com/' + imageUrl} height={150} alt="Device" />
-      )}
+      {imageUrl && <img src={'http://localhost:8080/' + imageUrl} height={150} alt="Device" />}
       <button type="submit" className={classes.btn} disabled={!title.trim() || !imageUrl}>
         {id ? 'Edit' : 'Create'}
       </button>

@@ -10,6 +10,7 @@ import axios from '../../../../helpers/axios';
 const EditNewDevice = () => {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [deviceInfoCategories, setdeviceInfoCategories] = useState([]);
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -65,6 +66,7 @@ const EditNewDevice = () => {
   useEffect(() => {
     axios.get('/brands').then(({ data }) => setBrands(data));
     axios.get('/categories').then(({ data }) => setCategories(data));
+    axios.get('/deviceInfoCategories').then(({ data }) => setdeviceInfoCategories(data));
   }, []);
 
   useEffect(() => {
@@ -154,6 +156,7 @@ const EditNewDevice = () => {
         description_am: '',
         title_ru: '',
         description_ru: '',
+        deviceInfoCategorieId: '',
       },
     ]);
   };
@@ -250,6 +253,23 @@ const EditNewDevice = () => {
       content = info.map((i) => {
         return (
           <div key={i.id} className={classes.info}>
+            <select onChange={(e) => onChangeInfo(i.id, 'deviceInfoCategorieId', e.target.value)}>
+              {!i.deviceInfoCategorieId && <option hidden>Selcect</option>}
+              {deviceInfoCategories.map((c) => {
+                if (i.deviceInfoCategorieId === c.id) {
+                  return (
+                    <option selected key={c.id} value={c.id}>
+                      {c.title_en}
+                    </option>
+                  );
+                }
+                return (
+                  <option key={c.id} value={c.id}>
+                    {c.title_en}
+                  </option>
+                );
+              })}
+            </select>
             <div className={classes.field}>
               <label>Info title (Eng)</label>
               <input
@@ -348,7 +368,7 @@ const EditNewDevice = () => {
       <div className={classes.field}>
         <label>Price</label>
         <input
-          type="number"
+          type="text"
           className={classes.name}
           value={price}
           onChange={(e) => setPrice(e.target.value)}
@@ -357,7 +377,7 @@ const EditNewDevice = () => {
       <div className={classes.field}>
         <label>Old price</label>
         <input
-          type="number"
+          type="text"
           className={classes.name}
           value={oldPrice}
           onChange={(e) => setOldPrice(e.target.value)}
@@ -366,7 +386,7 @@ const EditNewDevice = () => {
       <div className={classes.field}>
         <label>Quantity</label>
         <input
-          type="number"
+          type="text"
           className={classes.name}
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
@@ -416,11 +436,7 @@ const EditNewDevice = () => {
               onChange={(e) => onUploadFile(e, image.id)}
             />
             {image.url && (
-              <img
-                src={'http://tesvan-electronics.onrender.com/' + image.url}
-                height={150}
-                alt="Device"
-              />
+              <img src={'http://localhost:8080/' + image.url} height={150} alt="Device" />
             )}
           </Fragment>
         );
@@ -450,7 +466,8 @@ const EditNewDevice = () => {
           (!oldPrice && oldPrice !== 0) ||
           images.filter((image) => image.url).length < 2 ||
           quantity < 0 ||
-          !info.length
+          !info.length ||
+          !deviceInfoCategories.length
         }>
         {id ? 'Edit' : 'Create'}
       </button>

@@ -6,6 +6,9 @@ import axios from '../helpers/axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBrands } from '../redux/slices/brandSlice';
 import Page404 from './404';
+import Spinner from '../components/Spinner/Spinner';
+import RelatedItems from '../components/RelatedItems/RelatedItems';
+import { Helmet } from 'react-helmet';
 
 const SimpleDevicePage = () => {
   const { id, categorie } = useParams();
@@ -55,11 +58,17 @@ const SimpleDevicePage = () => {
 
   return (
     <>
-      {device && (
+      <Helmet>
+        <title>{device?.title || ''} | Tesvan Electronics</title>
+      </Helmet>
+      {device ? (
         <>
           <Breadcrumbs deviceTitle={device.title} />
           <SimpleDevice device={device} relateds={relateds} />
+          <RelatedItems relateds={relateds} />
         </>
+      ) : (
+        <Spinner />
       )}
     </>
   );

@@ -49,7 +49,7 @@ const AdminLogin = () => {
           <FontAwesomeIcon
             className={classes.eye}
             onClick={() => setShowPassword((showPassword) => !showPassword)}
-            icon={showPassword ? faEyeSlash : faEye}
+            icon={showPassword ? faEye : faEyeSlash}
           />
         </div>
         {waitingCode && (

@@ -92,7 +92,7 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
                             brands.find((brand) => brand.id === device.brandId).title}
                         </div>
                         <img
-                          src={'http://tesvan-electronics.onrender.com/' + device?.images[0]}
+                          src={'http://localhost:8080/' + device?.images[0]}
                           alt="Comparing Item"
                         />
                         <div className={classes.name}>{device.title}</div>
@@ -141,7 +141,7 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
                     <FontAwesomeIcon icon={faClose} />
                   </div>
                   <div className={classes.categorie}>Apple</div>
-                  <img src={'http://tesvan-electronics.onrender.com/' + device?.images[0]} alt="Comparing Item" />
+                  <img src={'http://localhost:8080/' + device?.images[0]} alt="Comparing Item" />
                   <div className={classes.name}>{device.title}</div>
                 </li>
               );
@@ -170,7 +170,7 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
                     <FontAwesomeIcon icon={faClose} />
                   </div>
                   <div className={classes.categorie}>Apple</div>
-                  <img src={'http://tesvan-electronics.onrender.com/' + device?.images[0]} alt="Comparing Item" />
+                  <img src={'http://localhost:8080/' + device?.images[0]} alt="Comparing Item" />
                   <div className={classes.name}>{device.title}</div>
                 </li>
                 {device.info &&

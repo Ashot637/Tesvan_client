@@ -1,6 +1,6 @@
 .overlay {
   background: var(--darkBlue);
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -24,5 +24,14 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .loader {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--yellow);
+    border-bottom-color: transparent;
   }
 }

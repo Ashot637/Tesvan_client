@@ -32,7 +32,7 @@ const Brands = () => {
     <div className={classes.brands}>
       <h1 className={classes.title}>{t('brands')}</h1>
       <div className={classes.inner}>
-        <button onClick={handlePrevious}>
+        <button onClick={handlePrevious} aria-label="Previus slide">
           <FontAwesomeIcon icon={faAngleLeft} />
         </button>
         <div className="container">
@@ -68,14 +68,19 @@ const Brands = () => {
               return (
                 <SwiperSlide key={i}>
                   <div className={classes.slide}>
-                    <img src={'http://tesvan-electronics.onrender.com/' + brand.img} alt="Brand" />
+                    <img
+                      src={'http://localhost:8080/' + brand.img}
+                      height={100}
+                      width={100}
+                      alt="Brand"
+                    />
                   </div>
                 </SwiperSlide>
               );
             })}
           </Swiper>
         </div>
-        <button onClick={handleNext}>
+        <button onClick={handleNext} aria-label="Next slide">
           <FontAwesomeIcon icon={faAngleRight} />
         </button>
       </div>

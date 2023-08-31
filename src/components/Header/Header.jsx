@@ -112,7 +112,7 @@ const Header = () => {
             </li>
             <li ref={langRef} onClick={() => setIsOpenLanguage((isOpen) => !isOpen)}>
               <img src={language.img} alt={language.label} width={20} height={10} />
-              <div className="select">{language.label}</div>
+              <div className={classes.select}>{language.label}</div>
               <FontAwesomeIcon
                 className={classes.angle}
                 style={isOpenLanguage ? { transform: 'rotateX(180deg)' } : undefined}
@@ -139,7 +139,7 @@ const Header = () => {
           <div className={classes.inner}>
             <div className={classes.logo}>
               <NavLink to={'/'}>
-                <img src={logo} alt="logo" />
+                <img src={logo} alt="logo" height={78} width={65} />
               </NavLink>
             </div>
             <div className={classes.nav}>
@@ -196,6 +196,7 @@ const Header = () => {
                   <div className={classes.count}>{comparingDevices.length}</div>
                 ) : undefined}
                 <NavLink
+                  aria-label="compare"
                   className={({ isActive }) => (isActive ? classes.active : undefined)}
                   to="/compare">
                   <FontAwesomeIcon icon={faCodeCompare} />

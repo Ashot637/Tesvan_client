@@ -69,7 +69,7 @@ const SearchPanel = () => {
         className={classes.searchPanel}
         placeholder={t('placeholder')}
       />
-      <button type="button" className={classes.searchIcon}>
+      <button type="button" aria-label="Search Product" className={classes.searchIcon}>
         <FontAwesomeIcon icon={faMagnifyingGlass} />
       </button>
       {devices.length > 0 && (
@@ -92,7 +92,7 @@ const SearchPanel = () => {
                         setTerm('');
                       }}>
                       <img
-                        src={'http://tesvan-electronics.onrender.com/' + device?.images[0]}
+                        src={'http://localhost:8080/' + device?.images[0]}
                         alt="Searched Device"
                       />
                     </Link>

@@ -63,6 +63,9 @@ header {
 
 .logo {
   flex: 2;
+  img {
+    height: auto;
+  }
 }
 
 .nav {
@@ -247,6 +250,17 @@ header {
   .overlay {
     form {
       top: 115px;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .flex {
+    font-size: 14px;
+    column-gap: 7px;
+
+    li {
+      align-items: center;
     }
   }
 }

@@ -15,7 +15,6 @@ const AdminMessages = () => {
   const onDeleteMessage = (id) => {
     if (window.confirm('Are you sure?')) {
       axios.delete('/contacts/' + id).then(({ data }) => {
-        alert('Deleted');
         setMessages((messages) => messages.filter((message) => message.id !== id));
       });
     }

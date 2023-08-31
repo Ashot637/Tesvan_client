@@ -29,8 +29,7 @@
   border-radius: 10px;
 
   img {
-    height: 130px;
-    margin: 0 auto;
+    margin: auto;
   }
 }
 
@@ -45,5 +44,16 @@
 @media screen and (max-width: 620px) {
   .title {
     font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .slide {
+    height: 105px;
+
+    img {
+      height: 90px;
+      width: 90px;
+    }
   }
 }

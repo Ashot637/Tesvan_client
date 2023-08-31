@@ -1,24 +1,16 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './simpleDevice.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCodeCompare,
-  faMinus,
-  faPlus,
-  faAngleRight,
-  faAngleLeft,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCodeCompare, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import Card from '../Card/Card';
 import getPrice from '../../helpers/getPrice';
 import { addDevice, toggleIsOpen } from '../../redux/slices/cartSlice';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { addDeviceComparing } from '../../redux/slices/compareSlice';
 import { useTranslation } from 'react-i18next';
+import DeviceInfo from '../DeviceInfo/DeviceInfo';
 
-const SimpleDevice = ({ device, relateds }) => {
+const SimpleDevice = ({ device }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,8 +18,6 @@ const SimpleDevice = ({ device, relateds }) => {
   const { devicesIds: comparingDevices } = useSelector((state) => state.compare);
   const { devices } = useSelector((state) => state.cart);
   const [inCart, setInCart] = useState();
-  const [swiperRef, setSwiperRef] = useState();
-  const [moreOpen, setMoreOpen] = useState(false);
   const [img, setImg] = useState(device?.images[0]);
   const [count, setCount] = useState(1);
   const { t } = useTranslation();
@@ -55,20 +45,14 @@ const SimpleDevice = ({ device, relateds }) => {
   };
 
   useEffect(() => {
-    setCount(1);
+    if (count !== 1) {
+      setCount(1);
+    }
   }, [location]);
 
   useEffect(() => {
     setInCart(devices.find((item) => item.id === device.id));
   }, [devices]);
-
-  const handlePrevious = useCallback(() => {
-    swiperRef?.slidePrev();
-  }, [swiperRef]);
-
-  const handleNext = useCallback(() => {
-    swiperRef?.slideNext();
-  }, [swiperRef]);
 
   return (
     <div className={classes.simpleDevice}>
@@ -93,16 +77,16 @@ const SimpleDevice = ({ device, relateds }) => {
               <div className={classes.body}>
                 <div className={classes.images}>
                   <div className={classes.mainImg}>
-                    <img src={'http://tesvan-electronics.onrender.com/' + img} alt="Device" />
+                    <img src={'http://localhost:8080/' + img} alt="Device" />
                   </div>
                   <div className={classes.otherImages}>
                     {device.images.map((image) => {
                       return (
-                        <div key={image} className={classes.otherImg} onClick={() => setImg(image)}>
-                          <img
-                            src={'http://tesvan-electronics.onrender.com/' + image}
-                            alt="Device"
-                          />
+                        <div
+                          key={Math.random()}
+                          className={classes.otherImg}
+                          onClick={() => setImg(image)}>
+                          <img src={'http://localhost:8080/' + image} alt="Device" />
                         </div>
                       );
                     })}
@@ -170,6 +154,7 @@ const SimpleDevice = ({ device, relateds }) => {
                           <div>{t('quantity')}</div>
                           <div className={classes.counter}>
                             <button
+                              aria-label="Increment count"
                               className={classes.inc}
                               onClick={() => onChangeCount(1)}
                               disabled={count === device.quantity}>
@@ -177,6 +162,7 @@ const SimpleDevice = ({ device, relateds }) => {
                             </button>
                             <p className={classes.count}>{count}</p>
                             <button
+                              aria-label="Descrement count"
                               className={classes.dec}
                               onClick={() => onChangeCount(-1)}
                               disabled={count === 1}>
@@ -193,7 +179,7 @@ const SimpleDevice = ({ device, relateds }) => {
                             <button>{t('buy')}</button>
                           </Link>
                           <button onClick={() => onAddToCart(device)}>
-                            {inCart ? 'Added to cart' : t('addToCart')}
+                            {inCart ? t('addedToCart') : t('addToCart')}
                           </button>
                         </div>
                       </>
@@ -202,25 +188,7 @@ const SimpleDevice = ({ device, relateds }) => {
                 </div>
               </div>
               <div className={classes.bottom}>
-                <div
-                  className={classes.more}
-                  onClick={() => setMoreOpen((moreOpen) => !moreOpen)}
-                  style={moreOpen ? { filter: 'grayscale(0.5)' } : undefined}>
-                  {t('moreInformation')}
-                </div>
-                <table className={classes.moreInfo}>
-                  <tbody>
-                    {moreOpen &&
-                      device.info.map((i) => {
-                        return (
-                          <tr key={i.id}>
-                            <td>{i.title}</td>
-                            <td>{i.description}</td>
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
+                <DeviceInfo info={device.info} />
               </div>
             </div>
           )}
@@ -228,35 +196,6 @@ const SimpleDevice = ({ device, relateds }) => {
             <span>{t('relateds')}</span>
           </div>
         </div>
-      </div>
-      <div className={classes.slider}>
-        {relateds && (
-          <>
-            <button onClick={handlePrevious}>
-              <FontAwesomeIcon icon={faAngleLeft} />
-            </button>
-            <div className="container">
-              <Swiper onSwiper={setSwiperRef} slidesPerView={4} spaceBetween={5}>
-                {relateds.map((item) => {
-                  return (
-                    <SwiperSlide style={{ maxHeight: 480 }} key={item.id}>
-                      <Card brands={brands} item={item} />
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
-            </div>
-            <button onClick={handleNext}>
-              <FontAwesomeIcon icon={faAngleRight} />
-            </button>
-          </>
-        )}
-      </div>
-      <div className={classes.grid}>
-        {relateds &&
-          relateds.map((item) => {
-            return <Card brands={brands} key={item.id} item={item} />;
-          })}
       </div>
     </div>
   );

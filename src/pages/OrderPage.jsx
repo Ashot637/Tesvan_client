@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 import OrderForm from '../components/OrderForm/OrderForm';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import axios from '../helpers/axios';
 import { useSelector } from 'react-redux';
 import Page404 from './404';
+import { Helmet } from 'react-helmet';
 
 const OrderPage = () => {
   const { id, categorie } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
   const [device, setDevice] = useState();
   const { categories } = useSelector((state) => state.categories);
   const [isError, setIsError] = useState(false);
@@ -46,6 +46,9 @@ const OrderPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Make order | Tesvan Electronics</title>
+      </Helmet>
       {id ? (
         device && (
           <>

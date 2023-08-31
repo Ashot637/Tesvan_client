@@ -10,6 +10,10 @@
   background: white;
   column-gap: 100px;
   padding: 44px 0;
+
+  img {
+    height: auto;
+  }
 }
 
 .text {
@@ -29,7 +33,6 @@
   .slide {
     img {
       width: 800px;
-      height: auto;
     }
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import './pagination.scss';
@@ -6,7 +6,15 @@ import { setPage } from '../../redux/slices/devicesSlice';
 
 const Pagination = () => {
   const dispatch = useDispatch();
-  const { page, pagination } = useSelector((state) => state.devices);
+  const { brandId, activeFilters, minPrice, page, maxPrice, pagination } = useSelector(
+    (state) => state.devices,
+  );
+
+  useEffect(() => {
+    if (page !== 1) {
+      dispatch(setPage(1));
+    }
+  }, [brandId, activeFilters, minPrice, maxPrice]);
 
   return (
     <>
