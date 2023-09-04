@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import classes from '../styles/404.module.scss';
 import error404 from '../img/404.png';
 import error404small from '../img/404small.png';
+import { Link } from 'react-router-dom';
 
 const Page404 = () => {
   return (
@@ -18,7 +19,9 @@ const Page404 = () => {
               <img src={error404small} alt="Page not found" />
             </div>
             <h2>OPPS! Page not found</h2>
-            <button>Back to homepage</button>
+            <Link to={'/'}>
+              <button>Back to homepage</button>
+            </Link>
           </div>
         </div>
       </div>

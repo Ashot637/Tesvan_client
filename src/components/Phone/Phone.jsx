@@ -16,6 +16,7 @@ const Phone = memo(({ phone, setPhone, setPhoneValid }) => {
       onChange={(e) => {
         setPhone(e);
       }}
+      aria-label="Phone"
     />
   );
 });

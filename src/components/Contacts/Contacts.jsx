@@ -89,6 +89,7 @@ const Contacts = () => {
                   })}
                   autoComplete="off"
                   type="text"
+                  aria-label="Name"
                   className={errors?.name ? classes.invalid : undefined}
                 />
                 {errors?.name && <p>{t('required')}</p>}
@@ -102,6 +103,7 @@ const Contacts = () => {
                       return !!value.trim();
                     },
                   })}
+                  aria-label="Surname"
                   autoComplete="off"
                   type="text"
                   className={errors?.surname ? classes.invalid : undefined}
@@ -131,6 +133,7 @@ const Contacts = () => {
                       return !!value.trim();
                     },
                   })}
+                  aria-label="Email"
                   maxLength={60}
                   autoComplete="off"
                   type="text"
@@ -148,6 +151,7 @@ const Contacts = () => {
                       return !!value.trim();
                     },
                   })}
+                  aria-label="Message"
                   autoComplete="off"
                   defaultValue={
                     outOfStockDevice ? `${t('iWantToOrder')} ` + outOfStockDevice + ' ' : undefined

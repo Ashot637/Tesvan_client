@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect } from 'react';
 import ItemsSection from '../ItemsSection/ItemsSection';
 import axios from '../../helpers/axios';
 const TypedItems = ({ title, typeId, link, limit }) => {

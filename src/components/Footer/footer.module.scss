@@ -139,6 +139,7 @@ footer {
 
   .payments {
     img {
+      height: auto;
       max-width: 60px;
     }
   }
@@ -203,6 +204,7 @@ footer {
   .bottom {
     flex-direction: column;
     padding-top: 5px;
+    padding-bottom: 10px;
 
     p {
       order: 2;
@@ -212,7 +214,11 @@ footer {
   .payments {
     order: 1;
     column-gap: 10px;
+  }
+}
 
+@media screen and (max-width: 380px) {
+  .payments {
     img {
       max-width: 50px;
     }

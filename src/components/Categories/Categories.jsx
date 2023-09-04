@@ -20,7 +20,12 @@ const Categories = () => {
                 to={`/categories/${categorie.title_en.toLowerCase()}`}
                 className={classes.categorie}
                 key={i}>
-                <img src={'http://localhost:8080/' + categorie.img} alt="Slide" />
+                <img
+                  src={'http://localhost:8080/' + categorie.img}
+                  width={105}
+                  height={105}
+                  alt="Slide"
+                />
                 <span>{categorie.title}</span>
               </Link>
             );

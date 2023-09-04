@@ -133,19 +133,19 @@ const Footer = () => {
           <p>&#169; 2022 The Content Folk All rights reserved</p>
           <ul className={classes.payments}>
             <li>
-              <img src={visa} alt="Payment with Visa" />
+              <img src={visa} width={81} height={74} alt="Payment with Visa" />
             </li>
             <li>
-              <img src={maestro} alt="Payment with Maestro" />
+              <img src={maestro} width={75} height={45} alt="Payment with Maestro" />
             </li>
             <li>
-              <img src={mastercard} alt="Payment with Mastercard" />
+              <img src={mastercard} width={87} height={55} alt="Payment with Mastercard" />
             </li>
             <li>
-              <img src={arca} alt="Payment with Arca" />
+              <img src={arca} width={77} height={45} alt="Payment with Arca" />
             </li>
             <li>
-              <img src={idram} alt="Payment with Idram" />
+              <img src={idram} width={60} height={49} alt="Payment with Idram" />
             </li>
           </ul>
         </div>

@@ -8,7 +8,7 @@
 .categorie {
   display: flex;
   align-items: center;
-  row-gap: 18px;
+  row-gap: 10px;
   flex-direction: column;
   color: var(--yellow);
   background: var(--primary);
@@ -26,7 +26,6 @@
   }
 
   img {
-    width: 105px;
     height: auto;
   }
 

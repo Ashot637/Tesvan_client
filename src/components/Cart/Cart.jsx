@@ -11,6 +11,8 @@ import { CSSTransition } from 'react-transition-group';
 import { useTranslation } from 'react-i18next';
 import axios from '../../helpers/axios';
 
+import emptyCart from '../../img/empty.webp';
+
 const Cart = () => {
   const dispatch = useDispatch();
   let { devices, isOpen } = useSelector((state) => state.cart);
@@ -117,7 +119,14 @@ const Cart = () => {
               </div>
             </>
           ) : (
-            <h3>Your Cart is Empty</h3>
+            <div className={classes.emptyCart}>
+              <img width={200} height={200} src={emptyCart} alt="Empty cart" />
+              <span className={classes.empty}>Your cart is empty</span>
+              <span>Looks like You have not make Your choice yet...</span>
+              <div className={classes.back} onClick={() => dispatch(toggleIsOpen())}>
+                {'<<'} {t('back')}
+              </div>
+            </div>
           )}
         </div>
       </CSSTransition>

@@ -373,7 +373,7 @@
     max-width: 100%;
 
     img {
-      height: 300px;
+      height: 260px;
     }
   }
 
@@ -381,13 +381,14 @@
     flex-direction: column;
     order: 1;
     row-gap: 5px;
+    width: 90px;
   }
 
   .otherImg {
-    width: 90px;
+    width: 100%;
 
     img {
-      max-height: 63px;
+      height: auto;
     }
   }
 
@@ -435,11 +436,8 @@
     }
   }
 
-  .otherImg {
-    width: 100%;
-    img {
-      max-height: 54px;
-    }
+  .otherImages {
+    width: 84px;
   }
 }
 
@@ -520,7 +518,7 @@
   }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 395px) {
   .mainImg {
     img {
       max-height: 140px;

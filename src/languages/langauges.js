@@ -71,6 +71,12 @@ export const translationsEn = {
   home: 'Home',
   addedToCart: 'Added to Cart',
   openCart: 'Open cart',
+  confirmed: 'Order confirmed!',
+  thanks: "Thanks for shopping with us! We'll contact you soon to arrange delivery.",
+  continue: 'Continue',
+  failed: 'Order failed!',
+  rejectedOrder: 'Please check Your payment details and try again.',
+  tryAgain: 'Try again',
 };
 export const translationsRu = {
   categories: 'Категории',
@@ -143,7 +149,13 @@ export const translationsRu = {
   quantity: 'Количество',
   iWantToOrder: 'Я хочу заказать',
   home: 'Дом',
-  addedToCart: '---------------------------------',
+  addedToCart: '-------------',
   openCart: '----------------',
+  confirmed: '---------',
+  thanks: '-------------',
+  continue: '---------',
+  failed: '-------------',
+  rejectedOrder: '---------------',
+  tryAgain: '-------------',
 };
 export const translationsAm = { test: 'Armenian' };

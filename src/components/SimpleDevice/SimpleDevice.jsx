@@ -77,7 +77,12 @@ const SimpleDevice = ({ device }) => {
               <div className={classes.body}>
                 <div className={classes.images}>
                   <div className={classes.mainImg}>
-                    <img src={'http://localhost:8080/' + img} alt="Device" />
+                    <img
+                      src={'http://localhost:8080/' + img}
+                      width={420}
+                      height={283.78}
+                      alt="Device"
+                    />
                   </div>
                   <div className={classes.otherImages}>
                     {device.images.map((image) => {
@@ -86,7 +91,12 @@ const SimpleDevice = ({ device }) => {
                           key={Math.random()}
                           className={classes.otherImg}
                           onClick={() => setImg(image)}>
-                          <img src={'http://localhost:8080/' + image} alt="Device" />
+                          <img
+                            src={'http://localhost:8080/' + image}
+                            width={110}
+                            height={74.31}
+                            alt="Device"
+                          />
                         </div>
                       );
                     })}

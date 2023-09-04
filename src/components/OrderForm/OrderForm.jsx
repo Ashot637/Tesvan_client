@@ -18,6 +18,7 @@ import idram from '../../img/idram.png';
 import delivery from '../../img/delivery.png';
 import pickup from '../../img/pickup.png';
 import { useTranslation } from 'react-i18next';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 const paymentMethods = [
   {
@@ -78,12 +79,15 @@ const OrderForm = ({ device }) => {
   });
 
   useEffect(() => {
-    if (device) {
+    if (device?.length) {
+      if (!device[0].quantity) {
+        navigate('/');
+      }
       setDevices(device);
     } else {
       setDevices(cartDevices.filter((device) => device.quantity !== 0));
     }
-    if (!device && !cartDevices.length) {
+    if (!device && !cartDevices.filter((device) => device.quantity !== 0)?.length) {
       navigate('/');
     }
   }, [id, cartDevices]);
@@ -113,16 +117,24 @@ const OrderForm = ({ device }) => {
       devices: JSON.stringify(orderedDevices),
       phone,
     };
-    axios.post('/orders', data).catch((e) => {
-      console.log(e); //
-    });
+    axios
+      .post('/orders', data)
+      .then(() => {
+        navigate('/');
+      })
+      .catch((e) => {
+        if (e?.response?.status === 409) {
+          NotificationManager.error('Error', 'Quantity of device is 0', 2000);
+        } else {
+          NotificationManager.error('Error', 'Something went wrong', 2000);
+        }
+      });
     if (!device) {
       dispatch(removeAll());
     }
     reset();
     setMessage('');
     setPhone('');
-    navigate('/');
   };
 
   const totalPrice = devices.reduce((acc, device) => acc + device.price * device.count, 0);
@@ -144,6 +156,7 @@ const OrderForm = ({ device }) => {
                         return !!value.trim();
                       },
                     })}
+                    aria-label="Name"
                     type="text"
                     autoComplete="off"
                     className={errors?.name ? classes.invalid : undefined}
@@ -159,6 +172,7 @@ const OrderForm = ({ device }) => {
                         return !!value.trim();
                       },
                     })}
+                    aria-label="Surname"
                     type="text"
                     autoComplete="off"
                     className={errors?.surname ? classes.invalid : undefined}
@@ -188,6 +202,7 @@ const OrderForm = ({ device }) => {
                         return !!value.trim();
                       },
                     })}
+                    aria-label="Email"
                     maxLength={60}
                     autoComplete="off"
                     type="text"
@@ -204,6 +219,7 @@ const OrderForm = ({ device }) => {
                         return !!value.trim();
                       },
                     })}
+                    aria-label="Region"
                     type="text"
                     autoComplete="off"
                     className={errors?.region ? classes.invalid : undefined}
@@ -219,6 +235,7 @@ const OrderForm = ({ device }) => {
                         return !!value.trim();
                       },
                     })}
+                    aria-label="Address"
                     type="text"
                     autoComplete="off"
                     className={errors?.address ? classes.invalid : undefined}
@@ -233,6 +250,7 @@ const OrderForm = ({ device }) => {
                     onChange={(e) => setMessage(e.target.value)}
                     maxLength={160}
                     autoComplete="off"
+                    aria-label="Comment"
                     className={errors?.message ? classes.invalid : undefined}
                   />
                   <span className={classes.symbols}>{message.length}/160</span>
@@ -365,6 +383,7 @@ const OrderForm = ({ device }) => {
           </Link>
         </div>
       </div>
+      <NotificationContainer />
     </div>
   );
 };

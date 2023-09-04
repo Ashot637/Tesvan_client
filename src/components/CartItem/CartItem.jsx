@@ -3,9 +3,9 @@ import classes from '../Cart/cart.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { addDevice, minusDevice, removeDevice } from '../../redux/slices/cartSlice';
+import { addDevice, minusDevice, removeDevice, toggleIsOpen } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const CartItem = memo(({ item, responsive }) => {
@@ -16,6 +16,7 @@ const CartItem = memo(({ item, responsive }) => {
   const navigateToOrderOutOfStock = () => {
     localStorage.setItem('outOfStockDeviceTitle', item.title);
     navigate('/contacts/order');
+    dispatch(toggleIsOpen());
   };
 
   return (
@@ -61,7 +62,9 @@ const CartItem = memo(({ item, responsive }) => {
           </td>
           <td>
             {item.quantity === 0 ? (
-              <span className={classes.contactUs}>{t('contactUs')}</span>
+              <span onClick={navigateToOrderOutOfStock} className={classes.contactUs}>
+                {t('contactUs')}
+              </span>
             ) : (
               <b>{getPrice(item.price * item.count)} AMD</b>
             )}
