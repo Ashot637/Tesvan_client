@@ -42,11 +42,15 @@ const EditNewDevice = () => {
 
   const [brandId, setBrandId] = useState(1);
   const [categorieId, setCategorieId] = useState(1);
-  const [typeId, setTypeId] = useState(1);
+  const [typeId, setTypeId] = useState(0);
   const [isOpenCategories, setIsOpenCategories] = useState(false);
   const [isOpenBrands, setIsOpenBrands] = useState(false);
   const [isOpenTypes, setIsOpenTypes] = useState(false);
   const types = [
+    {
+      id: 0,
+      title: 'None',
+    },
     {
       id: 1,
       title: 'Sale',

@@ -14,17 +14,6 @@
 
 body {
   background: var(--darkBlue);
-
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-  &::-webkit-scrollbar-track {
-    background: var(--primary);
-  }
-  &::-webkit-scrollbar-thumb {
-    background: var(--yellow);
-    border-radius: 10px;
-  }
 }
 
 ul {

@@ -11,25 +11,30 @@ const AboutUs = () => {
       <div className="container">
         <div className={classes.inner}>
           <div className={[classes.subtitle, classes.mobile].join(' ')}>
-            Condimentum ac, vestibulum eu nisl. Class aptent taciti sociosqu ad litora torquent per
-            conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum
-            lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac,
-            vestibulum eu nisl.
+            We are dedicated to customer satisfaction and constantly seek the latest technology to
+            serve you better. Explore our products and experience precision and innovation
+            firsthand.
+            <br />
+            <br />
+            We look forward to seeing you.
           </div>
           <img width={587} height={640} src={img} className={classes.img} alt="About Us" />
           <div className={classes.text}>
             <span className={classes.title}>{t('about-us')}</span>
             <div className={classes.subtitle}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et
-              velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora
-              torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis
-              condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis.
+              Welcome to “Tesvan”, where expertise meets innovation. We are an outsourcing company
+              specializing in software testing and QA services. Founded in 2020, we excel in Quality
+              Assurance while offering the latest electronic gadgets. Our team of industry experts
+              guarantees the highest quality in both our services and product offerings.
+              <br />
               <br />
               <p>
-                Condimentum ac, vestibulum eu nisl. Class aptent taciti sociosqu ad litora torquent
-                per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis
-                condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis
-                condimentum ac, vestibulum eu nisl.
+                We are dedicated to customer satisfaction and constantly seek the latest technology
+                to serve you better. Explore our products and experience precision and innovation
+                firsthand.
+                <br />
+                <br />
+                We look forward to seeing you.
               </p>
             </div>
           </div>

@@ -119,19 +119,21 @@ const OrderForm = ({ device }) => {
     };
     axios
       .post('/orders', data)
-      .then(() => {
-        navigate('/');
+      .then(({ data }) => {
+        if (data) {
+          navigate('/');
+          if (!device) {
+            dispatch(removeAll());
+          }
+        }
       })
       .catch((e) => {
         if (e?.response?.status === 409) {
-          NotificationManager.error('Error', 'Quantity of device is 0', 2000);
+          NotificationManager.error('', 'Quantity of device is small then you want', 2000);
         } else {
-          NotificationManager.error('Error', 'Something went wrong', 2000);
+          NotificationManager.error('', 'Something went wrong', 2000);
         }
       });
-    if (!device) {
-      dispatch(removeAll());
-    }
     reset();
     setMessage('');
     setPhone('');

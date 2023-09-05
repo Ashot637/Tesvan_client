@@ -3,7 +3,7 @@ import classes from './contacts.module.scss';
 import { useForm } from 'react-hook-form';
 import axios from '../../helpers/axios';
 import Phone from '../Phone/Phone';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -49,9 +49,9 @@ const Contacts = () => {
     }
     let formData = { ...data, phone };
     axios
-      .post('/contacts5', formData)
+      .post('/contacts', formData)
       .then(() => {
-        NotificationManager.success('Success message', 'Title here', 2000);
+        NotificationManager.success('Success message', 'Title here', 3000);
         // reset();
         // setPhone('');
         // setChecked(false);
@@ -170,7 +170,9 @@ const Contacts = () => {
               <div className={classes.checkbox} onClick={onAcceptTerms}>
                 {checked && <FontAwesomeIcon icon={faCheck} className={classes.check} />}
               </div>
-              <a href="/">{t('policy')}</a>
+              <Link to={'/credit-terms'} target="_blank" rel="noopener noreferrer">
+                {t('credit-terms')}
+              </Link>
             </div>
             <button
               className={classes.btn}
