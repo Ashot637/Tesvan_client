@@ -21,7 +21,6 @@ const DevicesPage = () => {
   const { categories } = useSelector((state) => state.categories);
   const [categorieTitle, setCategorieTitle] = useState('');
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const { language } = useSelector((state) => state.language);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
@@ -41,8 +40,18 @@ const DevicesPage = () => {
   }, [categorie, categories]);
 
   useEffect(() => {
-    dispatch(removeAllFilters());
-  }, [language]);
+    // if (JSON.parse(localStorage.getItem('categorie')) === categorie) {
+    //   JSON.parse(localStorage.getItem('filters')) &&
+    //     dispatch(setAllFilters(JSON.parse(localStorage.getItem('filters'))));
+    // } else {
+    //   localStorage.removeItem('filters');
+    // }
+    if (JSON.parse(localStorage.getItem('categorie')) === categorie) {
+    } else {
+      localStorage.setItem('categorie', JSON.stringify(categorie));
+      dispatch(removeAllFilters());
+    }
+  }, [categorie]);
 
   useEffect(() => {
     if (categories) {

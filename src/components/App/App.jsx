@@ -76,8 +76,9 @@ const App = () => {
         />
         <Route path="/bestsellers" element={<ItemsMainPage typeId={3} title={'bestsellers'} />} />
 
-        <Route path="/thanks" element={<ThanksPage success />} />
-        <Route path="/reject" element={<ThanksPage />} />
+        <Route path="/thanks" element={<ThanksPage type={'success'} />} />
+        <Route path="/reject" element={<ThanksPage type={'reject'} />} />
+        <Route path="/contacts/thanks" element={<ThanksPage type={'email'} />} />
 
         <Route path="*" element={<Page404 />} />
 

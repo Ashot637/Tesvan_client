@@ -60,6 +60,16 @@ const initialState = {
       following: 'ASC',
       name: 'price',
     },
+    {
+      label: 'Newest (DESC)',
+      following: 'DESC',
+      name: 'id',
+    },
+    {
+      label: 'Newest (ASC)',
+      following: 'ASC',
+      name: 'id',
+    },
   ],
   activeFilters: {},
   filters: [],

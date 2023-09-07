@@ -6,6 +6,7 @@ import Card from '../Card/Card';
 import { fetchDevices } from '../../redux/slices/devicesSlice';
 import Pagination from '../Pagination/Pagination';
 import { useTranslation } from 'react-i18next';
+import nothingFoundImg from '../../img/nothingFound.png';
 
 const DevicesList = memo(() => {
   const { brands } = useSelector((state) => state.brands);
@@ -72,10 +73,14 @@ const DevicesList = memo(() => {
         {devices.map((item) => {
           return <Card key={item.id} brands={brands} item={item} />;
         })}
-        {!devices.length && status === 'success' && (
-          <h3 className={classes.nothing}>{t('nothingFound')}</h3>
-        )}
       </div>
+
+      {!devices.length && status === 'success' && (
+        <div className={classes.nothingFound}>
+          <img src={nothingFoundImg} width={200} height={200} alt="Nothing found" />
+          <h3 className={classes.nothing}>{t('nothingFound')}</h3>
+        </div>
+      )}
       <Pagination />
     </div>
   );

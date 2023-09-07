@@ -15,7 +15,7 @@ const Thanks = ({ img, title, subtitle, btn }) => {
     <div className={classes.thanks}>
       <div className="container">
         <div className={classes.block}>
-          <img src={img} alt={title} />
+          <img width={130} height={130} src={img} alt={title} />
           <div className={classes.title}>{t(title)}</div>
           <div className={classes.subtitle}>{t(subtitle)}</div>
           <Link to="/">

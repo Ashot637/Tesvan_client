@@ -76,6 +76,8 @@ export const translationsEn = {
   failed: 'Order failed!',
   rejectedOrder: 'Please check Your payment details and try again.',
   tryAgain: 'Try again',
+  contactThanks: 'Thank you for contacting us!',
+  weHaveReceived: 'We have received your message! We will reached you out imminently.',
 };
 export const translationsRu = {
   categories: 'Категории',

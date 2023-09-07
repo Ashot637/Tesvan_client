@@ -129,7 +129,7 @@ const OrderForm = ({ device }) => {
       })
       .catch((e) => {
         if (e?.response?.status === 409) {
-          NotificationManager.error('', 'Quantity of device is small then you want', 2000);
+          NotificationManager.error('', 'Quantity of device is less then you want', 2000);
         } else {
           NotificationManager.error('', 'Something went wrong', 2000);
         }

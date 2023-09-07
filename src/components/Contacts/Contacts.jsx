@@ -3,7 +3,7 @@ import classes from './contacts.module.scss';
 import { useForm } from 'react-hook-form';
 import axios from '../../helpers/axios';
 import Phone from '../Phone/Phone';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +12,7 @@ import 'react-notifications/lib/notifications.css';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 const Contacts = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const checkboxRef = useRef();
   const [phone, setPhone] = useState('');
@@ -51,17 +52,15 @@ const Contacts = () => {
     axios
       .post('/contacts', formData)
       .then(() => {
-        NotificationManager.success('Success message', 'Title here', 3000);
-        // reset();
-        // setPhone('');
-        // setChecked(false);
+        navigate('/contacts/thanks');
       })
       .catch(() => {
-        NotificationManager.error('Error message', 'Title here', 2000);
-        // reset();
-        // setPhone('');
-        // setChecked(false);
+        NotificationManager.error('', 'Something went wrong', 2000);
       });
+
+    reset();
+    setPhone('');
+    setChecked(false);
   };
 
   useEffect(() => {

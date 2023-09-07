@@ -23,13 +23,19 @@ const OrderInfo = () => {
       id: 3,
       title: 'delivered',
     },
+    {
+      id: 4,
+      title: 'picked',
+    },
   ];
+  const [confirmedStatusId, setConfirmedStatusId] = useState();
 
   useEffect(() => {
     axios.get('/orders/' + id).then(({ data }) => {
       setOrder(data);
-      statuses.find((status) => data.status === status.title) &&
-        setStatusId(statuses.find((status) => data.status === status.title).id);
+      let a = statuses.find((status) => data.status === status.title)?.id;
+      setStatusId(a);
+      setConfirmedStatusId(a);
     });
   }, [id]);
 
@@ -87,8 +93,10 @@ const OrderInfo = () => {
     axios
       .patch('/orders/' + id, {
         status: statuses[statusId - 1].title,
+        name: order.name,
+        email: order.email,
       })
-      .then(({ data }) => alert('Updated!'));
+      .then(({ data }) => setConfirmedStatusId(statusId));
   };
 
   return (
@@ -138,7 +146,7 @@ const OrderInfo = () => {
               title={'Status'}
             />
           </div>
-          {statuses[statusId - 1].title !== order.status && (
+          {statusId !== confirmedStatusId && (
             <div onClick={onUpdateStatus} className={classes.btn}>
               Save
             </div>

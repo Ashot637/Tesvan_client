@@ -112,9 +112,10 @@ main {
   &__overlay {
     background: var(--darkBlue);
     opacity: 0.8;
-    width: 97vw;
+    right: 0;
     height: 100%;
-    position: absolute;
+    width: 100%;
+    position: fixed;
     top: 0;
     z-index: 3;
   }
@@ -138,7 +139,7 @@ main {
   }
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 970px) {
   .block-850 {
     display: block;
   }

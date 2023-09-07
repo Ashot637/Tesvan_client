@@ -137,8 +137,8 @@ const Sidebar = () => {
               </AccordionItem>
             );
           })}
-        <AccordionItem title={t('clearAll')} remove />
       </div>
+      <AccordionItem title={t('clearAll')} remove />
     </div>
   );
 };
