@@ -43,7 +43,13 @@ const AdminOrders = () => {
       <tbody>
         {orders.map((order) => {
           return (
-            <tr key={order.id}>
+            <tr
+              key={order.id}
+              className={
+                order.status === 'picked' || order.status === 'delivered'
+                  ? classes.successed
+                  : undefined
+              }>
               <td onClick={() => navigateToOrder(order.id)}>{order.id}</td>
               <td onClick={() => navigateToOrder(order.id)}>{order.name}</td>
               <td onClick={() => navigateToOrder(order.id)}>{order.surname}</td>

@@ -39,6 +39,11 @@ const Cart = () => {
             ...device,
             count: device.quantity,
           };
+        } else if (device.count === 0 && device.quantity > 0) {
+          return {
+            ...device,
+            count: 1,
+          };
         }
         return device;
       });
@@ -47,7 +52,9 @@ const Cart = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(toggleIsOpen(false));
+    if (isOpen) {
+      dispatch(toggleIsOpen(false));
+    }
   }, [location]);
 
   const mergeArrays = (array1, array2) => {

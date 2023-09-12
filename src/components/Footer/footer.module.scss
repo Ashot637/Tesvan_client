@@ -1,5 +1,6 @@
 footer {
   background: var(--primary);
+  font-family: 'Roboto';
 }
 
 .inner {
@@ -19,6 +20,7 @@ footer {
   color: white;
   padding: 28px 0;
   margin-bottom: 30px;
+  font-family: 'Fira Sans';
 
   &::after {
     content: '';

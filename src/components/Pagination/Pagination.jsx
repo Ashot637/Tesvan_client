@@ -6,7 +6,7 @@ import { setPage } from '../../redux/slices/devicesSlice';
 
 const Pagination = () => {
   const dispatch = useDispatch();
-  const { brandId, activeFilters, minPrice, page, maxPrice, pagination } = useSelector(
+  const { brandId, activeFilters, minPrice, page, maxPrice, pagination, sortType } = useSelector(
     (state) => state.devices,
   );
 
@@ -14,7 +14,7 @@ const Pagination = () => {
     if (page !== 1) {
       dispatch(setPage(1));
     }
-  }, [brandId, activeFilters, minPrice, maxPrice]);
+  }, [brandId, activeFilters, minPrice, maxPrice, sortType]);
 
   return (
     <>

@@ -1,8 +1,19 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../fonts/FiraSans-Regular.ttf');
+  font-weight: 400;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Fira Sans', sans-serif;
 }
 
 .container {
@@ -14,6 +25,7 @@
 
 body {
   background: var(--darkBlue);
+  font-family: 'Fira Sans';
 }
 
 ul {
