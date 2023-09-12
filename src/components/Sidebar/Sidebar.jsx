@@ -70,7 +70,7 @@ const Sidebar = () => {
   return (
     <div className={classes.sidebar}>
       <div className={classes.accordion}>
-        <AccordionItem title={t('brand')}>
+        <AccordionItem open title={t('brand')}>
           <div className={classes.items}>
             {brands.map((brand) => {
               return (
@@ -86,7 +86,7 @@ const Sidebar = () => {
             })}
           </div>
         </AccordionItem>
-        <AccordionItem title={t('price')}>
+        <AccordionItem open title={t('price')}>
           <div style={{ paddingTop: 15 }}>
             <ReactSlider
               className="horizontal-slider"

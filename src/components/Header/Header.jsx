@@ -19,8 +19,6 @@ import { fetchCategories } from '../../redux/slices/categoriesSlice';
 import { createPortal } from 'react-dom';
 import CartNotification from '../CartNotification/CartNotification';
 import { changeLanguage } from '../../redux/slices/languageSlice';
-
-import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 const Header = () => {
@@ -33,7 +31,6 @@ const Header = () => {
   const { isOpen: isOpenCart, devices: cartDevices } = useSelector((state) => state.cart);
   const { language, languagesList } = useSelector((state) => state.language);
   const [scrolling, setScrolling] = useState(false);
-  const mounted = useRef(false);
   const langRef = useRef(false);
   const { t } = useTranslation();
 
@@ -42,24 +39,12 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (mounted.current) {
-      window.location.reload();
-    }
-    mounted.current = true;
-  }, [language]);
-
-  useEffect(() => {
     localStorage.setItem('compare', JSON.stringify(comparingDevices));
   }, [comparingDevices]);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartDevices));
   }, [cartDevices]);
-
-  useEffect(() => {
-    localStorage.setItem('language', JSON.stringify(language));
-    i18n.changeLanguage(language.title);
-  }, [language]);
 
   useEffect(() => {
     setisOpenSearchPanel(false);
@@ -96,7 +81,9 @@ const Header = () => {
   }, [isOpenLanguage]);
 
   const onChangeLanguage = (lan) => {
+    localStorage.setItem('language', JSON.stringify(lan));
     dispatch(changeLanguage(lan));
+    window.location.reload();
   };
 
   return (

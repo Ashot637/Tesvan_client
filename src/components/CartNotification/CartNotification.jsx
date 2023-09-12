@@ -46,8 +46,13 @@ const CartNotification = () => {
             </div>
             <div className={classes.line} />
             <div className={classes.bottom}>
-              <span>{addedDevice.count}pcs</span>
-              <b>{getPrice(addedDevice.price * addedDevice.count)} AMD</b>
+              <span>
+                {addedDevice.count}
+                {t('pcs')}
+              </span>
+              <b>
+                {getPrice(addedDevice.price * addedDevice.count)} {t('amd')}
+              </b>
             </div>
             <button>{t('openCart')}</button>
           </div>

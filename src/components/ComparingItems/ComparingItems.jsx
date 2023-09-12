@@ -4,12 +4,14 @@ import { removeDeviceComparing } from '../../redux/slices/compareSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from 'react-i18next';
 
 const ComparingItems = ({ devices, title, isFilterMode }) => {
   const dispatch = useDispatch();
   const [titles, setTitles] = useState([]);
   const [filteredTitles, setFilteredTitles] = useState([]);
   const { brands } = useSelector((state) => state.brands);
+  const { t } = useTranslation();
 
   useEffect(() => {
     let arr = [];
@@ -74,9 +76,7 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
         <table className={classes.items}>
           <thead>
             <tr>
-              <td className={classes.model}>
-                <p>Model amount</p>
-              </td>
+              <td className={classes.model}></td>
               {devices &&
                 devices.map((device) => {
                   return (

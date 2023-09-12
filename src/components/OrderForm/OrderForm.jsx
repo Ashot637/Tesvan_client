@@ -129,9 +129,9 @@ const OrderForm = ({ device }) => {
       })
       .catch((e) => {
         if (e?.response?.status === 409) {
-          NotificationManager.error('', 'Quantity of device is less then you want', 2000);
+          NotificationManager.error('', t('lessQuantity'), 3000);
         } else {
-          NotificationManager.error('', 'Something went wrong', 2000);
+          NotificationManager.error('', t('somethingWentWrong'), 2000);
         }
       });
     reset();
@@ -336,7 +336,9 @@ const OrderForm = ({ device }) => {
                         <div className={classes.count}>{device.count}</div>
                       </td>
                       <td>
-                        <b>{getPrice(device.price * device.count)} AMD</b>
+                        <b>
+                          {getPrice(device.price * device.count)} {t('amd')}
+                        </b>
                       </td>
                     </tr>
                   );
@@ -364,11 +366,15 @@ const OrderForm = ({ device }) => {
             <div className={classes.total}>
               <div className={classes.flex}>
                 <span>{t('total')}</span>
-                <span style={{ color: 'white' }}>{getPrice(totalPrice * 0.9)} AMD</span>
+                <span style={{ color: 'white' }}>
+                  {getPrice(totalPrice * 0.9)} {t('amd')}
+                </span>
               </div>
               <div className={classes.flex}>
                 <span>{t('productXpcs', { count: devices.length })}</span>
-                <span>{getPrice(totalPrice)} AMD</span>
+                <span>
+                  {getPrice(totalPrice)} {t('amd')}
+                </span>
               </div>
               <div className={classes.flex}>
                 <span>{t('discount')}</span>

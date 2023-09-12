@@ -1,13 +1,14 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { Routes, Route, useLocation } from 'react-router-dom';
-
+import { i18n } from '../../index';
 import ScrollToTop from '../../helpers/ScrollToTop';
 
 import { CategoriesPage, SimpleDevicePage, DevicesPage } from '../../pages';
 import Spinner from '../Spinner/Spinner';
 import Page404 from '../../pages/404';
+import { useSelector } from 'react-redux';
 
 const HomePage = lazy(() => import('../../pages/HomePage'));
 const ContactsPage = lazy(() => import('../../pages/ContactsPage'));
@@ -17,6 +18,7 @@ const CreditTermsPage = lazy(() => import('../../pages/CreditTermsPage'));
 const ThanksPage = lazy(() => import('../../pages/ThanksPage'));
 const ItemsMainPage = lazy(() => import('../../pages/ItemsMainPage'));
 const ComparePage = lazy(() => import('../../pages/ComparePage'));
+const PrivacyPolicyPage = lazy(() => import('../../pages/PrivacyPolicyPage'));
 
 const AdminHome = lazy(() => import('../Admin/components/AdminHome/AdminHome'));
 const AdminDevices = lazy(() => import('../Admin/components/AdminDevices/AdminDevices'));
@@ -52,6 +54,12 @@ const AdminLogin = lazy(() => import('../Admin/components/AdminLogin/AdminLogin'
 
 const App = () => {
   const location = useLocation();
+  const { language } = useSelector((state) => state.language);
+
+  useEffect(() => {
+    i18n.changeLanguage(language.title);
+  }, []);
+
   return (
     <Suspense fallback={<Spinner />}>
       {!location.pathname.includes('/admin') && <Header />}
@@ -67,7 +75,7 @@ const App = () => {
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/credit-terms" element={<CreditTermsPage />} />
         <Route path="/contacts" element={<ContactsPage />} />
-        <Route path="/contacts/order" element={<ContactsPage />} />
+        <Route path="/contacts/make-order" element={<ContactsPage />} />
 
         <Route path="/sale" element={<ItemsMainPage typeId={1} title={'sale'} />} />
         <Route
@@ -79,6 +87,8 @@ const App = () => {
         <Route path="/thanks" element={<ThanksPage type={'success'} />} />
         <Route path="/reject" element={<ThanksPage type={'reject'} />} />
         <Route path="/contacts/thanks" element={<ThanksPage type={'email'} />} />
+
+        <Route path="/privacy-policy/" element={<PrivacyPolicyPage />} />
 
         <Route path="*" element={<Page404 />} />
 

@@ -19,7 +19,7 @@ const ThanksPage = ({ type }) => {
           <Thanks
             title={'contactThanks'}
             subtitle={'weHaveReceived'}
-            btn={'continue'}
+            btn={'backToHomePage'}
             img={letter}
           />
         );

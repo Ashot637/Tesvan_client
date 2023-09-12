@@ -6,7 +6,7 @@ import CartItem from '../CartItem/CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeAll, setDevices, toggleIsOpen } from '../../redux/slices/cartSlice';
 import getPrice from '../../helpers/getPrice';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useTranslation } from 'react-i18next';
 import axios from '../../helpers/axios';
@@ -15,6 +15,7 @@ import emptyCart from '../../img/empty.webp';
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   let { devices, isOpen } = useSelector((state) => state.cart);
   const { t } = useTranslation();
 
@@ -44,6 +45,10 @@ const Cart = () => {
       dispatch(setDevices(newDevices));
     });
   }, []);
+
+  useEffect(() => {
+    dispatch(toggleIsOpen(false));
+  }, [location]);
 
   const mergeArrays = (array1, array2) => {
     const resultMap = new Map();
@@ -98,17 +103,15 @@ const Cart = () => {
               <div className={classes.order}>
                 <div className={classes.total}>
                   <span>{t('total')}:</span>
-                  <b>{getPrice(totalPrice)} AMD</b>
+                  <b>
+                    {getPrice(totalPrice)} {t('amd')}
+                  </b>
                 </div>
                 <div className={classes.btns}>
                   <div className={classes.back} onClick={() => dispatch(toggleIsOpen())}>
                     {'<<'} {t('back')}
                   </div>
-                  <Link
-                    to="/make-order"
-                    onClick={() => {
-                      dispatch(toggleIsOpen());
-                    }}>
+                  <Link to="/make-order">
                     <button
                       disabled={devices.find((device) => device.quantity === 0)}
                       className={classes.done}>
@@ -121,8 +124,8 @@ const Cart = () => {
           ) : (
             <div className={classes.emptyCart}>
               <img width={200} height={200} src={emptyCart} alt="Empty cart" />
-              <span className={classes.empty}>Your cart is empty</span>
-              <span>Looks like You have not make Your choice yet...</span>
+              <span className={classes.empty}>{t('emptyCartTitle')}</span>
+              <span>{t('emptyCartSubtitle')}</span>
               <div className={classes.back} onClick={() => dispatch(toggleIsOpen())}>
                 {'<<'} {t('back')}
               </div>

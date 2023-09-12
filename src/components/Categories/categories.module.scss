@@ -17,6 +17,7 @@
   cursor: pointer;
   border-radius: 3px;
   border-bottom: 1px solid transparent;
+  box-shadow: 3px 4px 15px 0px rgba(0, 0, 0, 0.25);
 
   &:hover {
     border-color: var(--yellow);

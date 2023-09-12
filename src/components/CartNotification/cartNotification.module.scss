@@ -11,6 +11,7 @@
   z-index: 999;
   flex-direction: column;
   border-radius: 2px;
+  box-shadow: 3px 4px 15px 0px rgba(21, 21, 21, 0.45);
 
   &:before {
     content: '';

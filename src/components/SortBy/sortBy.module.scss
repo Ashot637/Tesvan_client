@@ -12,6 +12,7 @@
 
 .select {
   position: relative;
+  min-width: 195px;
 }
 
 .option {
@@ -20,7 +21,7 @@
   border: 1px solid white;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   column-gap: 10px;
 }
 
@@ -28,4 +29,13 @@
   position: absolute;
   z-index: 5;
   width: 100%;
+  background: var(--primary);
+}
+
+@media screen and (max-width: 380px) {
+  .sort {
+    span {
+      display: none;
+    }
+  }
 }

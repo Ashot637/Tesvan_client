@@ -14,7 +14,7 @@ const EditNewDevice = () => {
 
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const [code, setCode] = useState('');
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [oldPrice, setOldPrice] = useState('');
@@ -76,6 +76,7 @@ const EditNewDevice = () => {
   useEffect(() => {
     if (id) {
       axios.get('/device/' + id).then(({ data }) => {
+        setCode(data.code);
         setTitle(data.title);
         setPrice(data.price);
         setOldPrice(data.oldPrice);
@@ -109,6 +110,7 @@ const EditNewDevice = () => {
   }, [id]);
 
   const onResetFields = () => {
+    setCode('');
     setTitle('');
     setPrice('');
     setOldPrice('');
@@ -203,6 +205,7 @@ const EditNewDevice = () => {
       'images',
       images.filter((image) => image.url).map((image) => image.url),
     );
+    formData.append('code', code);
     formData.append('title', title);
     formData.append('price', price);
     formData.append('oldPrice', oldPrice);
@@ -361,6 +364,15 @@ const EditNewDevice = () => {
   return (
     <form className={classes.form} onSubmit={onSubmit}>
       <div className={classes.field}>
+        <label>Device Code</label>
+        <input
+          type="text"
+          className={classes.name}
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+        />
+      </div>
+      <div className={classes.field}>
         <label>Device name</label>
         <input
           type="text"
@@ -465,6 +477,7 @@ const EditNewDevice = () => {
         type="submit"
         className={classes.btn}
         disabled={
+          !code.trim() ||
           !title.trim() ||
           !price ||
           (!oldPrice && oldPrice !== 0) ||

@@ -3,11 +3,12 @@ import classes from './accordionItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { removeAllFilters } from '../../redux/slices/devicesSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-const AccordionItem = ({ children, title, remove }) => {
+const AccordionItem = ({ children, title, remove, open }) => {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
+  const { activeFilters } = useSelector((state) => state.devices);
+  const [isOpen, setIsOpen] = useState(open || Object.keys(activeFilters)?.includes(title));
 
   return (
     <div className={classes.item}>

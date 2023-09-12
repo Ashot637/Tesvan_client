@@ -5,36 +5,28 @@ import { useTranslation } from 'react-i18next';
 
 const AboutUs = () => {
   const { t } = useTranslation();
-
   return (
     <div className={classes.about}>
       <div className="container">
         <div className={classes.inner}>
           <div className={[classes.subtitle, classes.mobile].join(' ')}>
-            We are dedicated to customer satisfaction and constantly seek the latest technology to
-            serve you better. Explore our products and experience precision and innovation
-            firsthand.
+            {t('aboutUsBottom')}
             <br />
             <br />
-            We look forward to seeing you.
+            {t('aboutUsEnding')}
           </div>
           <img width={587} height={640} src={img} className={classes.img} alt="About Us" />
           <div className={classes.text}>
             <span className={classes.title}>{t('about-us')}</span>
             <div className={classes.subtitle}>
-              Welcome to “Tesvan”, where expertise meets innovation. We are an outsourcing company
-              specializing in software testing and QA services. Founded in 2020, we excel in Quality
-              Assurance while offering the latest electronic gadgets. Our team of industry experts
-              guarantees the highest quality in both our services and product offerings.
+              {t('aboutUsTop')}
               <br />
               <br />
               <p>
-                We are dedicated to customer satisfaction and constantly seek the latest technology
-                to serve you better. Explore our products and experience precision and innovation
-                firsthand.
+                {t('aboutUsBottom')}
                 <br />
                 <br />
-                We look forward to seeing you.
+                {t('aboutUsEnding')}
               </p>
             </div>
           </div>

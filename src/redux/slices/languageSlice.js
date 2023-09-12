@@ -4,12 +4,22 @@ import am from '../../img/am.webp';
 import ru from '../../img/ru.webp';
 
 const getLanguageFromLS = () => {
-  const language = localStorage.getItem('language');
+  const language = JSON.parse(localStorage.getItem('language'));
+  if (!language) {
+    localStorage.setItem(
+      'language',
+      JSON.stringify({
+        label: 'Armenian',
+        title: 'am',
+        img: am,
+      }),
+    );
+  }
   return (
-    JSON.parse(language) || {
-      label: 'English',
-      title: 'en',
-      img: en,
+    language || {
+      label: 'Armenian',
+      title: 'am',
+      img: am,
     }
   );
 };

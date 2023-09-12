@@ -16,13 +16,10 @@ i18n.use(initReactI18next).init({
     ru: { translation: translationsRu },
     am: { translation: translationsAm },
   },
-  lng: 'en',
-  fallbackLng: 'en',
-  react: {
-    useSuspense: true,
-  },
-  interpolation: { escapeValue: false },
+  fallbackLng: 'am',
 });
+
+export { i18n };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

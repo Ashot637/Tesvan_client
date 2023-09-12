@@ -317,12 +317,17 @@ main {
 
 .notification {
   opacity: 1;
-}
-
-.notification-success {
-  background-color: var(--yellow) !important;
+  box-shadow: none;
+  padding: 15px 15px 10px 24px;
 }
 
 .notification-error {
-  background-color: var(--danger) !important;
+  background-color: var(--yellow) !important;
+  h4 {
+    font-weight: 500 !important;
+  }
+
+  &::before {
+    display: none;
+  }
 }

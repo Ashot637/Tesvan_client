@@ -41,7 +41,7 @@ const SimpleDevice = ({ device }) => {
 
   const navigateToOrderOutOfStock = () => {
     localStorage.setItem('outOfStockDeviceTitle', device.title);
-    navigate('/contacts/order');
+    navigate('/contacts/make-order');
   };
 
   useEffect(() => {
@@ -105,14 +105,18 @@ const SimpleDevice = ({ device }) => {
                 <div className={classes.info}>
                   <div className={classes.mainInfo}>
                     <span className={classes.title}>{device.title}</span>
-                    <span className={classes.codeId}>Code {device.id}</span>
-                    <span className={classes.price}>{getPrice(device.price)} AMD</span>
+                    <span className={classes.codeId}>
+                      {t('code')}: {device.code}
+                    </span>
+                    <span className={classes.price}>
+                      {getPrice(device.price)} {t('amd')}
+                    </span>
                     <table className={classes.table}>
                       <thead className={classes.thead}>
                         <tr>
-                          <td>120 000 AMD</td>
-                          <td>120 000 AMD</td>
-                          <td>120 000 AMD</td>
+                          <td>120 000 {t('amd')}</td>
+                          <td>120 000 {t('amd')}</td>
+                          <td>120 000 {t('amd')}</td>
                         </tr>
                       </thead>
                       <tbody className={classes.tbody}>
@@ -129,11 +133,15 @@ const SimpleDevice = ({ device }) => {
                     <div className={classes.prices}>
                       <div className={classes.cash}>
                         <b>{t('withCash')}</b>
-                        <span>{device.price.toLocaleString().replaceAll(',', ' ')} AMD</span>
+                        <span>
+                          {device.price.toLocaleString().replaceAll(',', ' ')} {t('amd')}
+                        </span>
                       </div>
                       <div className={classes.credit}>
                         <b>{t('withCard')}</b>
-                        <span>{getPrice(device.price + 50000)} AMD</span>
+                        <span>
+                          {getPrice(device.price + 50000)} {t('amd')}
+                        </span>
                       </div>
                     </div>
                     <div className={classes.line}></div>

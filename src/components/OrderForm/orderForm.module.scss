@@ -127,13 +127,14 @@
 
 .methods {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   column-gap: 8px;
   row-gap: 15px;
   padding-top: 18px;
 
   p {
     color: white;
+    width: 50px;
   }
 }
 
@@ -141,7 +142,7 @@
   cursor: pointer;
   div {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     column-gap: 6px;
   }
 }

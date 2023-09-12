@@ -29,11 +29,10 @@ const Contacts = () => {
     mode: 'onChange',
   });
   const [outOfStockDevice, setOutOfStockDevice] = useState();
-  const [_, rerender] = useState();
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (location.pathname.includes('/contacts/order')) {
+    if (location.pathname.includes('/contacts/make-order')) {
       setOutOfStockDevice(localStorage.getItem('outOfStockDeviceTitle'));
       setFocus('message');
     }
@@ -55,17 +54,13 @@ const Contacts = () => {
         navigate('/contacts/thanks');
       })
       .catch(() => {
-        NotificationManager.error('', 'Something went wrong', 2000);
+        NotificationManager.error('', t('somethingWentWrong'), 2000);
       });
 
     reset();
     setPhone('');
     setChecked(false);
   };
-
-  useEffect(() => {
-    rerender('');
-  }, []);
 
   return (
     <div className={classes.contacts}>
@@ -169,9 +164,12 @@ const Contacts = () => {
               <div className={classes.checkbox} onClick={onAcceptTerms}>
                 {checked && <FontAwesomeIcon icon={faCheck} className={classes.check} />}
               </div>
-              <Link to={'/credit-terms'} target="_blank" rel="noopener noreferrer">
-                {t('credit-terms')}
-              </Link>
+              <p>
+                <span>{t('agree')}</span>
+                <Link to={'/privacy-policy'} target="_blank" rel="noopener noreferrer">
+                  {t('policy')}
+                </Link>
+              </p>
             </div>
             <button
               className={classes.btn}

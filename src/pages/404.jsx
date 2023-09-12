@@ -4,8 +4,10 @@ import classes from '../styles/404.module.scss';
 import error404 from '../img/404.png';
 import error404small from '../img/404small.png';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Page404 = () => {
+  const { t } = useTranslation();
   return (
     <>
       <Helmet>
@@ -18,9 +20,9 @@ const Page404 = () => {
               <img src={error404} alt="Page not found" />
               <img src={error404small} alt="Page not found" />
             </div>
-            <h2>OPPS! Page not found</h2>
+            <h2>{t('opps')}</h2>
             <Link to={'/'}>
-              <button>Back to homepage</button>
+              <button>{t('backToHomePage')}</button>
             </Link>
           </div>
         </div>

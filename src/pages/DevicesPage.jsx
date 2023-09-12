@@ -40,12 +40,6 @@ const DevicesPage = () => {
   }, [categorie, categories]);
 
   useEffect(() => {
-    // if (JSON.parse(localStorage.getItem('categorie')) === categorie) {
-    //   JSON.parse(localStorage.getItem('filters')) &&
-    //     dispatch(setAllFilters(JSON.parse(localStorage.getItem('filters'))));
-    // } else {
-    //   localStorage.removeItem('filters');
-    // }
     if (JSON.parse(localStorage.getItem('categorie')) === categorie) {
     } else {
       localStorage.setItem('categorie', JSON.stringify(categorie));

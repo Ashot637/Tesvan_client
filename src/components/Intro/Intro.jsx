@@ -9,7 +9,11 @@ import 'swiper/css/pagination';
 import { useSelector } from 'react-redux';
 import useSWR from 'swr';
 
-const fetcher = (url) => axios.get(url).then(({ data }) => data);
+const fetcher = (url) =>
+  axios
+    .get(url)
+    .then(({ data }) => data)
+    .catch((e) => console.log(e));
 
 const Intro = () => {
   const { data: slides } = useSWR('/img/header', fetcher, { suspense: true });
@@ -27,7 +31,7 @@ const Intro = () => {
 
   return (
     <>
-      {slides ? (
+      {slides && (
         <Swiper
           autoplay={{
             delay: 3000,
@@ -46,7 +50,9 @@ const Intro = () => {
                     devices[i] &&
                     categories.find((c) => c.id === devices[i]?.categorieId) &&
                     '/categories/' +
-                      categories.find((c) => c.id === devices[i]?.categorieId).title.toLowerCase() +
+                      categories
+                        .find((c) => c.id === devices[i]?.categorieId)
+                        .title_en.toLowerCase() +
                       '/' +
                       devices[i]?.id
                   }>
@@ -69,13 +75,9 @@ const Intro = () => {
             );
           })}
         </Swiper>
-      ) : undefined}
+      )}
     </>
   );
-};
-
-const SuspenseTrigger = () => {
-  throw new Promise(() => {});
 };
 
 export default Intro;

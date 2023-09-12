@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from './sortBy.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
@@ -10,14 +10,32 @@ const SortBy = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState();
   const { sortType, sortList } = useSelector((state) => state.devices);
+  const popupRef = useRef();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const closePopup = (e) => {
+      if (!popupRef.current?.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.body.addEventListener('mousedown', closePopup);
+    } else {
+      document.body.removeEventListener('mousedown', closePopup);
+    }
+
+    return () => {
+      document.body.removeEventListener('mousedown', closePopup);
+    };
+  }, [isOpen]);
 
   return (
     <div className={classes.sort}>
       <span>{t('sortBy')}</span>
-      <div className={classes.select}>
+      <div ref={popupRef} className={classes.select}>
         <div className={classes.option} onClick={() => setIsOpen((isOpen) => !isOpen)}>
-          <p>{sortType.label}</p>
+          <p>{t(sortType.label)}</p>
           <FontAwesomeIcon
             icon={faAngleDown}
             style={isOpen ? { transform: 'rotateX(180deg)' } : undefined}
@@ -35,7 +53,7 @@ const SortBy = () => {
                     dispatch(setSortType(sort));
                     setIsOpen((isOpen) => !isOpen);
                   }}>
-                  <p>{sort.label}</p>
+                  <p>{t(sort.label)}</p>
                 </div>
               );
             })}

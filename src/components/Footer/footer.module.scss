@@ -59,6 +59,16 @@ footer {
   display: flex;
   align-items: center;
   column-gap: 10px;
+  margin-bottom: 10px;
+}
+
+.policy {
+  color: white;
+
+  &:hover {
+    color: var(--yellow);
+    cursor: pointer;
+  }
 }
 
 .socialLink {

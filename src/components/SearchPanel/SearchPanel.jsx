@@ -42,7 +42,7 @@ const SearchPanel = () => {
 
   const onSearch = useCallback(
     debounce((term) => {
-      if (term) {
+      if (term.trim()) {
         axios.post('/devices/search', { title: term.trim() }).then(({ data }) => {
           if (data.length) {
             setDevices(data);
@@ -52,7 +52,7 @@ const SearchPanel = () => {
           }
         });
       }
-      if (!term) {
+      if (!term.trim()) {
         setEmpty(false);
         setDevices([]);
       }
@@ -126,7 +126,7 @@ const SearchPanel = () => {
                         setDevices([]);
                         setTerm('');
                       }}>
-                      {getPrice(device.price)} AMD
+                      {getPrice(device.price)} {t('amd')}
                     </Link>
                   </td>
                 </tr>

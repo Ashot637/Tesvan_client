@@ -68,7 +68,7 @@ const Card = ({ item, brands }) => {
 
   const navigateToOrderOutOfStock = () => {
     localStorage.setItem('outOfStockDeviceTitle', item.title);
-    navigate('/contacts/order');
+    navigate('/contacts/make-order');
   };
 
   return (
@@ -109,9 +109,13 @@ const Card = ({ item, brands }) => {
           <div className={classes.out}>{t('outOfStock')}</div>
         ) : (
           <>
-            <span className={classes.price}>{getPrice(item.price)} AMD</span>
+            <span className={classes.price}>
+              {getPrice(item.price)} {t('amd')}
+            </span>
             {+item.oldPrice ? (
-              <span className={classes.oldPrice}>{getPrice(item.oldPrice)} AMD</span>
+              <span className={classes.oldPrice}>
+                {getPrice(item.oldPrice)} {t('amd')}
+              </span>
             ) : (
               <>
                 <br />

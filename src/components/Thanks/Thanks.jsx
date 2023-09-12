@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classes from './thanks.module.scss';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Thanks = ({ img, title, subtitle, btn }) => {
   const { t } = useTranslation();
-  const [_, rerender] = useState();
-
-  useEffect(() => {
-    rerender('');
-  }, []);
 
   return (
     <div className={classes.thanks}>

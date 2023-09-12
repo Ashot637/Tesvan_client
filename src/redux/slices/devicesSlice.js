@@ -45,29 +45,29 @@ const initialState = {
   maxPrice: 2000000,
   status: 'waiting',
   sortType: {
-    label: 'Price (DESC)',
+    label: 'highToLow',
     following: 'DESC',
     name: 'price',
   },
   sortList: [
     {
-      label: 'Price (DESC)',
-      following: 'DESC',
-      name: 'price',
-    },
-    {
-      label: 'Price (ASC)',
+      label: 'lowToHigh',
       following: 'ASC',
       name: 'price',
     },
     {
-      label: 'Newest (DESC)',
+      label: 'highToLow',
       following: 'DESC',
+      name: 'price',
+    },
+    {
+      label: 'oldest',
+      following: 'ASC',
       name: 'id',
     },
     {
-      label: 'Newest (ASC)',
-      following: 'ASC',
+      label: 'newest',
+      following: 'DESC',
       name: 'id',
     },
   ],

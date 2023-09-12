@@ -37,6 +37,7 @@
   font-weight: 500;
   color: var(--yellow);
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .subtitle {
@@ -52,6 +53,7 @@
   color: var(--primary);
   background: var(--yellow);
   border-radius: 2px;
+  font-weight: 500;
 }
 
 @media screen and (max-width: 700px) {
