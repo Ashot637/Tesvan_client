@@ -207,47 +207,47 @@ const Header = () => {
                   <FontAwesomeIcon icon={faCodeCompare} />
                 </NavLink>
               </li>
-              <li className={classes.icon}>
+              <li className={classes.icon} ref={menuRef}>
                 <FontAwesomeIcon
                   icon={faBars}
                   className={isOpenMenu ? classes.active : undefined}
                   onClick={() => setIsOpenMenu((isOpenMenu) => !isOpenMenu)}
                 />
+                {isOpenMenu && (
+                  <ul className={classes.menu}>
+                    <li>
+                      <NavLink
+                        className={({ isActive }) => (isActive ? classes.active : undefined)}
+                        to={'/categories'}>
+                        {t('categories')}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        className={({ isActive }) => (isActive ? classes.active : undefined)}
+                        to={'/about-us'}>
+                        {t('about-us')}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        className={({ isActive }) => (isActive ? classes.active : undefined)}
+                        to={'/credit-terms'}>
+                        {t('credit-terms')}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        className={({ isActive }) => (isActive ? classes.active : undefined)}
+                        to={'/contacts'}>
+                        {t('contacts')}
+                      </NavLink>
+                    </li>
+                  </ul>
+                )}
               </li>
             </ul>
             <Cart />
-            {isOpenMenu && (
-              <ul className={classes.menu} ref={menuRef}>
-                <li>
-                  <NavLink
-                    className={({ isActive }) => (isActive ? classes.active : undefined)}
-                    to={'/categories'}>
-                    {t('categories')}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className={({ isActive }) => (isActive ? classes.active : undefined)}
-                    to={'/about-us'}>
-                    {t('about-us')}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className={({ isActive }) => (isActive ? classes.active : undefined)}
-                    to={'/credit-terms'}>
-                    {t('credit-terms')}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className={({ isActive }) => (isActive ? classes.active : undefined)}
-                    to={'/contacts'}>
-                    {t('contacts')}
-                  </NavLink>
-                </li>
-              </ul>
-            )}
           </div>
         </div>
       </header>

@@ -13,7 +13,7 @@ const ItemsMainPage = ({ typeId, title }) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    axios.get('/devices', { params: { typeId, limit: 50 } }).then(({ data }) => setItems(data));
+    axios.get('/devices', { params: { typeId, limit: 80 } }).then(({ data }) => setItems(data));
   }, []);
 
   return (
