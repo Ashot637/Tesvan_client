@@ -383,6 +383,12 @@
   }
 }
 
+@media screen and (max-width: 520px) {
+  .top {
+    padding: 0 20px;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .body {
     &:hover {

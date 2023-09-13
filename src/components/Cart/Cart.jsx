@@ -110,7 +110,7 @@ const Cart = () => {
               <div className={classes.order}>
                 <div className={classes.total}>
                   <span>{t('total')}:</span>
-                  <b>
+                  <b style={{ textAlign: 'right' }}>
                     {getPrice(totalPrice)} {t('amd')}
                   </b>
                 </div>

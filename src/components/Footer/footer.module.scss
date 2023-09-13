@@ -157,7 +157,13 @@ footer {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 680px) {
+  .info {
+    column-gap: 25px;
+  }
+}
+
+@media screen and (max-width: 615px) {
   .logo {
     display: none;
   }

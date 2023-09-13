@@ -60,8 +60,11 @@ const PrivacyPolicy = () => {
               <br />
               <p>
                 {t('privacy.sendEmail')}{' '}
-                <a href="https://mail.google.com/mail/u/0/?fs=1&to=info@tesvanelectronics.am&su=SUBJECT&body=BODY&bcc=info@tesvanelectronics.am&tf=cm">
-                  info@tesvanelectronics.am.
+                <a
+                  href="https://mail.google.com/mail/u/0/?fs=1&to=info@tesvanelectronics.am&su=SUBJECT&body=BODY&bcc=info@tesvanelectronics.am&tf=cm"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  info@tesvanelectronics.am
                 </a>
               </p>
             </li>

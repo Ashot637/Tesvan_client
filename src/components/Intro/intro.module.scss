@@ -92,6 +92,10 @@
 }
 
 @media screen and (max-width: 475px) {
+  .slider {
+    margin-bottom: 20px;
+  }
+
   .slide {
     column-gap: 10px;
     img {

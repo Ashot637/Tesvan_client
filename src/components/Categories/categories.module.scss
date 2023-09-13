@@ -13,7 +13,9 @@
   color: var(--yellow);
   background: var(--primary);
   font-size: 50px;
-  padding: 10px 50px;
+  padding: 10px 0;
+  max-width: 215px;
+  width: 100%;
   cursor: pointer;
   border-radius: 3px;
   border-bottom: 1px solid transparent;
@@ -37,13 +39,7 @@
   }
 }
 
-@media screen and (max-width: 1165px) {
-  .categorie {
-    padding: 10px 30px;
-  }
-}
-
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 1000px) {
   .inner {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -100,11 +96,5 @@
     img {
       width: 75px;
     }
-  }
-}
-
-@media screen and (max-width: 330px) {
-  .categorie {
-    padding: 10px 25px;
   }
 }

@@ -17,6 +17,8 @@
   h2 {
     color: white;
     flex: 2;
+    white-space: nowrap;
+    margin-right: 15px;
   }
 
   p {
@@ -34,7 +36,6 @@
 .filters {
   display: flex;
   align-items: center;
-  column-gap: 10px;
   flex: 8;
 
   li {
@@ -43,6 +44,8 @@
     padding: 10px 25px;
     border-radius: 25px;
     cursor: pointer;
+    white-space: nowrap;
+    margin-right: 10px;
 
     &:hover {
       color: var(--primary);
@@ -88,7 +91,7 @@
   }
 }
 
-@media screen and (max-width: 574px) {
+@media screen and (max-width: 615px) {
   .top {
     white-space: nowrap;
     overflow: auto;

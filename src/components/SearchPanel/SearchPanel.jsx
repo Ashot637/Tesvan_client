@@ -78,7 +78,7 @@ const SearchPanel = () => {
             {devices.map((device) => {
               return (
                 <tr key={device.id}>
-                  <td width={'20%'}>
+                  <td width={'5%'}>
                     <Link
                       to={
                         categories.find((c) => c.id === device.categorieId) &&
@@ -97,7 +97,7 @@ const SearchPanel = () => {
                       />
                     </Link>
                   </td>
-                  <td width={'60%'}>
+                  <td width={'50%'}>
                     <Link
                       to={
                         categories.find((c) => c.id === device.categorieId) &&
@@ -113,7 +113,7 @@ const SearchPanel = () => {
                       {device.title}
                     </Link>
                   </td>
-                  <td width={'20%'}>
+                  <td width={'25%'} style={{ textAlign: 'right' }}>
                     <Link
                       to={
                         categories.find((c) => c.id === device.categorieId) &&

@@ -47,7 +47,7 @@ const Compare = () => {
         <p onClick={() => dispatch(removeAllComparing())}>{t('deleteAll')}</p>
       </div>
       {!devicesIds.length ? (
-        <h3>Empty Comparing Items</h3>
+        <h3>{t('emptyCompare')}</h3>
       ) : (
         categories &&
         categories.map((categorie) => {

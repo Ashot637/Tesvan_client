@@ -68,6 +68,12 @@
   }
 }
 
+@media screen and (max-width: 475px) {
+  .categories {
+    margin-bottom: 40px;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .slide {
     img {

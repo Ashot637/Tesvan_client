@@ -31,7 +31,8 @@ const Header = () => {
   const { isOpen: isOpenCart, devices: cartDevices } = useSelector((state) => state.cart);
   const { language, languagesList } = useSelector((state) => state.language);
   const [scrolling, setScrolling] = useState(false);
-  const langRef = useRef(false);
+  const langRef = useRef();
+  const menuRef = useRef();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -79,6 +80,23 @@ const Header = () => {
       document.body.removeEventListener('mousedown', closePopup);
     };
   }, [isOpenLanguage]);
+
+  useEffect(() => {
+    const closePopup = (e) => {
+      if (!menuRef.current?.contains(e.target)) {
+        setIsOpenMenu(false);
+      }
+    };
+    if (isOpenMenu) {
+      document.body.addEventListener('mousedown', closePopup);
+    } else {
+      document.body.removeEventListener('mousedown', closePopup);
+    }
+
+    return () => {
+      document.body.removeEventListener('mousedown', closePopup);
+    };
+  }, [isOpenMenu]);
 
   const onChangeLanguage = (lan) => {
     localStorage.setItem('language', JSON.stringify(lan));
@@ -199,7 +217,7 @@ const Header = () => {
             </ul>
             <Cart />
             {isOpenMenu && (
-              <ul className={classes.menu}>
+              <ul className={classes.menu} ref={menuRef}>
                 <li>
                   <NavLink
                     className={({ isActive }) => (isActive ? classes.active : undefined)}
