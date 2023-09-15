@@ -96,6 +96,18 @@ const AdminSidebar = () => {
             New
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            className={({ isActive }) => (isActive ? classes.active : undefined)}
+            to={'regions'}>
+            Regions
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? classes.active : undefined)}
+            to={'regions/new'}>
+            New
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

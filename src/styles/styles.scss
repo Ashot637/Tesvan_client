@@ -40,6 +40,7 @@ a {
 input,
 textarea {
   border: none;
+  font-family: 'Fira Sans';
 
   &:focus {
     outline: none;
@@ -133,7 +134,7 @@ main {
   }
 }
 
-@media screen and (max-width: 1070px) and (min-width: 1020px) {
+@media screen and (max-width: 1070px) and (min-width: 990px) {
   .none-850 {
     min-width: 240px;
   }
@@ -151,7 +152,7 @@ main {
   }
 }
 
-@media screen and (max-width: 970px) {
+@media screen and (max-width: 990px) {
   .block-850 {
     display: block;
   }

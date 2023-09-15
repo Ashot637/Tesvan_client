@@ -56,3 +56,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media screen and (max-width: 520px) and (min-width: 480px) {
+  .grid {
+    gap: 20px;
+    padding: 0 15px;
+  }
+}

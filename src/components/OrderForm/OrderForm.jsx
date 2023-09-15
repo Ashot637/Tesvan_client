@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from './orderForm.module.scss';
 import { useForm } from 'react-hook-form';
 import axios from '../../helpers/axios';
 import getPrice from '../../helpers/getPrice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faCheck, faClose } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import Phone from '../Phone/Phone';
@@ -63,8 +63,14 @@ const OrderForm = ({ device }) => {
   const [message, setMessage] = useState('');
   const [phone, setPhone] = useState('');
   const [phoneValid, setPhoneValid] = useState(false);
+  const checkboxRef = useRef();
+  const [checked, setChecked] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(1);
   const [deliveryMethod, setDeliveryMethod] = useState(1);
+  const [selectedRegion, setSelectedRegion] = useState();
+  const [regions, setRegions] = useState([]);
+  const [isOpenRegion, setIsOpenRegion] = useState(false);
+  const regionRef = useRef();
   const { t } = useTranslation();
 
   const navigate = useNavigate();
@@ -77,6 +83,13 @@ const OrderForm = ({ device }) => {
   } = useForm({
     mode: 'onChange',
   });
+
+  useEffect(() => {
+    axios.get('/regions').then(({ data }) => {
+      setSelectedRegion(data[0]);
+      setRegions(data);
+    });
+  }, []);
 
   useEffect(() => {
     if (device?.length) {
@@ -92,11 +105,33 @@ const OrderForm = ({ device }) => {
     }
   }, [id, cartDevices]);
 
+  useEffect(() => {
+    const closePopup = (e) => {
+      if (!regionRef.current?.contains(e.target)) {
+        setIsOpenRegion(false);
+      }
+    };
+    if (isOpenRegion) {
+      document.body.addEventListener('mousedown', closePopup);
+    } else {
+      document.body.removeEventListener('mousedown', closePopup);
+    }
+
+    return () => {
+      document.body.removeEventListener('mousedown', closePopup);
+    };
+  }, [isOpenRegion]);
+
   const onRemoveItem = (id) => {
     setDevices((devices) => devices.filter((device) => device.id !== id));
     if (devices.length - 1 === 0) {
       navigate('/');
     }
+  };
+
+  const onAcceptTerms = () => {
+    checkboxRef.current.click();
+    setChecked((checked) => !checked);
   };
 
   const onSubmit = (data) => {
@@ -112,6 +147,8 @@ const OrderForm = ({ device }) => {
     });
     data = {
       ...data,
+      total: totalPrice + (deliveryMethod === 1 ? selectedRegion.price : 0),
+      region: regions.find((reg) => reg.id === selectedRegion.id)?.title_en,
       payment: paymentMethods.find((method) => method.id === paymentMethod).label,
       delivery: deliveryMethods.find((method) => method.id === deliveryMethod).label,
       devices: JSON.stringify(orderedDevices),
@@ -212,21 +249,37 @@ const OrderForm = ({ device }) => {
                   />
                   {errors?.email && <p>{errors.email.message}</p>}
                 </div>
-                <div className={classes.field}>
+                <div className={classes.field} ref={regionRef}>
                   <label>{t('region')}</label>
-                  <input
-                    {...register('region', {
-                      required: 'Required!',
-                      validate: (value) => {
-                        return !!value.trim();
-                      },
-                    })}
-                    aria-label="Region"
-                    type="text"
-                    autoComplete="off"
-                    className={errors?.region ? classes.invalid : undefined}
-                  />
-                  {errors?.region && <p>{t('required')}</p>}
+                  <div
+                    className={[
+                      classes.selectedOption,
+                      isOpenRegion ? classes.opened : undefined,
+                    ].join(' ')}
+                    onClick={() => setIsOpenRegion((isOpenRegion) => !isOpenRegion)}>
+                    {selectedRegion?.title}
+                    <FontAwesomeIcon icon={isOpenRegion ? faAngleUp : faAngleDown} />
+                  </div>
+                  {isOpenRegion && (
+                    <div className={classes.optionsHolder}>
+                      <div className={classes.options}>
+                        {regions.map((reg) => {
+                          if (reg.id === selectedRegion?.id) return undefined;
+                          return (
+                            <div
+                              key={reg.id}
+                              onClick={() => {
+                                setSelectedRegion(reg);
+                                setIsOpenRegion(false);
+                              }}
+                              className={classes.option}>
+                              {reg.title}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <div className={classes.field}>
                   <label>{t('address')}</label>
@@ -256,6 +309,18 @@ const OrderForm = ({ device }) => {
                     className={errors?.message ? classes.invalid : undefined}
                   />
                   <span className={classes.symbols}>{message.length}/160</span>
+                </div>
+                <div className={classes.terms}>
+                  <input type="checkbox" ref={checkboxRef} style={{ display: 'none' }} />
+                  <div className={classes.checkbox} onClick={onAcceptTerms}>
+                    {checked && <FontAwesomeIcon icon={faCheck} className={classes.check} />}
+                  </div>
+                  <p>
+                    <span>{t('agree')}</span>
+                    <Link to={'/privacy-policy'} target="_blank" rel="noopener noreferrer">
+                      {t('policy')}
+                    </Link>
+                  </p>
                 </div>
               </div>
               <div className={classes.payment}>
@@ -308,7 +373,10 @@ const OrderForm = ({ device }) => {
                   })}
                 </ul>
               </div>
-              <button type="submit" className={classes.btn} disabled={!isValid || !phoneValid}>
+              <button
+                type="submit"
+                className={classes.btn}
+                disabled={!isValid || !phoneValid || !checked}>
                 {t('confirmOrder')}
               </button>
             </form>
@@ -335,7 +403,7 @@ const OrderForm = ({ device }) => {
                       <td>
                         <div className={classes.count}>{device.count}</div>
                       </td>
-                      <td>
+                      <td style={{ textAlign: 'right' }}>
                         <b>
                           {getPrice(device.price * device.count)} {t('amd')}
                         </b>
@@ -367,23 +435,31 @@ const OrderForm = ({ device }) => {
               <div className={classes.flex}>
                 <span>{t('total')}</span>
                 <span style={{ color: 'white' }}>
-                  {getPrice(totalPrice * 0.9)} {t('amd')}
+                  {getPrice(totalPrice + (deliveryMethod === 1 ? selectedRegion?.price : 0))}{' '}
+                  {t('amd')}
                 </span>
               </div>
               <div className={classes.flex}>
                 <span>{t('productXpcs', { count: devices.length })}</span>
-                <span>
-                  {getPrice(totalPrice)} {t('amd')}
-                </span>
+                <span>{getPrice(totalPrice)} AMD</span>
               </div>
-              <div className={classes.flex}>
-                <span>{t('discount')}</span>
-                <span>-10%</span>
-              </div>
-              <div className={classes.flex}>
-                <span>{t('delivery')}</span>
-                <span>{t('free')}</span>
-              </div>
+              {deliveryMethod === 1 ? (
+                <div className={classes.flex}>
+                  <span>{t('delivery')}</span>
+                  {selectedRegion && (
+                    <span>
+                      {selectedRegion.price === 0
+                        ? t('free')
+                        : getPrice(selectedRegion?.price) + ' ' + t('amd')}
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <div className={classes.flex}>
+                  <span>{t('pickup')}</span>
+                  <span>{t('free')}</span>
+                </div>
+              )}
             </div>
           </div>
           <Link to={'/'} className={classes.back}>

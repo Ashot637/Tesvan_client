@@ -43,8 +43,9 @@
   row-gap: 5px;
   position: relative;
 
-  &:nth-last-child(1) {
+  &:nth-last-child(2) {
     position: relative;
+    margin-bottom: 20px;
 
     span {
       position: absolute;
@@ -91,6 +92,57 @@
   }
 }
 
+.selectedOption {
+  width: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 10px;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.opened {
+  border-color: var(--yellow);
+}
+
+.optionsHolder {
+  position: absolute;
+  top: 110%;
+  background: var(--darkBlue);
+  z-index: 2;
+  border-radius: 5px;
+  padding: 5px 0;
+  color: white;
+  width: 100%;
+  padding-right: 5px;
+  -webkit-box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.6);
+}
+
+.options {
+  max-height: 150px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--darkBlue);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 5px;
+  }
+}
+
+.option {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
 .textarea {
   width: 100%;
 
@@ -103,6 +155,43 @@
   input {
     border-color: var(--danger) !important;
   }
+}
+
+.terms {
+  font-size: 16px;
+  color: var(--lightGrey);
+  margin-bottom: 10px;
+  display: flex;
+
+  input {
+    &:checked ~ .checkbox {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: var(--primary);
+    }
+  }
+
+  span {
+    margin-right: 5px;
+  }
+
+  a {
+    text-decoration: underline;
+    color: white;
+  }
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1px solid white;
+  background: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .payment {
@@ -292,6 +381,10 @@
     }
   }
 
+  .selectedOption {
+    width: 200px;
+  }
+
   .icon {
     width: 110px;
   }
@@ -314,6 +407,11 @@
       width: 100%;
     }
   }
+
+  .selectedOption {
+    width: 100%;
+  }
+
   .phoneField {
     margin-bottom: 20px;
     p {

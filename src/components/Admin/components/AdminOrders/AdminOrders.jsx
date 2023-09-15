@@ -37,6 +37,7 @@ const AdminOrders = () => {
           <td width={'12%'}>Phone</td>
           <td width={'12%'}>Payment</td>
           <td width={'12%'}>Delivery</td>
+          <td width={'12%'}>Total</td>
           <td width={'3%'}>Delete</td>
         </tr>
       </thead>
@@ -57,6 +58,7 @@ const AdminOrders = () => {
               <td onClick={() => navigateToOrder(order.id)}>{order.phone}</td>
               <td onClick={() => navigateToOrder(order.id)}>{order.payment}</td>
               <td onClick={() => navigateToOrder(order.id)}>{order.delivery}</td>
+              <td onClick={() => navigateToOrder(order.id)}>{order.total}</td>
               <td onClick={() => onDeleteOrder(order.id)}>
                 <FontAwesomeIcon icon={faTrash} />
               </td>

@@ -35,6 +35,7 @@ const AdminSliderImages = lazy(() =>
 );
 const AdminMessages = lazy(() => import('../Admin/components/AdminMessages/AdminMessages'));
 const AdminOrders = lazy(() => import('../Admin/components/AdminOrders/AdminOrders'));
+const AdminRegions = lazy(() => import('../Admin/components/AdminRegions/AdminRegions'));
 const OrderInfo = lazy(() => import('../Admin/components/OrderInfo/OrderInfo'));
 const EditNewCategorie = lazy(() =>
   import('../Admin/components/EditNewCategorie/EditNewCategorie'),
@@ -50,6 +51,7 @@ const EditNewSliderImg = lazy(() =>
 const EditNewDeviceInfoCategorie = lazy(() =>
   import('../Admin/components/EditNewDeviceInfoCategorie/EditNewDeviceInfoCategorie'),
 );
+const EditNewRegion = lazy(() => import('../Admin/components/EditNewRegion/EditNewRegion'));
 const AdminLogin = lazy(() => import('../Admin/components/AdminLogin/AdminLogin'));
 
 const App = () => {
@@ -122,6 +124,10 @@ const App = () => {
           <Route path="device-info-categorie" element={<AdminDeviceInfoCategorie />} />
           <Route path="device-info-categorie/:id" element={<EditNewDeviceInfoCategorie />} />
           <Route path="device-info-categorie/new" element={<EditNewDeviceInfoCategorie />} />
+
+          <Route path="regions" element={<AdminRegions />} />
+          <Route path="regions/:id" element={<EditNewRegion />} />
+          <Route path="regions/new" element={<EditNewRegion />} />
         </Route>
       </Routes>
 

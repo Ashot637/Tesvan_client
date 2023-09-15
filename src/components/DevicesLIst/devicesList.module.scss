@@ -23,13 +23,22 @@
   color: var(--lightGrey);
 }
 
-@media screen and (max-width: 1143px) and (min-width: 1130px) {
+@media screen and (max-width: 1154px) and (min-width: 1130px) {
   .list {
     gap: 10px;
   }
 }
 
-@media screen and (max-width: 970px) {
+@media screen and (max-width: 1030px) and (min-width: 1020px) {
+  .list {
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .list {
+    grid-template-columns: repeat(4, 1fr);
+  }
   .devices {
     min-height: 700px;
   }
@@ -71,5 +80,12 @@
       width: 100px;
       height: 100px;
     }
+  }
+}
+
+@media screen and (max-width: 520px) and (min-width: 480px) {
+  .list {
+    gap: 20px;
+    padding: 0 15px;
   }
 }
