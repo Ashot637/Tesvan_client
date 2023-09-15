@@ -4,7 +4,13 @@ import { useForm } from 'react-hook-form';
 import axios from '../../helpers/axios';
 import getPrice from '../../helpers/getPrice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp, faCheck, faClose } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleDown,
+  faAngleUp,
+  faCheck,
+  faClose,
+  faMagnifyingGlass,
+} from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import Phone from '../Phone/Phone';
@@ -67,10 +73,16 @@ const OrderForm = ({ device }) => {
   const [checked, setChecked] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(1);
   const [deliveryMethod, setDeliveryMethod] = useState(1);
-  const [selectedRegion, setSelectedRegion] = useState();
+  const [selectedRegion, setSelectedRegion] = useState({
+    id: 0,
+    price: 0,
+  });
   const [regions, setRegions] = useState([]);
+  const [searchedRegions, setSearchedRegions] = useState([]);
   const [isOpenRegion, setIsOpenRegion] = useState(false);
   const regionRef = useRef();
+  const fetchRef = useRef(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const { t } = useTranslation();
 
   const navigate = useNavigate();
@@ -85,11 +97,19 @@ const OrderForm = ({ device }) => {
   });
 
   useEffect(() => {
-    axios.get('/regions').then(({ data }) => {
-      setSelectedRegion(data[0]);
-      setRegions(data);
-    });
-  }, []);
+    if (!regions.length && fetchRef.current) {
+      axios.get('/regions').then(({ data }) => {
+        setRegions([
+          {
+            id: 0,
+            price: 0,
+          },
+          ...data,
+        ]);
+      });
+    }
+    fetchRef.current = true;
+  }, [isOpenRegion]);
 
   useEffect(() => {
     if (device?.length) {
@@ -121,6 +141,16 @@ const OrderForm = ({ device }) => {
       document.body.removeEventListener('mousedown', closePopup);
     };
   }, [isOpenRegion]);
+
+  useEffect(() => {
+    if (searchTerm.trim()) {
+      setSearchedRegions(
+        regions.filter((reg) =>
+          reg?.title?.toLowerCase().includes(searchTerm.trim().toLowerCase()),
+        ),
+      );
+    }
+  }, [searchTerm]);
 
   const onRemoveItem = (id) => {
     setDevices((devices) => devices.filter((device) => device.id !== id));
@@ -255,29 +285,52 @@ const OrderForm = ({ device }) => {
                     className={[
                       classes.selectedOption,
                       isOpenRegion ? classes.opened : undefined,
+                      selectedRegion?.id === 0 ? classes.lightGrey : undefined,
                     ].join(' ')}
                     onClick={() => setIsOpenRegion((isOpenRegion) => !isOpenRegion)}>
-                    {selectedRegion?.title}
+                    {selectedRegion?.id === 0 ? t('select') : selectedRegion?.title}
                     <FontAwesomeIcon icon={isOpenRegion ? faAngleUp : faAngleDown} />
                   </div>
                   {isOpenRegion && (
                     <div className={classes.optionsHolder}>
-                      <div className={classes.options}>
-                        {regions.map((reg) => {
-                          if (reg.id === selectedRegion?.id) return undefined;
-                          return (
-                            <div
-                              key={reg.id}
-                              onClick={() => {
-                                setSelectedRegion(reg);
-                                setIsOpenRegion(false);
-                              }}
-                              className={classes.option}>
-                              {reg.title}
-                            </div>
-                          );
-                        })}
-                      </div>
+                      {regions.length || searchedRegions.length ? (
+                        <>
+                          <div className={classes.searchPanel}>
+                            <input
+                              type="text"
+                              value={searchTerm}
+                              onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            <FontAwesomeIcon
+                              icon={faMagnifyingGlass}
+                              className={classes.searchIcon}
+                            />
+                          </div>
+                          <div className={classes.options}>
+                            {[...(searchTerm.trim().length ? searchedRegions : regions)].map(
+                              (reg) => {
+                                if (reg.id === selectedRegion?.id || reg.id === 0) return undefined;
+                                return (
+                                  <div
+                                    key={reg.id}
+                                    onClick={() => {
+                                      setSelectedRegion(reg);
+                                      setIsOpenRegion(false);
+                                    }}
+                                    className={classes.option}>
+                                    {reg.title}
+                                  </div>
+                                );
+                              },
+                            )}
+                            {!!searchTerm.trim().length && !searchedRegions.length && (
+                              <p>{t('nothingFound')}</p>
+                            )}
+                          </div>
+                        </>
+                      ) : (
+                        <span className={classes.loader}></span>
+                      )}
                     </div>
                   )}
                 </div>
@@ -376,7 +429,7 @@ const OrderForm = ({ device }) => {
               <button
                 type="submit"
                 className={classes.btn}
-                disabled={!isValid || !phoneValid || !checked}>
+                disabled={!isValid || !phoneValid || !checked || !selectedRegion.id}>
                 {t('confirmOrder')}
               </button>
             </form>
@@ -447,8 +500,10 @@ const OrderForm = ({ device }) => {
                 <div className={classes.flex}>
                   <span>{t('delivery')}</span>
                   {selectedRegion && (
-                    <span>
-                      {selectedRegion.price === 0
+                    <span style={{ textAlign: 'right' }}>
+                      {selectedRegion.id === 0
+                        ? t('selectRegion')
+                        : selectedRegion.price === 0
                         ? t('free')
                         : getPrice(selectedRegion?.price) + ' ' + t('amd')}
                     </span>

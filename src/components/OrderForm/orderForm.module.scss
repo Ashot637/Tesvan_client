@@ -81,7 +81,7 @@
     }
   }
 
-  p {
+  > p {
     color: var(--danger);
     font-size: 12px;
     position: absolute;
@@ -117,14 +117,46 @@
   padding: 5px 0;
   color: white;
   width: 100%;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
   padding-right: 5px;
   -webkit-box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.6);
 }
 
+.searchPanel {
+  width: 100%;
+  position: relative;
+  padding-left: 5px;
+  margin-bottom: 5px;
+
+  input {
+    width: 100% !important;
+    padding: 10px 5px;
+    font-weight: 300;
+    border-color: var(--lightGrey);
+    &:focus {
+      border-color: var(--lightGrey);
+    }
+  }
+}
+
+.searchIcon {
+  position: absolute;
+  top: 30%;
+  right: 10px;
+  color: var(--lightGrey);
+}
+
+.lightGrey {
+  color: var(--lightGrey);
+}
+
 .options {
   max-height: 150px;
   overflow-y: scroll;
+  width: 100%;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -136,11 +168,42 @@
     background: var(--primary);
     border-radius: 5px;
   }
+
+  > p {
+    text-align: center;
+    padding-top: 20px;
+    margin-left: 10px;
+  }
 }
 
 .option {
   padding: 5px 10px;
   cursor: pointer;
+
+  &:hover {
+    color: var(--yellow);
+  }
+}
+
+.loader {
+  margin: auto;
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--yellow);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .textarea {
@@ -458,6 +521,10 @@
     input {
       width: 100%;
     }
+  }
+
+  .terms {
+    max-width: 400px;
   }
   .paymentMethods {
     padding-top: 40px;
