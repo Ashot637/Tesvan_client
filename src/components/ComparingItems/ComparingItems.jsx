@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import classes from './comparingItems.module.scss';
 import { removeDeviceComparing } from '../../redux/slices/compareSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { useTranslation } from 'react-i18next';
 
 const ComparingItems = ({ devices, title, isFilterMode }) => {
   const dispatch = useDispatch();
   const [titles, setTitles] = useState([]);
   const [filteredTitles, setFilteredTitles] = useState([]);
-  const { brands } = useSelector((state) => state.brands);
-  const { t } = useTranslation();
 
   useEffect(() => {
     let arr = [];
@@ -88,8 +85,7 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
                           <FontAwesomeIcon icon={faClose} />
                         </div>
                         <div className={classes.categorie}>
-                          {brands.find((brand) => brand.id === device.brandId) &&
-                            brands.find((brand) => brand.id === device.brandId).title}
+                          {device.brand.title}
                         </div>
                         <img
                           src={'http://localhost:8080/' + device?.images[0]}
@@ -126,69 +122,6 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
           </tbody>
         </table>
       </div>
-      {/* <div>
-        <ul className={classes.headers}>
-          <li className={classes.header}>
-            <p>Model amount</p>
-          </li>
-          {devices &&
-            devices.map((device) => {
-              return (
-                <li className={classes.header}>
-                  <div
-                    className={classes.remove}
-                    onClick={() => dispatch(removeDeviceComparing(device.id))}>
-                    <FontAwesomeIcon icon={faClose} />
-                  </div>
-                  <div className={classes.categorie}>Apple</div>
-                  <img src={'http://localhost:8080/' + device?.images[0]} alt="Comparing Item" />
-                  <div className={classes.name}>{device.title}</div>
-                </li>
-              );
-            })}
-        </ul>
-      </div> */}
-      {/* <div className={classes.items}>
-        <ul className={classes.item}>
-          <li className={classes.header}>
-            <p>Model amount</p>
-          </li>
-          {filteredTitles &&
-            filteredTitles.map((t) => {
-              return <li key={t}>{t}</li>;
-            })}
-        </ul>
-        {filteredTitles &&
-          devices &&
-          devices.map((device) => {
-            return (
-              <ul className={classes.item} key={device.id}>
-                <li className={classes.header}>
-                  <div
-                    className={classes.remove}
-                    onClick={() => dispatch(removeDeviceComparing(device.id))}>
-                    <FontAwesomeIcon icon={faClose} />
-                  </div>
-                  <div className={classes.categorie}>Apple</div>
-                  <img src={'http://localhost:8080/' + device?.images[0]} alt="Comparing Item" />
-                  <div className={classes.name}>{device.title}</div>
-                </li>
-                {device.info &&
-                  device.info.map((i, index) => {
-                    let currentInfo = device.info.find(
-                      (information) => information.title === i.title,
-                    );
-                    return currentInfo ? (
-                      <li key={currentInfo.id}>{currentInfo.description}</li>
-                    ) : (
-                      <li key={Math.random()}>------------</li>
-                    );
-                  })}
-                
-              </ul>
-            );
-          })}
-      </div> */}
     </div>
   );
 };

@@ -1,15 +1,19 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import classes from './categoriesSlider.module.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'swiper/css';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from '../../helpers/axios';
 
 const CategoriesSlider = () => {
   const [swiperRef, setSwiperRef] = useState();
-  const { categories } = useSelector((state) => state.categories);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios.get('/categories').then(({data}) => setCategories(data))
+  }, [])
 
   const handlePrevious = useCallback(() => {
     swiperRef?.slidePrev();

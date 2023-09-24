@@ -1,15 +1,18 @@
-import React, { useCallback, useState } from 'react';
-import classes from './relatedItems.module.scss';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import Card from '../Card/Card';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useState } from "react";
+import classes from "./relatedItems.module.scss";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import Card from "../Card/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 const RelatedItems = ({ relateds }) => {
+  const { devicesIds: comparingDevices } = useSelector(
+    (state) => state.compare
+  );
+  const { devices: cartDevices } = useSelector((state) => state.cart);
   const [swiperRef, setSwiperRef] = useState();
-  const { brands } = useSelector((state) => state.brands);
 
   const handlePrevious = useCallback(() => {
     swiperRef?.slidePrev();
@@ -24,21 +27,31 @@ const RelatedItems = ({ relateds }) => {
       <div className={classes.slider}>
         {relateds && (
           <>
-            <button onClick={handlePrevious}>
+            <button onClick={handlePrevious} aria-label="Previous">
               <FontAwesomeIcon icon={faAngleLeft} />
             </button>
             <div className="container">
-              <Swiper onSwiper={setSwiperRef} slidesPerView={4} spaceBetween={5}>
+              <Swiper
+                onSwiper={setSwiperRef}
+                slidesPerView={4}
+                spaceBetween={5}
+              >
                 {relateds.map((item) => {
                   return (
                     <SwiperSlide style={{ maxHeight: 480 }} key={item.id}>
-                      <Card brands={brands} item={item} />
+                      <Card
+                        item={item}
+                        inCompareList={comparingDevices.includes(item.id)}
+                        inCart={
+                          !!cartDevices.find((device) => device.id === item.id)
+                        }
+                      />
                     </SwiperSlide>
                   );
                 })}
               </Swiper>
             </div>
-            <button onClick={handleNext}>
+            <button onClick={handleNext} aria-label="Next">
               <FontAwesomeIcon icon={faAngleRight} />
             </button>
           </>
@@ -47,7 +60,14 @@ const RelatedItems = ({ relateds }) => {
       <div className={classes.grid}>
         {relateds &&
           relateds.map((item) => {
-            return <Card brands={brands} key={item.id} item={item} />;
+            return (
+              <Card
+                key={item.id}
+                item={item}
+                inCompareList={comparingDevices.includes(item.id)}
+                inCart={!!cartDevices.find((device) => device.id === item.id)}
+              />
+            );
           })}
       </div>
     </div>

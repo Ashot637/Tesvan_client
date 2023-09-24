@@ -1,23 +1,23 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import classes from './sidebar.module.scss';
-import AccordionItem from '../AccordionItem/AccordionItem';
-import ReactSlider from 'react-slider';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { memo, useCallback, useEffect, useState } from "react";
+import classes from "./sidebar.module.scss";
+import AccordionItem from "../AccordionItem/AccordionItem";
+import ReactSlider from "react-slider";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removeFilter,
   setBrandId,
   setActiveFilters,
   setMaxPrice,
   setMinPrice,
-} from '../../redux/slices/devicesSlice';
-import { useTranslation } from 'react-i18next';
-import { debounce } from 'debounce';
+} from "../../redux/slices/devicesSlice";
+import { useTranslation } from "react-i18next";
+import { debounce } from "debounce";
 
-const Sidebar = () => {
+const Sidebar = memo(() => {
   const dispatch = useDispatch();
   const { brands } = useSelector((state) => state.brands);
   const { brandIds, minPrice, maxPrice, activeFilters, filters } = useSelector(
-    (state) => state.devices,
+    (state) => state.devices
   );
   const [min, setMin] = useState(minPrice);
   const [max, setMax] = useState(maxPrice);
@@ -33,14 +33,14 @@ const Sidebar = () => {
         removeFilter({
           title,
           description,
-        }),
+        })
       );
     } else {
       dispatch(
         setActiveFilters({
           title,
           description,
-        }),
+        })
       );
     }
   };
@@ -49,14 +49,14 @@ const Sidebar = () => {
     debounce((maxValue) => {
       dispatch(setMaxPrice(maxValue));
     }, 750),
-    [],
+    []
   );
 
   const debouncedMinPriceChange = useCallback(
     debounce((minValue) => {
       dispatch(setMinPrice(minValue));
     }, 750),
-    [],
+    []
   );
 
   useEffect(() => {
@@ -70,23 +70,25 @@ const Sidebar = () => {
   return (
     <div className={classes.sidebar}>
       <div className={classes.accordion}>
-        <AccordionItem open title={t('brand')}>
+        <AccordionItem open title={t("brand")}>
           <div className={classes.items}>
             {brands.map((brand) => {
               return (
                 <div
                   key={brand.id}
-                  className={[classes.item, brandIds.includes(brand.id) ? classes.active : ''].join(
-                    ' ',
-                  )}
-                  onClick={() => onSelectBrand(brand.id)}>
+                  className={[
+                    classes.item,
+                    brandIds.includes(brand.id) ? classes.active : "",
+                  ].join(" ")}
+                  onClick={() => onSelectBrand(brand.id)}
+                >
                   {brand.title}
                 </div>
               );
             })}
           </div>
         </AccordionItem>
-        <AccordionItem open title={t('price')}>
+        <AccordionItem open title={t("price")}>
           <div style={{ paddingTop: 15 }}>
             <ReactSlider
               className="horizontal-slider"
@@ -105,12 +107,22 @@ const Sidebar = () => {
             />
             <div className={classes.fields}>
               <div className={classes.field}>
-                <label>{t('min')}</label>
-                <input type="number" value={min} onChange={(e) => setMin(e.target.value)} />
+                <label>{t("min")}</label>
+                <input
+                  type="number"
+                  aria-label="Min price"
+                  value={min}
+                  onChange={(e) => setMin(e.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label>{t('max')}</label>
-                <input type="number" value={max} onChange={(e) => setMax(e.target.value)} />
+                <label>{t("max")}</label>
+                <input
+                  type="number"
+                  aria-label="Max price"
+                  value={max}
+                  onChange={(e) => setMax(e.target.value)}
+                />
               </div>
             </div>
           </div>
@@ -126,9 +138,12 @@ const Sidebar = () => {
                         key={desc}
                         className={[
                           classes.item,
-                          activeFilters[filter.title]?.includes(desc) ? classes.active : '',
-                        ].join(' ')}
-                        onClick={() => onSelectFilter(filter.title, desc)}>
+                          activeFilters[filter.title]?.includes(desc)
+                            ? classes.active
+                            : "",
+                        ].join(" ")}
+                        onClick={() => onSelectFilter(filter.title, desc)}
+                      >
                         {desc}
                       </div>
                     );
@@ -138,9 +153,9 @@ const Sidebar = () => {
             );
           })}
       </div>
-      <AccordionItem title={t('clearAll')} remove />
+      <AccordionItem title={t("clearAll")} remove />
     </div>
   );
-};
+});
 
 export default Sidebar;

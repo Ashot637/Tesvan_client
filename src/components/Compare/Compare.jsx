@@ -20,13 +20,18 @@ const Compare = () => {
   const dispatch = useDispatch();
   const { devices, devicesIds } = useSelector((state) => state.compare);
 
-  const { categories } = useSelector((state) => state.categories);
+  const [categories, setCategories] = useState([]);
   const [selected, setSelected] = useState(1);
   const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchCompareingDevcies({ ids: devicesIds }));
   }, []);
+
+  useEffect(() => {
+    let arr = devices.map(device => device.categorie.title_en);
+    setCategories([...(new Set(arr))])
+  }, [devices])
 
   return (
     <div className={classes.compare}>
@@ -49,21 +54,19 @@ const Compare = () => {
       {!devicesIds.length ? (
         <h3>{t('emptyCompare')}</h3>
       ) : (
-        categories &&
+        categories.length &&
         categories.map((categorie) => {
-          if (devices.find((device) => device.categorieId === categorie.id)) {
             return (
-              <React.Fragment key={categorie.id}>
+              <React.Fragment key={categorie}>
                 <ComparingItems
-                  devices={devices.filter((device) => device.categorieId === categorie.id)}
-                  title={categorie.title}
+                  devices={devices.filter((device) => device.categorie.title_en === categorie)}
+                  title={categorie}
                   isFilterMode={selected === 2}
                 />
               </React.Fragment>
             );
           }
-          return undefined;
-        })
+        )
       )}
     </div>
   );

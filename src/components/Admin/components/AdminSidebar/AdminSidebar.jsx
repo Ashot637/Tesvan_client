@@ -1,110 +1,157 @@
-import React from 'react';
-import classes from './sidebar.module.scss';
-import { NavLink } from 'react-router-dom';
-import logo from '../../../../img/Logo.png';
+import React from "react";
+import classes from "./sidebar.module.scss";
+import { NavLink } from "react-router-dom";
 
 const AdminSidebar = () => {
   return (
     <div className={classes.sidebar}>
-      <NavLink className={classes.logo} to={'/'}>
-        <img src={logo} alt="Logo" height={100} />
+      <NavLink className={classes.logo} to={"/"}>
+        <img src={"/img.Logo.png"} alt="Logo" height={100} />
       </NavLink>
       <ul>
         <li>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'devices'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"devices"}
+          >
             Devices
           </NavLink>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'devices/new'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"devices/new"}
+          >
             New
           </NavLink>
         </li>
         <li>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'brands'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"brands"}
+          >
             Brands
           </NavLink>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'brands/new'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"brands/new"}
+          >
             New
           </NavLink>
         </li>
         <li>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'categories'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"categories"}
+          >
             Categories
           </NavLink>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'categories/new'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"categories/new"}
+          >
             New
           </NavLink>
         </li>
         <li>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'slider-imgs'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"slider-imgs"}
+          >
             Slider images
           </NavLink>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'slider-imgs/new'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"slider-imgs/new"}
+          >
             New
           </NavLink>
         </li>
         <li>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'header-imgs'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"header-imgs"}
+          >
             Header images
           </NavLink>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'header-imgs/new'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"header-imgs/new"}
+          >
             New
           </NavLink>
         </li>
         <li>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'messages'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"messages"}
+          >
             Messages
           </NavLink>
         </li>
         <li>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'orders'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"orders"}
+          >
             Orders
           </NavLink>
         </li>
         <li>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'device-info-categorie'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"device-info-categorie"}
+          >
             Device info categories
           </NavLink>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'device-info-categorie/new'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"device-info-categorie/new"}
+          >
             New
           </NavLink>
         </li>
         <li>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'regions'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"regions"}
+          >
             Regions
           </NavLink>
           <NavLink
-            className={({ isActive }) => (isActive ? classes.active : undefined)}
-            to={'regions/new'}>
+            className={({ isActive }) =>
+              isActive ? classes.active : undefined
+            }
+            to={"regions/new"}
+          >
             New
           </NavLink>
         </li>

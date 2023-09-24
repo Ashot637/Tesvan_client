@@ -6,14 +6,12 @@ import axios from '../../helpers/axios';
 import getPrice from '../../helpers/getPrice';
 import { debounce } from 'debounce';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 const SearchPanel = () => {
   const [term, setTerm] = useState('');
   const [devices, setDevices] = useState([]);
   const [empty, setEmpty] = useState(false);
-  const { categories } = useSelector((state) => state.categories);
   const searchRef = useRef();
   const { t } = useTranslation();
 
@@ -80,13 +78,7 @@ const SearchPanel = () => {
                 <tr key={device.id}>
                   <td width={'5%'}>
                     <Link
-                      to={
-                        categories.find((c) => c.id === device.categorieId) &&
-                        '/categories/' +
-                          categories.find((c) => c.id === device.categorieId).title.toLowerCase() +
-                          '/' +
-                          device.id
-                      }
+                      to={`/categories/${device.categorie.title_en.toLowerCase()}/${device.id}`}
                       onClick={() => {
                         setDevices([]);
                         setTerm('');
@@ -99,13 +91,7 @@ const SearchPanel = () => {
                   </td>
                   <td width={'50%'}>
                     <Link
-                      to={
-                        categories.find((c) => c.id === device.categorieId) &&
-                        '/categories/' +
-                          categories.find((c) => c.id === device.categorieId).title.toLowerCase() +
-                          '/' +
-                          device.id
-                      }
+                      to={`/categories/${device.categorie.title_en.toLowerCase()}/${device.id}`}
                       onClick={() => {
                         setDevices([]);
                         setTerm('');
@@ -115,13 +101,7 @@ const SearchPanel = () => {
                   </td>
                   <td width={'25%'} style={{ textAlign: 'right' }}>
                     <Link
-                      to={
-                        categories.find((c) => c.id === device.categorieId) &&
-                        '/categories/' +
-                          categories.find((c) => c.id === device.categorieId).title.toLowerCase() +
-                          '/' +
-                          device.id
-                      }
+                      to={`/categories/${device.categorie.title_en.toLowerCase()}/${device.id}`}
                       onClick={() => {
                         setDevices([]);
                         setTerm('');

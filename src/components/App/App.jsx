@@ -1,58 +1,86 @@
-import React, { Suspense, lazy, useEffect } from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { i18n } from '../../index';
-import ScrollToTop from '../../helpers/ScrollToTop';
+import React, { Suspense, lazy, useEffect } from "react";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { i18n } from "../../index";
+import ScrollToTop from "../../helpers/ScrollToTop";
 
-import { CategoriesPage, SimpleDevicePage, DevicesPage } from '../../pages';
-import Spinner from '../Spinner/Spinner';
-import Page404 from '../../pages/404';
-import { useSelector } from 'react-redux';
+import {
+  CategoriesPage,
+  SimpleDevicePage,
+  DevicesPage,
+  HomePage,
+} from "../../pages";
+import Spinner from "../Spinner/Spinner";
+import Page404 from "../../pages/404";
+import { useSelector } from "react-redux";
 
-const HomePage = lazy(() => import('../../pages/HomePage'));
-const ContactsPage = lazy(() => import('../../pages/ContactsPage'));
-const OrderPage = lazy(() => import('../../pages/OrderPage'));
-const AboutUsPage = lazy(() => import('../../pages/AboutUsPage'));
-const CreditTermsPage = lazy(() => import('../../pages/CreditTermsPage'));
-const ThanksPage = lazy(() => import('../../pages/ThanksPage'));
-const ItemsMainPage = lazy(() => import('../../pages/ItemsMainPage'));
-const ComparePage = lazy(() => import('../../pages/ComparePage'));
-const PrivacyPolicyPage = lazy(() => import('../../pages/PrivacyPolicyPage'));
+const ContactsPage = lazy(() => import("../../pages/ContactsPage"));
+const OrderPage = lazy(() => import("../../pages/OrderPage"));
+const AboutUsPage = lazy(() => import("../../pages/AboutUsPage"));
+const CreditTermsPage = lazy(() => import("../../pages/CreditTermsPage"));
+const ThanksPage = lazy(() => import("../../pages/ThanksPage"));
+const ItemsMainPage = lazy(() => import("../../pages/ItemsMainPage"));
+const ComparePage = lazy(() => import("../../pages/ComparePage"));
+const PrivacyPolicyPage = lazy(() => import("../../pages/PrivacyPolicyPage"));
 
-const AdminHome = lazy(() => import('../Admin/components/AdminHome/AdminHome'));
-const AdminDevices = lazy(() => import('../Admin/components/AdminDevices/AdminDevices'));
-const AdminDeviceInfoCategorie = lazy(() =>
-  import('../Admin/components/AdminDeviceInfoCategorie/AdminDeviceInfoCategorie'),
+const AdminHome = lazy(() => import("../Admin/components/AdminHome/AdminHome"));
+const AdminDevices = lazy(() =>
+  import("../Admin/components/AdminDevices/AdminDevices")
 );
-const AdminCategories = lazy(() => import('../Admin/components/AdminCategories/AdminCategories'));
-const AdminBrands = lazy(() => import('../Admin/components/AdminBrands/AdminBrands'));
+const AdminDeviceInfoCategorie = lazy(() =>
+  import(
+    "../Admin/components/AdminDeviceInfoCategorie/AdminDeviceInfoCategorie"
+  )
+);
+const AdminCategories = lazy(() =>
+  import("../Admin/components/AdminCategories/AdminCategories")
+);
+const AdminBrands = lazy(() =>
+  import("../Admin/components/AdminBrands/AdminBrands")
+);
 const AdminHeaderImages = lazy(() =>
-  import('../Admin/components/AdminHeaderImages/AdminHeaderImages'),
+  import("../Admin/components/AdminHeaderImages/AdminHeaderImages")
 );
 const AdminSliderImages = lazy(() =>
-  import('../Admin/components/AdminSliderImages/AdminSliderImages'),
+  import("../Admin/components/AdminSliderImages/AdminSliderImages")
 );
-const AdminMessages = lazy(() => import('../Admin/components/AdminMessages/AdminMessages'));
-const AdminOrders = lazy(() => import('../Admin/components/AdminOrders/AdminOrders'));
-const AdminRegions = lazy(() => import('../Admin/components/AdminRegions/AdminRegions'));
-const OrderInfo = lazy(() => import('../Admin/components/OrderInfo/OrderInfo'));
+const AdminMessages = lazy(() =>
+  import("../Admin/components/AdminMessages/AdminMessages")
+);
+const AdminOrders = lazy(() =>
+  import("../Admin/components/AdminOrders/AdminOrders")
+);
+const AdminRegions = lazy(() =>
+  import("../Admin/components/AdminRegions/AdminRegions")
+);
+const OrderInfo = lazy(() => import("../Admin/components/OrderInfo/OrderInfo"));
 const EditNewCategorie = lazy(() =>
-  import('../Admin/components/EditNewCategorie/EditNewCategorie'),
+  import("../Admin/components/EditNewCategorie/EditNewCategorie")
 );
-const EditNewBrand = lazy(() => import('../Admin/components/EditNewBrand/EditNewBrand'));
-const EditNewDevice = lazy(() => import('../Admin/components/EditNewDevice/EditNewDevice'));
+const EditNewBrand = lazy(() =>
+  import("../Admin/components/EditNewBrand/EditNewBrand")
+);
+const EditNewDevice = lazy(() =>
+  import("../Admin/components/EditNewDevice/EditNewDevice")
+);
 const EditNewHeaderImg = lazy(() =>
-  import('../Admin/components/EditNewHeaderImg/EditNewHeaderImg'),
+  import("../Admin/components/EditNewHeaderImg/EditNewHeaderImg")
 );
 const EditNewSliderImg = lazy(() =>
-  import('../Admin/components/EditNewSliderImg/EditNewSliderImg'),
+  import("../Admin/components/EditNewSliderImg/EditNewSliderImg")
 );
 const EditNewDeviceInfoCategorie = lazy(() =>
-  import('../Admin/components/EditNewDeviceInfoCategorie/EditNewDeviceInfoCategorie'),
+  import(
+    "../Admin/components/EditNewDeviceInfoCategorie/EditNewDeviceInfoCategorie"
+  )
 );
-const EditNewRegion = lazy(() => import('../Admin/components/EditNewRegion/EditNewRegion'));
-const AdminLogin = lazy(() => import('../Admin/components/AdminLogin/AdminLogin'));
+const EditNewRegion = lazy(() =>
+  import("../Admin/components/EditNewRegion/EditNewRegion")
+);
+const AdminLogin = lazy(() =>
+  import("../Admin/components/AdminLogin/AdminLogin")
+);
 
 const App = () => {
   const location = useLocation();
@@ -64,13 +92,19 @@ const App = () => {
 
   return (
     <Suspense fallback={<Spinner />}>
-      {!location.pathname.includes('/admin') && <Header />}
+      {!location.pathname.includes("/admin") && <Header />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/categories/:categorie" element={<DevicesPage />} />
-        <Route path="/categories/:categorie/:id" element={<SimpleDevicePage />} />
-        <Route path="/categories/:categorie/:id/make-order" element={<OrderPage />} />
+        <Route
+          path="/categories/:categorie/:id"
+          element={<SimpleDevicePage />}
+        />
+        <Route
+          path="/categories/:categorie/:id/make-order"
+          element={<OrderPage />}
+        />
         <Route path="/make-order" element={<OrderPage />} />
         <Route path="/compare" element={<ComparePage />} />
 
@@ -79,16 +113,25 @@ const App = () => {
         <Route path="/contacts" element={<ContactsPage />} />
         <Route path="/contacts/make-order" element={<ContactsPage />} />
 
-        <Route path="/sale" element={<ItemsMainPage typeId={1} title={'sale'} />} />
+        <Route
+          path="/sale"
+          element={<ItemsMainPage typeId={1} title={"sale"} />}
+        />
         <Route
           path="/new-collection"
-          element={<ItemsMainPage typeId={2} title={'new-collection'} />}
+          element={<ItemsMainPage typeId={2} title={"new-collection"} />}
         />
-        <Route path="/bestsellers" element={<ItemsMainPage typeId={3} title={'bestsellers'} />} />
+        <Route
+          path="/bestsellers"
+          element={<ItemsMainPage typeId={3} title={"bestsellers"} />}
+        />
 
-        <Route path="/thanks" element={<ThanksPage type={'success'} />} />
-        <Route path="/reject" element={<ThanksPage type={'reject'} />} />
-        <Route path="/contacts/thanks" element={<ThanksPage type={'email'} />} />
+        <Route path="/thanks" element={<ThanksPage type={"success"} />} />
+        <Route path="/reject" element={<ThanksPage type={"reject"} />} />
+        <Route
+          path="/contacts/thanks"
+          element={<ThanksPage type={"email"} />}
+        />
 
         <Route path="/privacy-policy/" element={<PrivacyPolicyPage />} />
 
@@ -121,9 +164,18 @@ const App = () => {
           <Route path="orders" element={<AdminOrders />} />
           <Route path="orders/:id" element={<OrderInfo />} />
 
-          <Route path="device-info-categorie" element={<AdminDeviceInfoCategorie />} />
-          <Route path="device-info-categorie/:id" element={<EditNewDeviceInfoCategorie />} />
-          <Route path="device-info-categorie/new" element={<EditNewDeviceInfoCategorie />} />
+          <Route
+            path="device-info-categorie"
+            element={<AdminDeviceInfoCategorie />}
+          />
+          <Route
+            path="device-info-categorie/:id"
+            element={<EditNewDeviceInfoCategorie />}
+          />
+          <Route
+            path="device-info-categorie/new"
+            element={<EditNewDeviceInfoCategorie />}
+          />
 
           <Route path="regions" element={<AdminRegions />} />
           <Route path="regions/:id" element={<EditNewRegion />} />
@@ -131,7 +183,7 @@ const App = () => {
         </Route>
       </Routes>
 
-      {!location.pathname.includes('/admin') && <Footer />}
+      {!location.pathname.includes("/admin") && <Footer />}
       <ScrollToTop />
     </Suspense>
   );
