@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import classes from './compare.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCompareingDevcies, removeAllComparing } from '../../redux/slices/compareSlice';
-import ComparingItems from '../ComparingItems/ComparingItems';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from "react";
+import classes from "./compare.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchCompareingDevcies,
+  removeAllComparing,
+} from "../../redux/slices/compareSlice";
+import ComparingItems from "../ComparingItems/ComparingItems";
+import { useTranslation } from "react-i18next";
 
 const filters = [
   {
     id: 1,
-    label: 'all',
+    label: "all",
   },
   {
     id: 2,
-    label: 'differnces',
+    label: "differnces",
   },
 ];
 
@@ -20,7 +23,7 @@ const Compare = () => {
   const dispatch = useDispatch();
   const { devices, devicesIds } = useSelector((state) => state.compare);
 
-  const { categories } = useSelector((state) => state.categories);
+  const [categories, setCategories] = useState([]);
   const [selected, setSelected] = useState(1);
   const { t } = useTranslation();
 
@@ -28,41 +31,48 @@ const Compare = () => {
     dispatch(fetchCompareingDevcies({ ids: devicesIds }));
   }, []);
 
+  useEffect(() => {
+    let arr = devices.map((device) => device.categorie.title);
+    setCategories([...new Set(arr)]);
+  }, [devices]);
+
   return (
     <div className={classes.compare}>
       <div className={classes.top}>
-        <h2>{t('compare')}</h2>
+        <h2>{t("compare")}</h2>
         <ul className={classes.filters}>
           {filters.map((filter) => {
             return (
               <li
                 key={filter.id}
                 onClick={() => setSelected(filter.id)}
-                className={selected === filter.id ? classes.selected : undefined}>
+                className={
+                  selected === filter.id ? classes.selected : undefined
+                }
+              >
                 {t(filter.label)}
               </li>
             );
           })}
         </ul>
-        <p onClick={() => dispatch(removeAllComparing())}>{t('deleteAll')}</p>
+        <p onClick={() => dispatch(removeAllComparing())}>{t("deleteAll")}</p>
       </div>
       {!devicesIds.length ? (
-        <h3>{t('emptyCompare')}</h3>
+        <h3>{t("emptyCompare")}</h3>
       ) : (
-        categories &&
+        categories.length &&
         categories.map((categorie) => {
-          if (devices.find((device) => device.categorieId === categorie.id)) {
-            return (
-              <React.Fragment key={categorie.id}>
-                <ComparingItems
-                  devices={devices.filter((device) => device.categorieId === categorie.id)}
-                  title={categorie.title}
-                  isFilterMode={selected === 2}
-                />
-              </React.Fragment>
-            );
-          }
-          return undefined;
+          return (
+            <React.Fragment key={categorie}>
+              <ComparingItems
+                devices={devices.filter(
+                  (device) => device.categorie.title === categorie
+                )}
+                title={categorie}
+                isFilterMode={selected === 2}
+              />
+            </React.Fragment>
+          );
         })
       )}
     </div>

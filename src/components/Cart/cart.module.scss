@@ -177,7 +177,7 @@
 }
 
 .cards {
-  display: none;
+  display: flex;
   flex-direction: column;
   row-gap: 10px;
   max-height: 500px;
@@ -225,13 +225,6 @@ span.empty {
   }
 }
 @media screen and (max-width: 700px) {
-  .items {
-    display: none;
-  }
-
-  .cards {
-    display: flex;
-  }
   .card {
     background: var(--primary);
     width: 100%;

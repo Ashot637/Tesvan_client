@@ -5,12 +5,11 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { i18n } from '../../index';
 import ScrollToTop from '../../helpers/ScrollToTop';
 
-import { CategoriesPage, SimpleDevicePage, DevicesPage } from '../../pages';
+import { CategoriesPage, SimpleDevicePage, DevicesPage, HomePage } from '../../pages';
 import Spinner from '../Spinner/Spinner';
 import Page404 from '../../pages/404';
 import { useSelector } from 'react-redux';
 
-const HomePage = lazy(() => import('../../pages/HomePage'));
 const ContactsPage = lazy(() => import('../../pages/ContactsPage'));
 const OrderPage = lazy(() => import('../../pages/OrderPage'));
 const AboutUsPage = lazy(() => import('../../pages/AboutUsPage'));
@@ -20,39 +19,41 @@ const ItemsMainPage = lazy(() => import('../../pages/ItemsMainPage'));
 const ComparePage = lazy(() => import('../../pages/ComparePage'));
 const PrivacyPolicyPage = lazy(() => import('../../pages/PrivacyPolicyPage'));
 
-const AdminHome = lazy(() => import('../Admin/components/AdminHome/AdminHome'));
-const AdminDevices = lazy(() => import('../Admin/components/AdminDevices/AdminDevices'));
+const AdminHome = lazy(() => import('../../Admin/components/AdminHome/AdminHome'));
+const AdminDevices = lazy(() => import('../../Admin/components/AdminDevices/AdminDevices'));
 const AdminDeviceInfoCategorie = lazy(() =>
-  import('../Admin/components/AdminDeviceInfoCategorie/AdminDeviceInfoCategorie'),
+  import('../../Admin/components/AdminDeviceInfoCategorie/AdminDeviceInfoCategorie'),
 );
-const AdminCategories = lazy(() => import('../Admin/components/AdminCategories/AdminCategories'));
-const AdminBrands = lazy(() => import('../Admin/components/AdminBrands/AdminBrands'));
+const AdminCategories = lazy(() =>
+  import('../../Admin/components/AdminCategories/AdminCategories'),
+);
+const AdminBrands = lazy(() => import('../../Admin/components/AdminBrands/AdminBrands'));
 const AdminHeaderImages = lazy(() =>
-  import('../Admin/components/AdminHeaderImages/AdminHeaderImages'),
+  import('../../Admin/components/AdminHeaderImages/AdminHeaderImages'),
 );
 const AdminSliderImages = lazy(() =>
-  import('../Admin/components/AdminSliderImages/AdminSliderImages'),
+  import('../../Admin/components/AdminSliderImages/AdminSliderImages'),
 );
-const AdminMessages = lazy(() => import('../Admin/components/AdminMessages/AdminMessages'));
-const AdminOrders = lazy(() => import('../Admin/components/AdminOrders/AdminOrders'));
-const AdminRegions = lazy(() => import('../Admin/components/AdminRegions/AdminRegions'));
-const OrderInfo = lazy(() => import('../Admin/components/OrderInfo/OrderInfo'));
+const AdminMessages = lazy(() => import('../../Admin/components/AdminMessages/AdminMessages'));
+const AdminOrders = lazy(() => import('../../Admin/components/AdminOrders/AdminOrders'));
+const AdminRegions = lazy(() => import('../../Admin/components/AdminRegions/AdminRegions'));
+const OrderInfo = lazy(() => import('../../Admin/components/OrderInfo/OrderInfo'));
 const EditNewCategorie = lazy(() =>
-  import('../Admin/components/EditNewCategorie/EditNewCategorie'),
+  import('../../Admin/components/EditNewCategorie/EditNewCategorie'),
 );
-const EditNewBrand = lazy(() => import('../Admin/components/EditNewBrand/EditNewBrand'));
-const EditNewDevice = lazy(() => import('../Admin/components/EditNewDevice/EditNewDevice'));
+const EditNewBrand = lazy(() => import('../../Admin/components/EditNewBrand/EditNewBrand'));
+const EditNewDevice = lazy(() => import('../../Admin/components/EditNewDevice/EditNewDevice'));
 const EditNewHeaderImg = lazy(() =>
-  import('../Admin/components/EditNewHeaderImg/EditNewHeaderImg'),
+  import('../../Admin/components/EditNewHeaderImg/EditNewHeaderImg'),
 );
 const EditNewSliderImg = lazy(() =>
-  import('../Admin/components/EditNewSliderImg/EditNewSliderImg'),
+  import('../../Admin/components/EditNewSliderImg/EditNewSliderImg'),
 );
 const EditNewDeviceInfoCategorie = lazy(() =>
-  import('../Admin/components/EditNewDeviceInfoCategorie/EditNewDeviceInfoCategorie'),
+  import('../../Admin/components/EditNewDeviceInfoCategorie/EditNewDeviceInfoCategorie'),
 );
-const EditNewRegion = lazy(() => import('../Admin/components/EditNewRegion/EditNewRegion'));
-const AdminLogin = lazy(() => import('../Admin/components/AdminLogin/AdminLogin'));
+const EditNewRegion = lazy(() => import('../../Admin/components/EditNewRegion/EditNewRegion'));
+const AdminLogin = lazy(() => import('../../Admin/components/AdminLogin/AdminLogin'));
 
 const App = () => {
   const location = useLocation();

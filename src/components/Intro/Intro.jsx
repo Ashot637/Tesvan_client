@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import classes from './intro.module.scss';
 import { Link } from 'react-router-dom';
 import axios from '../../helpers/axios';
@@ -6,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { useSelector } from 'react-redux';
 import useSWR from 'swr';
 
 const fetcher = (url) =>
@@ -17,17 +15,6 @@ const fetcher = (url) =>
 
 const Intro = () => {
   const { data: slides } = useSWR('/img/header', fetcher, { suspense: true });
-  const [devices, setDevices] = useState(Array(slides?.length));
-  const { categories } = useSelector((state) => state.categories);
-
-  useEffect(() => {
-    if (slides?.length) {
-      let devicesIds = slides.map((slide) => slide.deviceId);
-      axios.post('/devices/ids', { ids: devicesIds }).then(({ data }) => {
-        setDevices(data);
-      });
-    }
-  }, [slides]);
 
   return (
     <>
@@ -42,20 +29,13 @@ const Intro = () => {
           pagination={{ clickable: true }}
           slidesPerView={1}
           className={classes.slider}>
-          {slides.map((slide, i) => {
+          {slides?.map((slide) => {
             return (
               <SwiperSlide key={slide.id}>
                 <Link
-                  to={
-                    devices[i] &&
-                    categories.find((c) => c.id === devices[i]?.categorieId) &&
-                    '/categories/' +
-                      categories
-                        .find((c) => c.id === devices[i]?.categorieId)
-                        .title_en.toLowerCase() +
-                      '/' +
-                      devices[i]?.id
-                  }>
+                  to={`/categories/${slide.device.categorie.title_en.toLowerCase()}/${
+                    slide.device.id
+                  }`}>
                   <div className={classes.slide}>
                     <div className={classes.text}>
                       <b>{slide.title}</b>

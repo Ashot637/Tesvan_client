@@ -1,15 +1,13 @@
-import React, { memo, useCallback, useEffect } from 'react';
-import classes from './devicesList.module.scss';
-import { debounce } from 'debounce';
-import { useDispatch, useSelector } from 'react-redux';
-import Card from '../Card/Card';
-import { fetchDevices } from '../../redux/slices/devicesSlice';
-import Pagination from '../Pagination/Pagination';
-import { useTranslation } from 'react-i18next';
-import nothingFoundImg from '../../img/nothingFound.png';
+import React, { memo, useCallback, useEffect } from "react";
+import classes from "./devicesList.module.scss";
+import { debounce } from "debounce";
+import { useDispatch, useSelector } from "react-redux";
+import Card from "../Card/Card";
+import { fetchDevices } from "../../redux/slices/devicesSlice";
+import Pagination from "../Pagination/Pagination";
+import { useTranslation } from "react-i18next";
 
 const DevicesList = memo(() => {
-  const { brands } = useSelector((state) => state.brands);
   const {
     devices,
     status,
@@ -21,6 +19,10 @@ const DevicesList = memo(() => {
     sortType,
     activeFilters,
   } = useSelector((state) => state.devices);
+  const { devicesIds: comparingDevices } = useSelector(
+    (state) => state.compare
+  );
+  const { devices: cartDevices } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -35,7 +37,15 @@ const DevicesList = memo(() => {
       sortFollowing: sortType.following,
       activeFilters,
     });
-  }, [page, brandIds, categorieId, minPrice, maxPrice, sortType, activeFilters]);
+  }, [
+    page,
+    brandIds,
+    categorieId,
+    minPrice,
+    maxPrice,
+    sortType,
+    activeFilters,
+  ]);
 
   const onChangeFilters = useCallback(
     debounce(
@@ -59,26 +69,38 @@ const DevicesList = memo(() => {
             sortName,
             sortFollowing,
             activeFilters,
-          }),
+          })
         );
       },
-      500,
+      500
     ),
-    [],
+    []
   );
 
   return (
     <div className={classes.devices}>
       <div className={classes.list}>
         {devices.map((item) => {
-          return <Card key={item.id} brands={brands} item={item} />;
+          return (
+            <Card
+              key={item.id}
+              item={item}
+              inCompareList={comparingDevices.includes(item.id)}
+              inCart={!!cartDevices.find((device) => device.id === item.id)}
+            />
+          );
         })}
       </div>
 
-      {!devices.length && status === 'success' && (
+      {!devices.length && status === "success" && (
         <div className={classes.nothingFound}>
-          <img src={nothingFoundImg} width={200} height={200} alt="Nothing found" />
-          <h3 className={classes.nothing}>{t('nothingFound')}</h3>
+          <img
+            src={"/img/nothingFound.png"}
+            width={200}
+            height={200}
+            alt="Nothing found"
+          />
+          <h3 className={classes.nothing}>{t("nothingFound")}</h3>
         </div>
       )}
       <Pagination />

@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './categories.module.scss';
 import Title from '../../ui/Title/Title';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import axios from '../../helpers/axios';
 
 const Categories = () => {
-  const { categories } = useSelector((state) => state.categories);
+  const [categories, setCategories] = useState([]);
   const { t } = useTranslation();
+  
+  useEffect(() => {
+    axios.get('/categories').then(({data}) => setCategories(data))
+  }, [])
 
   return (
     <div className={classes.categories}>

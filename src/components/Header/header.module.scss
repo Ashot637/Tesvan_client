@@ -130,10 +130,6 @@ header {
   text-align: center;
 }
 
-.icon {
-  display: none;
-}
-
 .overlay {
   display: none;
   position: absolute;
@@ -155,7 +151,7 @@ header {
 }
 
 .menu {
-  display: none;
+  display: flex;
   color: white;
   font-weight: 600;
   font-size: 18px;
@@ -217,20 +213,9 @@ header {
     align-items: center;
     padding: 7px 0;
   }
-  .nav {
-    display: none;
-  }
-
-  .icon {
-    display: block;
-  }
 
   .overlay {
     display: block;
-  }
-
-  .menu {
-    display: flex;
   }
 
   .logo {

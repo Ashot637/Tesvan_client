@@ -4,12 +4,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'swiper/css';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from '../../helpers/axios';
+import useSWR from 'swr';
+
+const fetcher = (url) =>
+  axios
+    .get(url)
+    .then(({ data }) => data)
+    .catch((e) => console.log(e));
 
 const CategoriesSlider = () => {
+  const { data: categories } = useSWR('/categories', fetcher);
   const [swiperRef, setSwiperRef] = useState();
-  const { categories } = useSelector((state) => state.categories);
 
   const handlePrevious = useCallback(() => {
     swiperRef?.slidePrev();
@@ -49,7 +56,7 @@ const CategoriesSlider = () => {
               },
             }}
             spaceBetween={5}>
-            {categories.map((categorie, i) => {
+            {categories?.map((categorie, i) => {
               return (
                 <SwiperSlide key={i}>
                   <Link

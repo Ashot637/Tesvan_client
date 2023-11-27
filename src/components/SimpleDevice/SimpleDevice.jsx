@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import classes from './simpleDevice.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCodeCompare, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import getPrice from '../../helpers/getPrice';
 import { addDevice, toggleIsOpen } from '../../redux/slices/cartSlice';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
@@ -10,20 +10,16 @@ import { addDeviceComparing } from '../../redux/slices/compareSlice';
 import { useTranslation } from 'react-i18next';
 import DeviceInfo from '../DeviceInfo/DeviceInfo';
 
-const SimpleDevice = ({ device }) => {
+const SimpleDevice = memo(({ device, inCart, inCompareList }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { brands } = useSelector((state) => state.brands);
-  const { devicesIds: comparingDevices } = useSelector((state) => state.compare);
-  const { devices } = useSelector((state) => state.cart);
-  const [inCart, setInCart] = useState();
   const [img, setImg] = useState(device?.images[0]);
   const [count, setCount] = useState(1);
   const { t } = useTranslation();
 
   const onChangeCount = (i) => {
-    setCount(count + i);
+    setCount((count) => count + i);
   };
 
   const onAddToCart = (item) => {
@@ -50,10 +46,6 @@ const SimpleDevice = ({ device }) => {
     }
   }, [location]);
 
-  useEffect(() => {
-    setInCart(devices.find((item) => item.id === device.id));
-  }, [devices]);
-
   return (
     <div className={classes.simpleDevice}>
       <div className="container">
@@ -61,16 +53,12 @@ const SimpleDevice = ({ device }) => {
           {device && (
             <div className={classes.device}>
               <div className={classes.top}>
-                <span>
-                  {brands.find((brand) => brand.id === device.brandId) &&
-                    brands.find((brand) => brand.id === device.brandId).title}
-                </span>
+                <span>{device.brand.title}</span>
                 <FontAwesomeIcon
                   icon={faCodeCompare}
-                  className={[
-                    classes.compare,
-                    comparingDevices.find((id) => id === device.id) ? classes.selected : undefined,
-                  ].join(' ')}
+                  className={[classes.compare, inCompareList ? classes.selected : undefined].join(
+                    ' ',
+                  )}
                   onClick={() => dispatch(addDeviceComparing(device.id))}
                 />
               </div>
@@ -217,6 +205,6 @@ const SimpleDevice = ({ device }) => {
       </div>
     </div>
   );
-};
+});
 
 export default SimpleDevice;

@@ -1,7 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import en from '../../img/en.webp';
-import am from '../../img/am.webp';
-import ru from '../../img/ru.webp';
 
 const getLanguageFromLS = () => {
   const language = JSON.parse(localStorage.getItem('language'));
@@ -11,7 +8,7 @@ const getLanguageFromLS = () => {
       JSON.stringify({
         label: 'Armenian',
         title: 'am',
-        img: am,
+        img: '/img/am.webp',
       }),
     );
   }
@@ -19,7 +16,7 @@ const getLanguageFromLS = () => {
     language || {
       label: 'Armenian',
       title: 'am',
-      img: am,
+      img: '/img/am.webp',
     }
   );
 };
@@ -30,17 +27,17 @@ const initialState = {
     {
       label: 'English',
       title: 'en',
-      img: en,
+      img: '/img/en.webp',
     },
     {
       label: 'Russian',
       title: 'ru',
-      img: ru,
+      img: '/img/ru.webp',
     },
     {
       label: 'Armenian',
       title: 'am',
-      img: am,
+      img: '/img/am.webp',
     },
   ],
 };
@@ -50,6 +47,7 @@ const languageSlice = createSlice({
   initialState,
   reducers: {
     changeLanguage: (state, action) => {
+      localStorage.setItem('language', JSON.stringify(action.payload));
       state.language = action.payload;
     },
   },

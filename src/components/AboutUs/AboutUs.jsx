@@ -1,6 +1,4 @@
-import React from 'react';
 import classes from './aboutUs.module.scss';
-import img from '../../img/about-us.webp';
 import { useTranslation } from 'react-i18next';
 
 const AboutUs = () => {
@@ -15,7 +13,13 @@ const AboutUs = () => {
             <br />
             {t('aboutUsEnding')}
           </div>
-          <img width={587} height={640} src={img} className={classes.img} alt="About Us" />
+          <img
+            width={587}
+            height={640}
+            src={'/img/about-us.webp'}
+            className={classes.img}
+            alt="About Us"
+          />
           <div className={classes.text}>
             <span className={classes.title}>{t('about-us')}</span>
             <div className={classes.subtitle}>

@@ -9,13 +9,13 @@ import getPrice from '../../helpers/getPrice';
 import { Link, useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '../../hooks';
 import axios from '../../helpers/axios';
-
-import emptyCart from '../../img/empty.webp';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const isBigger700 = useMediaQuery('(max-width: 700px)');
   let { devices, isOpen } = useSelector((state) => state.cart);
   const { t } = useTranslation();
 
@@ -95,18 +95,21 @@ const Cart = () => {
               <div className={classes.deleteAll} onClick={() => dispatch(removeAll())}>
                 {t('deleteAll')}
               </div>
-              <table className={classes.items}>
-                <tbody>
+              {isBigger700 ? (
+                <table className={classes.items}>
+                  <tbody>
+                    {devices.map((device, i) => {
+                      return <CartItem key={i} item={device} />;
+                    })}
+                  </tbody>
+                </table>
+              ) : (
+                <div className={classes.cards}>
                   {devices.map((device, i) => {
-                    return <CartItem key={i} item={device} />;
+                    return <CartItem key={i} item={device} smallScreen />;
                   })}
-                </tbody>
-              </table>
-              <div className={classes.cards}>
-                {devices.map((device, i) => {
-                  return <CartItem key={i} item={device} responsive />;
-                })}
-              </div>
+                </div>
+              )}
               <div className={classes.order}>
                 <div className={classes.total}>
                   <span>{t('total')}:</span>
@@ -130,7 +133,7 @@ const Cart = () => {
             </>
           ) : (
             <div className={classes.emptyCart}>
-              <img width={200} height={200} src={emptyCart} alt="Empty cart" />
+              <img width={200} height={200} src={'/img/empty.webp'} alt="Empty cart" />
               <span className={classes.empty}>{t('emptyCartTitle')}</span>
               <span>{t('emptyCartSubtitle')}</span>
               <div className={classes.back} onClick={() => dispatch(toggleIsOpen())}>

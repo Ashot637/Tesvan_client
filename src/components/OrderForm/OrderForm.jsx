@@ -1,51 +1,45 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classes from './orderForm.module.scss';
 import { useForm } from 'react-hook-form';
 import axios from '../../helpers/axios';
-import getPrice from '../../helpers/getPrice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faAngleDown,
-  faAngleUp,
-  faCheck,
-  faClose,
-  faMagnifyingGlass,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import Phone from '../Phone/Phone';
 import { removeAll } from '../../redux/slices/cartSlice';
 
-import cash from '../../img/cash.png';
-import cards from '../../img/cards.png';
-import terminal from '../../img/terminal.png';
-import idram from '../../img/idram.png';
-
-import delivery from '../../img/delivery.png';
-import pickup from '../../img/pickup.png';
 import { useTranslation } from 'react-i18next';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import Regions from './Regions/Regions';
+import OrderDetails from './OrderDetails/OrderDetails';
 
 const paymentMethods = [
   {
     id: 1,
     label: 'cash',
-    img: cash,
+    img: '/img/cash.png',
+    width: 50,
+    height: 50,
   },
   {
     id: 2,
     label: 'online',
-    img: cards,
+    img: '/img/cards.png',
   },
   {
     id: 3,
     label: 'terminal',
-    img: terminal,
+    img: '/img/terminal.png',
+    width: 50,
+    height: 50,
   },
   {
     id: 4,
     label: 'Idram',
-    img: idram,
+    img: '/img/idram.png',
+    width: 75,
+    height: 23,
   },
 ];
 
@@ -53,40 +47,24 @@ const deliveryMethods = [
   {
     id: 1,
     label: 'delivery',
-    img: delivery,
+    img: '/img/delivery.png',
+    width: 50,
+    height: 50,
   },
   {
     id: 2,
     label: 'pickup',
-    img: pickup,
+    img: '/img/pickup.png',
+    width: 50,
+    height: 50,
   },
 ];
 
 const OrderForm = ({ device }) => {
   const dispatch = useDispatch();
-  const { devices: cartDevices } = useSelector((state) => state.cart);
-  const [devices, setDevices] = useState([]);
-  const [message, setMessage] = useState('');
-  const [phone, setPhone] = useState('');
-  const [phoneValid, setPhoneValid] = useState(false);
-  const checkboxRef = useRef();
-  const [checked, setChecked] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState(1);
-  const [deliveryMethod, setDeliveryMethod] = useState(1);
-  const [selectedRegion, setSelectedRegion] = useState({
-    id: 0,
-    price: 0,
-  });
-  const [regions, setRegions] = useState([]);
-  const [searchedRegions, setSearchedRegions] = useState([]);
-  const [isOpenRegion, setIsOpenRegion] = useState(false);
-  const regionRef = useRef();
-  const fetchRef = useRef(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const { t } = useTranslation();
-
   const navigate = useNavigate();
   const { id } = useParams();
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -96,20 +74,23 @@ const OrderForm = ({ device }) => {
     mode: 'onChange',
   });
 
-  useEffect(() => {
-    if (!regions.length && fetchRef.current) {
-      axios.get('/regions').then(({ data }) => {
-        setRegions([
-          {
-            id: 0,
-            price: 0,
-          },
-          ...data,
-        ]);
-      });
-    }
-    fetchRef.current = true;
-  }, [isOpenRegion]);
+  const { devices: cartDevices } = useSelector((state) => state.cart);
+  const [devices, setDevices] = useState([]);
+  const [message, setMessage] = useState('');
+  const [phone, setPhone] = useState('');
+  const [phoneValid, setPhoneValid] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const checkboxRef = useRef();
+  const [paymentMethod, setPaymentMethod] = useState(1);
+  const [deliveryMethod, setDeliveryMethod] = useState(1);
+  const [selectedRegion, setSelectedRegion] = useState({
+    id: 0,
+    price: 0,
+  });
+
+  const totalPrice = useMemo(() => {
+    return devices.reduce((acc, device) => acc + device.price * device.count, 0);
+  }, [devices]);
 
   useEffect(() => {
     if (device?.length) {
@@ -120,44 +101,20 @@ const OrderForm = ({ device }) => {
     } else {
       setDevices(cartDevices.filter((device) => device.quantity !== 0));
     }
-    if (!device && !cartDevices.filter((device) => device.quantity !== 0)?.length) {
+    if (!device && cartDevices.filter((device) => device.quantity === 0)?.length) {
       navigate('/');
     }
   }, [id, cartDevices]);
 
-  useEffect(() => {
-    const closePopup = (e) => {
-      if (!regionRef.current?.contains(e.target)) {
-        setIsOpenRegion(false);
+  const onRemoveItem = useCallback(
+    (id) => {
+      setDevices((devices) => devices.filter((device) => device.id !== id));
+      if (devices.length - 1 === 0) {
+        navigate('/');
       }
-    };
-    if (isOpenRegion) {
-      document.body.addEventListener('mousedown', closePopup);
-    } else {
-      document.body.removeEventListener('mousedown', closePopup);
-    }
-
-    return () => {
-      document.body.removeEventListener('mousedown', closePopup);
-    };
-  }, [isOpenRegion]);
-
-  useEffect(() => {
-    if (searchTerm.trim()) {
-      setSearchedRegions(
-        regions.filter((reg) =>
-          reg?.title?.toLowerCase().includes(searchTerm.trim().toLowerCase()),
-        ),
-      );
-    }
-  }, [searchTerm]);
-
-  const onRemoveItem = (id) => {
-    setDevices((devices) => devices.filter((device) => device.id !== id));
-    if (devices.length - 1 === 0) {
-      navigate('/');
-    }
-  };
+    },
+    [devices, navigate],
+  );
 
   const onAcceptTerms = () => {
     checkboxRef.current.click();
@@ -178,7 +135,7 @@ const OrderForm = ({ device }) => {
     data = {
       ...data,
       total: totalPrice + (deliveryMethod === 1 ? selectedRegion.price : 0),
-      region: regions.find((reg) => reg.id === selectedRegion.id)?.title_en,
+      region: selectedRegion?.title_en,
       payment: paymentMethods.find((method) => method.id === paymentMethod).label,
       delivery: deliveryMethods.find((method) => method.id === deliveryMethod).label,
       devices: JSON.stringify(orderedDevices),
@@ -205,8 +162,6 @@ const OrderForm = ({ device }) => {
     setMessage('');
     setPhone('');
   };
-
-  const totalPrice = devices.reduce((acc, device) => acc + device.price * device.count, 0);
 
   return (
     <div className={classes.orderForm}>
@@ -279,61 +234,7 @@ const OrderForm = ({ device }) => {
                   />
                   {errors?.email && <p>{errors.email.message}</p>}
                 </div>
-                <div className={classes.field} ref={regionRef}>
-                  <label>{t('region')}</label>
-                  <div
-                    className={[
-                      classes.selectedOption,
-                      isOpenRegion ? classes.opened : undefined,
-                      selectedRegion?.id === 0 ? classes.lightGrey : undefined,
-                    ].join(' ')}
-                    onClick={() => setIsOpenRegion((isOpenRegion) => !isOpenRegion)}>
-                    {selectedRegion?.id === 0 ? t('select') : selectedRegion?.title}
-                    <FontAwesomeIcon icon={isOpenRegion ? faAngleUp : faAngleDown} />
-                  </div>
-                  {isOpenRegion && (
-                    <div className={classes.optionsHolder}>
-                      {regions.length || searchedRegions.length ? (
-                        <>
-                          <div className={classes.searchPanel}>
-                            <input
-                              type="text"
-                              value={searchTerm}
-                              onChange={(e) => setSearchTerm(e.target.value)}
-                            />
-                            <FontAwesomeIcon
-                              icon={faMagnifyingGlass}
-                              className={classes.searchIcon}
-                            />
-                          </div>
-                          <div className={classes.options}>
-                            {[...(searchTerm.trim().length ? searchedRegions : regions)].map(
-                              (reg) => {
-                                if (reg.id === selectedRegion?.id || reg.id === 0) return undefined;
-                                return (
-                                  <div
-                                    key={reg.id}
-                                    onClick={() => {
-                                      setSelectedRegion(reg);
-                                      setIsOpenRegion(false);
-                                    }}
-                                    className={classes.option}>
-                                    {reg.title}
-                                  </div>
-                                );
-                              },
-                            )}
-                            {!!searchTerm.trim().length && !searchedRegions.length && (
-                              <p>{t('nothingFound')}</p>
-                            )}
-                          </div>
-                        </>
-                      ) : (
-                        <span className={classes.loader}></span>
-                      )}
-                    </div>
-                  )}
-                </div>
+                <Regions setSelectedRegion={setSelectedRegion} selectedRegion={selectedRegion} />
                 <div className={classes.field}>
                   <label>{t('address')}</label>
                   <input
@@ -390,7 +291,12 @@ const OrderForm = ({ device }) => {
                         ].join(' ')}
                         onClick={() => setPaymentMethod(method.id)}>
                         <div className={classes.icon}>
-                          <img src={method.img} alt="Payment method" />
+                          <img
+                            src={method.img}
+                            alt="Payment method"
+                            width={method.width}
+                            height={method.height}
+                          />
                         </div>
                         <div>
                           <div className={classes.radio}></div>
@@ -415,7 +321,12 @@ const OrderForm = ({ device }) => {
                         ].join(' ')}
                         onClick={() => setDeliveryMethod(method.id)}>
                         <div className={classes.icon}>
-                          <img src={method.img} alt="Delivery method" />
+                          <img
+                            src={method.img}
+                            alt="Delivery method"
+                            width={method.width}
+                            height={method.height}
+                          />
                         </div>
                         <div>
                           <div className={classes.radio}></div>
@@ -434,89 +345,13 @@ const OrderForm = ({ device }) => {
               </button>
             </form>
           </div>
-          <div className={classes.block}>
-            <div className={classes.title}>{t('orderDetails')}</div>
-            <table className={classes.devices}>
-              <tbody>
-                {devices.map((device) => {
-                  return (
-                    <tr key={device.id}>
-                      <td className={classes.remove} onClick={() => onRemoveItem(device.id)}>
-                        <FontAwesomeIcon icon={faClose} />
-                      </td>
-                      <td>
-                        <div className={classes.deviceImg}>
-                          <img
-                            src={'http://localhost:8080/' + device?.images[0]}
-                            alt="Device Order"
-                          />
-                        </div>
-                      </td>
-                      <td className={classes.name}>{device.title}</td>
-                      <td>
-                        <div className={classes.count}>{device.count}</div>
-                      </td>
-                      <td style={{ textAlign: 'right' }}>
-                        <b>
-                          {getPrice(device.price * device.count)} {t('amd')}
-                        </b>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            <div className={classes.devicesMobile}>
-              {devices.map((device) => {
-                return (
-                  <div className={classes.deviceMobile} key={device.id}>
-                    <div className={classes.remove} onClick={() => onRemoveItem(device.id)}>
-                      <FontAwesomeIcon icon={faClose} />
-                    </div>
-                    <div className={classes.deviceMobileImg}>
-                      <img src={'http://localhost:8080/' + device?.images[0]} alt="Device Order" />
-                    </div>
-                    <div className={classes.info}>
-                      <span>{device.title}</span>
-                      <div className={classes.count}>{device.count}</div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div className={classes.total}>
-              <div className={classes.flex}>
-                <span>{t('total')}</span>
-                <span style={{ color: 'white' }}>
-                  {getPrice(totalPrice + (deliveryMethod === 1 ? selectedRegion?.price : 0))}{' '}
-                  {t('amd')}
-                </span>
-              </div>
-              <div className={classes.flex}>
-                <span>{t('productXpcs', { count: devices.length })}</span>
-                <span>{getPrice(totalPrice)} AMD</span>
-              </div>
-              {deliveryMethod === 1 ? (
-                <div className={classes.flex}>
-                  <span>{t('delivery')}</span>
-                  {selectedRegion && (
-                    <span style={{ textAlign: 'right' }}>
-                      {selectedRegion.id === 0
-                        ? t('selectRegion')
-                        : selectedRegion.price === 0
-                        ? t('free')
-                        : getPrice(selectedRegion?.price) + ' ' + t('amd')}
-                    </span>
-                  )}
-                </div>
-              ) : (
-                <div className={classes.flex}>
-                  <span>{t('pickup')}</span>
-                  <span>{t('free')}</span>
-                </div>
-              )}
-            </div>
-          </div>
+          <OrderDetails
+            devices={devices}
+            deliveryMethod={deliveryMethod}
+            selectedRegion={selectedRegion}
+            totalPrice={totalPrice}
+            onRemoveItem={onRemoveItem}
+          />
           <Link to={'/'} className={classes.back}>
             {'<<'} {t('back')}
           </Link>

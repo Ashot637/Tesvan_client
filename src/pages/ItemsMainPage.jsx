@@ -2,19 +2,22 @@ import React, { useEffect, useState } from 'react';
 import Title from '../ui/Title/Title';
 import ItemsSection from '../components/ItemsSection/ItemsSection';
 import axios from '../helpers/axios';
-import { useSelector } from 'react-redux';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 
 const ItemsMainPage = ({ typeId, title }) => {
   const [items, setItems] = useState([]);
-  const { categories, status } = useSelector((state) => state.categories);
+  const [categories, setCategories] = useState([]);
   const { t } = useTranslation();
 
   useEffect(() => {
-    axios.get('/devices', { params: { typeId, limit: 80 } }).then(({ data }) => setItems(data));
-  }, []);
+    axios.get('/devices', { params: { typeId, limit: 80 } }).then(({ data }) => {
+      setItems(data);
+      let arr = data.map((device) => device.categorie.title);
+      setCategories([...new Set(arr)]);
+    });
+  }, [typeId]);
 
   return (
     <>
@@ -23,22 +26,18 @@ const ItemsMainPage = ({ typeId, title }) => {
       </Helmet>
       <Breadcrumbs />
       <Title title={t(title)} />
-      {status === 'success' &&
-        categories.map((categorie) => {
-          if (items.find((item) => item.categorieId === categorie.id)) {
-            return (
-              <React.Fragment key={categorie.id}>
-                <ItemsSection
-                  items={items.filter((item) => item.categorieId === categorie.id)}
-                  title={categorie.title}
-                  main
-                />
-                <div style={{ marginBottom: 20, height: 5 }}></div>
-              </React.Fragment>
-            );
-          }
-          return undefined;
-        })}
+      {categories?.map((categorie) => {
+        return (
+          <React.Fragment key={categorie}>
+            <ItemsSection
+              items={items.filter((item) => item.categorie.title === categorie)}
+              title={categorie}
+              main
+            />
+            <div style={{ marginBottom: 20, height: 5 }}></div>
+          </React.Fragment>
+        );
+      })}
     </>
   );
 };

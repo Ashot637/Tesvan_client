@@ -1,4 +1,3 @@
-import React from 'react';
 import Contacts from '../components/Contacts/Contacts';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 import { Helmet } from 'react-helmet';
