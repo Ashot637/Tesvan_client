@@ -64,7 +64,7 @@ const SimpleDevicePage = () => {
         <>
           <Breadcrumbs
             deviceTitle={device.title}
-            categorieTitle={device.categorie.title_en}
+            categorieTitle={device.categorie.title}
           />
           <SimpleDevice
             device={device}

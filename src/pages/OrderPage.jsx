@@ -54,7 +54,7 @@ const OrderPage = () => {
           <>
             <Breadcrumbs
               deviceTitle={device[0].title}
-              categorieTitle={device[0].categorie.title_en}
+              categorieTitle={device[0].categorie.title}
             />
             <OrderForm device={device} />
           </>

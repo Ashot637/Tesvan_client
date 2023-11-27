@@ -8,7 +8,7 @@ import getPrice from '../../helpers/getPrice';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-const CartItem = memo(({ item, responsive }) => {
+const CartItem = memo(({ item, smallScreen }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -20,7 +20,7 @@ const CartItem = memo(({ item, responsive }) => {
 
   return (
     <>
-      {!responsive ? (
+      {!smallScreen ? (
         <tr>
           <td className={classes.remove} onClick={() => dispatch(removeDevice(item.id))}>
             <FontAwesomeIcon icon={faClose} />

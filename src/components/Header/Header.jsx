@@ -1,224 +1,76 @@
-import React, { useEffect, useRef, useState } from "react";
-import classes from "./header.module.scss";
-import { NavLink, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import classes from './header.module.scss';
+import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faAngleDown,
-  faBars,
   faCartShopping,
   faCodeCompare,
   faMagnifyingGlass,
-  faPhone,
-} from "@fortawesome/free-solid-svg-icons";
-import Cart from "../Cart/Cart";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleIsOpen } from "../../redux/slices/cartSlice";
-import SearchPanel from "../SearchPanel/SearchPanel";
-import { createPortal } from "react-dom";
-import CartNotification from "../CartNotification/CartNotification";
-import { changeLanguage } from "../../redux/slices/languageSlice";
-import { useTranslation } from "react-i18next";
+} from '@fortawesome/free-solid-svg-icons';
+import { useMediaQuery } from '../../hooks';
+import { toggleIsOpen } from '../../redux/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
+import HeaderTop from './HeaderTop/HeaderTop';
+import MobileMenu from './MobileMenu/MobileMenu';
+import DesktopNav from './DesktopNav/DesktopNav';
+import SearchPanel from '../SearchPanel/SearchPanel';
+import Cart from '../Cart/Cart';
+import CartNotification from '../CartNotification/CartNotification';
 
 const Header = () => {
-  const { devicesIds: comparingDevices } = useSelector(
-    (state) => state.compare
-  );
   const dispatch = useDispatch();
-  const location = useLocation();
-  const [isOpenSearchPanel, setisOpenSearchPanel] = useState(true);
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const [isOpenLanguage, setIsOpenLanguage] = useState(false);
-  const { isOpen: isOpenCart, devices: cartDevices } = useSelector(
-    (state) => state.cart
-  );
-  const { language, languagesList } = useSelector((state) => state.language);
+  const isBigger930 = useMediaQuery('(max-width: 930px)');
+  const { devicesIds: comparingDevices } = useSelector((state) => state.compare);
+  const [isOpenSearchPanel, setisOpenSearchPanel] = useState(false);
+  const { isOpen: isOpenCart, devices: cartDevices } = useSelector((state) => state.cart);
   const [scrolling, setScrolling] = useState(false);
-  const langRef = useRef();
-  const menuRef = useRef();
-  const { t } = useTranslation();
 
   useEffect(() => {
-    localStorage.setItem("compare", JSON.stringify(comparingDevices));
+    localStorage.setItem('compare', JSON.stringify(comparingDevices));
   }, [comparingDevices]);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartDevices));
+    localStorage.setItem('cartItems', JSON.stringify(cartDevices));
   }, [cartDevices]);
-
-  useEffect(() => {
-    setisOpenSearchPanel(false);
-    setIsOpenMenu(false);
-  }, [location]);
 
   useEffect(() => {
     const event = () => {
       setScrolling(window.scrollY > 0);
     };
 
-    window.addEventListener("scroll", event);
+    window.addEventListener('scroll', event);
 
     return () => {
-      window.removeEventListener("scroll", event);
+      window.removeEventListener('scroll', event);
     };
   }, []);
-
-  useEffect(() => {
-    const closePopup = (e) => {
-      if (!langRef.current?.contains(e.target)) {
-        setIsOpenLanguage(false);
-      }
-    };
-    if (isOpenLanguage) {
-      document.body.addEventListener("mousedown", closePopup);
-    } else {
-      document.body.removeEventListener("mousedown", closePopup);
-    }
-
-    return () => {
-      document.body.removeEventListener("mousedown", closePopup);
-    };
-  }, [isOpenLanguage]);
-
-  useEffect(() => {
-    const closePopup = (e) => {
-      if (!menuRef.current?.contains(e.target)) {
-        setIsOpenMenu(false);
-      }
-    };
-    if (isOpenMenu) {
-      document.body.addEventListener("mousedown", closePopup);
-    } else {
-      document.body.removeEventListener("mousedown", closePopup);
-    }
-
-    return () => {
-      document.body.removeEventListener("mousedown", closePopup);
-    };
-  }, [isOpenMenu]);
-
-  const onChangeLanguage = (lan) => {
-    localStorage.setItem("language", JSON.stringify(lan));
-    dispatch(changeLanguage(lan));
-    window.location.reload();
-  };
 
   return (
     <>
       <div className="container">
-        <div className={classes.top}>
-          <ul className={classes.flex}>
-            <li>
-              <FontAwesomeIcon icon={faPhone} />
-              <a href="tel:+37491751900">
-                <span>+ (374) 91 75 19 00</span>
-              </a>
-            </li>
-            <li
-              ref={langRef}
-              onClick={() => setIsOpenLanguage((isOpen) => !isOpen)}
-            >
-              <img
-                src={language.img}
-                alt={language.label}
-                width={20}
-                height={10}
-              />
-              <div className={classes.select}>{language.label}</div>
-              <FontAwesomeIcon
-                className={classes.angle}
-                style={
-                  isOpenLanguage ? { transform: "rotateX(180deg)" } : undefined
-                }
-                icon={faAngleDown}
-              />
-              {isOpenLanguage && (
-                <ul className={classes.options}>
-                  {languagesList.map((lan) => {
-                    return lan.title === language.title ? undefined : (
-                      <li key={lan.title} onClick={() => onChangeLanguage(lan)}>
-                        <img
-                          src={lan.img}
-                          alt={language.label}
-                          width={20}
-                          height={10}
-                        />
-                        <p>{lan.label}</p>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </li>
-          </ul>
-        </div>
+        <HeaderTop />
       </div>
       <header className={scrolling ? classes.scrolling : undefined}>
         <div className="container">
           <div className={classes.inner}>
             <div className={classes.logo}>
-              <NavLink to={"/"}>
-                <img src={"/img/Logo.png"} alt="logo" height={78} width={65} />
+              <NavLink to={'/'}>
+                <img src={'/img/Logo.png'} alt="logo" height={78} width={65} />
               </NavLink>
             </div>
-            <div className={classes.nav}>
-              <SearchPanel />
-              <nav>
-                <ul className={classes.links}>
-                  <li className={classes.link}>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? classes.active : undefined
-                      }
-                      to={"/categories"}
-                    >
-                      {t("categories")}
-                    </NavLink>
-                  </li>
-                  <li className={classes.link}>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? classes.active : undefined
-                      }
-                      to={"/about-us"}
-                    >
-                      {t("about-us")}
-                    </NavLink>
-                  </li>
-                  <li className={classes.link}>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? classes.active : undefined
-                      }
-                      to={"/credit-terms"}
-                    >
-                      {t("credit-terms")}
-                    </NavLink>
-                  </li>
-                  <li className={classes.link}>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? classes.active : undefined
-                      }
-                      to={"/contacts"}
-                    >
-                      {t("contacts")}
-                    </NavLink>
-                  </li>
-                </ul>
-              </nav>
-            </div>
+            {isBigger930 && <DesktopNav />}
             <ul className={classes.btns}>
+              {!isBigger930 && (
+                <li className={classes.icon} onClick={() => setisOpenSearchPanel(true)}>
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </li>
+              )}
               <li
-                className={classes.icon}
-                onClick={() => setisOpenSearchPanel(true)}
-              >
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </li>
-              <li
-                style={{ position: "relative" }}
+                style={{ position: 'relative' }}
                 onClick={() => dispatch(toggleIsOpen())}
-                className={isOpenCart ? classes.active : undefined}
-              >
+                className={isOpenCart ? classes.active : undefined}>
                 {cartDevices.length ? (
                   <div className={classes.count}>{cartDevices.length}</div>
                 ) : undefined}
@@ -231,65 +83,12 @@ const Header = () => {
                 ) : undefined}
                 <NavLink
                   aria-label="compare"
-                  className={({ isActive }) =>
-                    isActive ? classes.active : undefined
-                  }
-                  to="/compare"
-                >
+                  className={({ isActive }) => (isActive ? classes.active : undefined)}
+                  to="/compare">
                   <FontAwesomeIcon icon={faCodeCompare} />
                 </NavLink>
               </li>
-              <li className={classes.icon} ref={menuRef}>
-                <FontAwesomeIcon
-                  icon={faBars}
-                  className={isOpenMenu ? classes.active : undefined}
-                  onClick={() => setIsOpenMenu((isOpenMenu) => !isOpenMenu)}
-                />
-                {isOpenMenu && (
-                  <ul className={classes.menu}>
-                    <li>
-                      <NavLink
-                        className={({ isActive }) =>
-                          isActive ? classes.active : undefined
-                        }
-                        to={"/categories"}
-                      >
-                        {t("categories")}
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        className={({ isActive }) =>
-                          isActive ? classes.active : undefined
-                        }
-                        to={"/about-us"}
-                      >
-                        {t("about-us")}
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        className={({ isActive }) =>
-                          isActive ? classes.active : undefined
-                        }
-                        to={"/credit-terms"}
-                      >
-                        {t("credit-terms")}
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        className={({ isActive }) =>
-                          isActive ? classes.active : undefined
-                        }
-                        to={"/contacts"}
-                      >
-                        {t("contacts")}
-                      </NavLink>
-                    </li>
-                  </ul>
-                )}
-              </li>
+              {!isBigger930 && <MobileMenu />}
             </ul>
             <Cart />
           </div>
@@ -301,14 +100,13 @@ const Header = () => {
             style={{ height: document.body.scrollHeight }}
             className={classes.overlay}
             onClick={(e) => {
-              if (e.target.classList[0]?.includes("overlay")) {
+              if (e.target.classList[0]?.includes('overlay')) {
                 setisOpenSearchPanel(false);
               }
-            }}
-          >
+            }}>
             <SearchPanel />
           </div>,
-          document.body
+          document.body,
         )}
     </>
   );

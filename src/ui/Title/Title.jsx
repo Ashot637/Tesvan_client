@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from './title.module.scss';
 
 const Title = ({ title, children }) => {

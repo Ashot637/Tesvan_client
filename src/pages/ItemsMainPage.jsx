@@ -14,10 +14,10 @@ const ItemsMainPage = ({ typeId, title }) => {
   useEffect(() => {
     axios.get('/devices', { params: { typeId, limit: 80 } }).then(({ data }) => {
       setItems(data);
-      let arr = data.map(device => device.categorie.title_en);
-      setCategories([...(new Set(arr))])
+      let arr = data.map((device) => device.categorie.title);
+      setCategories([...new Set(arr)]);
     });
-  }, []);
+  }, [typeId]);
 
   return (
     <>
@@ -26,19 +26,18 @@ const ItemsMainPage = ({ typeId, title }) => {
       </Helmet>
       <Breadcrumbs />
       <Title title={t(title)} />
-      {categories.length &&
-        categories.map((categorie) => {
-            return (
-              <React.Fragment key={categorie}>
-                <ItemsSection
-                  items={items.filter((item) => item.categorie.title_en === categorie)}
-                  title={categorie}
-                  main
-                />
-                <div style={{ marginBottom: 20, height: 5 }}></div>
-              </React.Fragment>
-            );
-        })}
+      {categories?.map((categorie) => {
+        return (
+          <React.Fragment key={categorie}>
+            <ItemsSection
+              items={items.filter((item) => item.categorie.title === categorie)}
+              title={categorie}
+              main
+            />
+            <div style={{ marginBottom: 20, height: 5 }}></div>
+          </React.Fragment>
+        );
+      })}
     </>
   );
 };

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
 import ItemsSection from '../ItemsSection/ItemsSection';
 import axios from '../../helpers/axios';
-const TypedItems = ({ title, typeId, link, limit }) => {
-  const [items, setItems] = useState([]);
+import useSWR from 'swr';
 
-  useEffect(() => {
-    axios
-      .get('/devices', { params: { typeId, limit } })
-      .then(({ data }) => setItems(data))
-      .catch((e) => console.log(e));
-  }, [limit, typeId]);
+const fetcher = ([url, params]) =>
+  axios
+    .get(url, { params })
+    .then(({ data }) => data)
+    .catch((e) => console.log(e));
+
+const TypedItems = ({ title, typeId, link, limit }) => {
+  const { data: items } = useSWR(['/devices', { typeId, limit }], fetcher);
 
   return <ItemsSection title={title} items={items} link={link} />;
 };

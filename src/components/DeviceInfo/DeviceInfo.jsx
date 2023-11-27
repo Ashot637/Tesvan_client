@@ -1,7 +1,7 @@
-import React, { memo, useEffect, useState } from 'react';
-import classes from './deviceInfo.module.scss';
-import axios from '../../helpers/axios';
-import { useTranslation } from 'react-i18next';
+import React, { memo, useEffect, useState } from "react";
+import classes from "./deviceInfo.module.scss";
+import axios from "../../helpers/axios";
+import { useTranslation } from "react-i18next";
 
 const DeviceInfo = memo(({ info }) => {
   const [moreOpen, setMoreOpen] = useState(false);
@@ -9,8 +9,8 @@ const DeviceInfo = memo(({ info }) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    axios.get('deviceInfoCategories').then(({ data }) => {
-      let item = data.find((d) => d.title_en === 'Others');
+    axios.get("deviceInfoCategories").then(({ data }) => {
+      let item = data.find((d) => d.title_en === "Others");
       let index = data.indexOf(item);
 
       if (index !== -1) {
@@ -26,13 +26,16 @@ const DeviceInfo = memo(({ info }) => {
       <div
         className={classes.more}
         onClick={() => setMoreOpen((moreOpen) => !moreOpen)}
-        style={moreOpen ? { filter: 'grayscale(0.5)' } : undefined}>
-        {t('moreInformation')}
+        style={moreOpen ? { filter: "grayscale(0.5)" } : undefined}
+      >
+        {t("moreInformation")}
       </div>
 
       {moreOpen &&
         deviceInfoCategories.map((categorie) => {
-          let infos = info.filter((i) => i.deviceInfoCategorieId === categorie.id);
+          let infos = info.filter(
+            (i) => i.deviceInfoCategorieId === categorie.id
+          );
           if (infos?.length) {
             return (
               <table key={categorie.title} className={classes.moreInfo}>

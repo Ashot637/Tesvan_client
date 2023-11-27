@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from './creditTerms.module.scss';
 import { useTranslation } from 'react-i18next';
 

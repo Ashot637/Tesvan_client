@@ -373,7 +373,7 @@ export const translationsAm = {
   brand: 'Բրենդ',
   price: 'Գին',
   min: 'Նվազ․',
-  max: 'Առավ․',
+  max: 'Առ․',
   outOfStock: 'Առկա չէ',
   contactUs: 'Կապ մեզ հետ',
   'make-order': 'Պատվիրել',

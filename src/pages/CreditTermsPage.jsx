@@ -1,4 +1,3 @@
-import React from 'react';
 import CreditTerms from '../components/CreditTerms/CreditTerms';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 import { Helmet } from 'react-helmet';

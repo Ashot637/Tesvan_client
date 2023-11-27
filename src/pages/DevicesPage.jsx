@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar/Sidebar";
-import Title from "../ui/Title/Title";
-import DevicesList from "../components/DevicesLIst/DevicesList";
-import { useDispatch, useSelector } from "react-redux";
-import SortBy from "../components/SortBy/SortBy";
-import { useParams } from "react-router-dom";
-import {
-  fetchFilters,
-  removeAllFilters,
-  setCategorieId,
-} from "../redux/slices/devicesSlice";
-import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import { CSSTransition } from "react-transition-group";
-import Page404 from "./404";
-import Spinner from "../components/Spinner/Spinner";
-import { Helmet } from "react-helmet";
-import axios from "../helpers/axios";
-import { fetchBrands } from "../redux/slices/brandSlice";
+import React, { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar/Sidebar';
+import Title from '../ui/Title/Title';
+import DevicesList from '../components/DevicesLIst/DevicesList';
+import { useDispatch } from 'react-redux';
+import SortBy from '../components/SortBy/SortBy';
+import { useParams } from 'react-router-dom';
+import { fetchFilters, removeAllFilters, setCategorieId } from '../redux/slices/devicesSlice';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { CSSTransition } from 'react-transition-group';
+import Page404 from './404';
+import Spinner from '../components/Spinner/Spinner';
+import { Helmet } from 'react-helmet';
+import axios from '../helpers/axios';
+import { fetchBrands } from '../redux/slices/brandSlice';
 
 const DevicesPage = () => {
   const dispatch = useDispatch();
@@ -29,13 +25,11 @@ const DevicesPage = () => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    axios.get("/categories").then(({ data }) => setCategories(data));
+    axios.get('/categories').then(({ data }) => setCategories(data));
   }, []);
 
   useEffect(() => {
-    setSelectedCategorie(
-      categories.find((c) => c.title_en.toLowerCase() === categorie)
-    );
+    setSelectedCategorie(categories.find((c) => c.title_en.toLowerCase() === categorie));
   }, [categorie, categories]);
 
   useEffect(() => {
@@ -49,9 +43,9 @@ const DevicesPage = () => {
   }, [selectedCategorie]);
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem("categorie")) === categorie) {
+    if (JSON.parse(localStorage.getItem('categorie')) === categorie) {
     } else {
-      localStorage.setItem("categorie", JSON.stringify(categorie));
+      localStorage.setItem('categorie', JSON.stringify(categorie));
       dispatch(removeAllFilters());
     }
   }, [categorie]);
@@ -69,7 +63,7 @@ const DevicesPage = () => {
   return (
     <>
       <Helmet>
-        <title>{selectedCategorie?.title || ""} | Tesvan Electronics</title>
+        <title>{selectedCategorie?.title || ''} | Tesvan Electronics</title>
       </Helmet>
       {selectedCategorie?.title ? (
         <>
@@ -80,35 +74,25 @@ const DevicesPage = () => {
               <div className="block-850">
                 <FontAwesomeIcon
                   icon={faFilter}
-                  onClick={() =>
-                    setIsOpenFilter((isOpenFilter) => !isOpenFilter)
-                  }
-                  style={{ cursor: "pointer" }}
+                  onClick={() => setIsOpenFilter((isOpenFilter) => !isOpenFilter)}
+                  style={{ cursor: 'pointer' }}
                 />
               </div>
             </div>
           </Title>
           <div className="container">
-            <div className="flex" style={{ position: "relative" }}>
+            <div className="flex" style={{ position: 'relative' }}>
               <div className="none-850">
                 <Sidebar />
               </div>
               <div className="sidebar">
                 <div className="sidebar__inner">
-                  <CSSTransition
-                    in={isOpenFilter}
-                    timeout={300}
-                    classNames="sidebar"
-                    unmountOnExit
-                  >
+                  <CSSTransition in={isOpenFilter} timeout={300} classNames="sidebar" unmountOnExit>
                     <Sidebar />
                   </CSSTransition>
                 </div>
                 {isOpenFilter && (
-                  <div
-                    className="sidebar__overlay"
-                    onClick={() => setIsOpenFilter(false)}
-                  ></div>
+                  <div className="sidebar__overlay" onClick={() => setIsOpenFilter(false)}></div>
                 )}
               </div>
               <DevicesList />

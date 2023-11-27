@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import classes from './categoriesSlider.module.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,14 +6,17 @@ import 'swiper/css';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import axios from '../../helpers/axios';
+import useSWR from 'swr';
+
+const fetcher = (url) =>
+  axios
+    .get(url)
+    .then(({ data }) => data)
+    .catch((e) => console.log(e));
 
 const CategoriesSlider = () => {
+  const { data: categories } = useSWR('/categories', fetcher);
   const [swiperRef, setSwiperRef] = useState();
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    axios.get('/categories').then(({data}) => setCategories(data))
-  }, [])
 
   const handlePrevious = useCallback(() => {
     swiperRef?.slidePrev();
@@ -53,7 +56,7 @@ const CategoriesSlider = () => {
               },
             }}
             spaceBetween={5}>
-            {categories.map((categorie, i) => {
+            {categories?.map((categorie, i) => {
               return (
                 <SwiperSlide key={i}>
                   <Link
