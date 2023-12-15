@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { i18n } from '../../index';
-import ScrollToTop from '../../helpers/ScrollToTop';
+import ScrollToTop from '../ScrollToTop/ScrollToTop';
 
 import { CategoriesPage, SimpleDevicePage, DevicesPage, HomePage } from '../../pages';
 import Spinner from '../Spinner/Spinner';

@@ -5,10 +5,11 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import axios from '../../helpers/axios';
 import getPrice from '../../helpers/getPrice';
 import { debounce } from 'debounce';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const SearchPanel = () => {
+  const navigate = useNavigate();
   const [term, setTerm] = useState('');
   const [devices, setDevices] = useState([]);
   const [empty, setEmpty] = useState(false);
@@ -58,6 +59,12 @@ const SearchPanel = () => {
     [],
   );
 
+  const onNavigateToDevicePage = (device) => {
+    navigate(`/categories/${device.categorie.title_en.toLowerCase()}/${device.id}`);
+    setDevices([]);
+    setTerm('');
+  };
+
   return (
     <form className={classes.search} ref={searchRef} onSubmit={(e) => e.preventDefault()}>
       <input
@@ -76,38 +83,17 @@ const SearchPanel = () => {
             {devices.map((device) => {
               return (
                 <tr key={device.id}>
-                  <td width={'5%'}>
-                    <Link
-                      to={`/categories/${device.categorie.title_en.toLowerCase()}/${device.id}`}
-                      onClick={() => {
-                        setDevices([]);
-                        setTerm('');
-                      }}>
-                      <img
-                        src={'http://localhost:8080/' + device?.images[0]}
-                        alt="Searched Device"
-                      />
-                    </Link>
+                  <td width={'5%'} onClick={() => onNavigateToDevicePage(device)}>
+                    <img src={'http://localhost:8080/' + device?.images[0]} alt="Searched Device" />
                   </td>
-                  <td width={'50%'}>
-                    <Link
-                      to={`/categories/${device.categorie.title_en.toLowerCase()}/${device.id}`}
-                      onClick={() => {
-                        setDevices([]);
-                        setTerm('');
-                      }}>
-                      {device.title}
-                    </Link>
+                  <td width={'50%'} onClick={() => onNavigateToDevicePage(device)}>
+                    {device.title}
                   </td>
-                  <td width={'25%'} style={{ textAlign: 'right' }}>
-                    <Link
-                      to={`/categories/${device.categorie.title_en.toLowerCase()}/${device.id}`}
-                      onClick={() => {
-                        setDevices([]);
-                        setTerm('');
-                      }}>
-                      {getPrice(device.price)} {t('amd')}
-                    </Link>
+                  <td
+                    width={'25%'}
+                    style={{ textAlign: 'right' }}
+                    onClick={() => onNavigateToDevicePage(device)}>
+                    {getPrice(device.price)} {t('amd')}
                   </td>
                 </tr>
               );

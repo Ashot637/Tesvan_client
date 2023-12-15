@@ -14,9 +14,12 @@ const SortBy = () => {
 
   return (
     <div className={classes.sort}>
-      <span>{t('sortBy')}</span>
+      <span data-testid="someLabel">{t('sortBy')}</span>
       <div ref={ref} className={classes.select}>
-        <div className={classes.option} onClick={() => setIsShow((isShow) => !isShow)}>
+        <div
+          className={classes.option}
+          data-testid="click"
+          onClick={() => setIsShow((isShow) => !isShow)}>
           <p>{t(sortType.label)}</p>
           <FontAwesomeIcon
             icon={faAngleDown}

@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import classes from './relatedItems.module.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
 import Card from '../Card/Card';
+import 'swiper/css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';

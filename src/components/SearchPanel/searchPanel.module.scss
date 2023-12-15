@@ -52,6 +52,7 @@
 
   tbody {
     tr {
+      cursor: pointer;
       &:first-child {
         td {
           padding-top: 40px;

@@ -15,29 +15,33 @@ const ItemsSection = memo(({ title, items, main, link }) => {
   const { devices: cartDevices } = useSelector((state) => state.cart);
   const { t } = useTranslation();
   return (
-    <div>
-      <div className="container">
-        <h1 className={main ? classes.mainTitle : classes.title}>{t(title)}</h1>
-        <div className={classes.grid}>
-          {items?.map((item) => {
-            return (
-              <Card
-                key={item.id}
-                inCompareList={comparingDevices.includes(item.id)}
-                inCart={!!cartDevices.find((device) => device.id === item.id)}
-                item={item}
-              />
-            );
-          })}
+    <>
+      {!!items?.length && (
+        <div>
+          <div className="container">
+            <h1 className={main ? classes.mainTitle : classes.title}>{t(title)}</h1>
+            <div className={classes.grid}>
+              {items.map((item) => {
+                return (
+                  <Card
+                    key={item.id}
+                    inCompareList={comparingDevices.includes(item.id)}
+                    inCart={!!cartDevices.find((device) => device.id === item.id)}
+                    item={item}
+                  />
+                );
+              })}
+            </div>
+            {!main && (
+              <Link to={link} className={classes.all} data-testid="itemsSection-mainLink">
+                <span>{t('viewAll')}</span>
+                <FontAwesomeIcon icon={faAngleRight} />
+              </Link>
+            )}
+          </div>
         </div>
-        {!main && (
-          <Link to={link} className={classes.all}>
-            <span>{t('viewAll')}</span>
-            <FontAwesomeIcon icon={faAngleRight} />
-          </Link>
-        )}
-      </div>
-    </div>
+      )}
+    </>
   );
 });
 

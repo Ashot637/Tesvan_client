@@ -52,11 +52,11 @@ const Header = () => {
       <div className="container">
         <HeaderTop />
       </div>
-      <header className={scrolling ? classes.scrolling : undefined}>
+      <header data-testid="header" className={scrolling ? classes.scrolling : undefined}>
         <div className="container">
           <div className={classes.inner}>
             <div className={classes.logo}>
-              <NavLink to={'/'}>
+              <NavLink to={'/'} data-testid="header-logo">
                 <img src={'/img/Logo.png'} alt="logo" height={78} width={65} />
               </NavLink>
             </div>
@@ -68,6 +68,7 @@ const Header = () => {
                 </li>
               )}
               <li
+                data-testid="header-openCartButton"
                 style={{ position: 'relative' }}
                 onClick={() => dispatch(toggleIsOpen())}
                 className={isOpenCart ? classes.active : undefined}>

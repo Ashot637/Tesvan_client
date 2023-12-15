@@ -1,9 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import classes from './brands.module.scss';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import 'swiper/css';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';

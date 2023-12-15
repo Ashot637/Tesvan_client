@@ -78,6 +78,7 @@ const Cart = () => {
 
   return (
     <div
+      data-testid="cart-closeCartByClickingOutside"
       className={classes.overlay}
       onClick={(e) => {
         if (e.target.classList[0]?.includes('overlay')) {
@@ -85,8 +86,11 @@ const Cart = () => {
         }
       }}>
       <CSSTransition in={isOpen} timeout={400} classNames="cart" unmountOnExit>
-        <div className={classes.cart}>
-          <div className={classes.close} onClick={() => dispatch(toggleIsOpen(false))}>
+        <div className={classes.cart} data-testid="cart">
+          <div
+            data-testid="cart-closeCartButton"
+            className={classes.close}
+            onClick={() => dispatch(toggleIsOpen(false))}>
             <FontAwesomeIcon icon={faClose} />
           </div>
           <div className={classes.title}>{t('cart')}</div>

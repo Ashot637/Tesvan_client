@@ -26,19 +26,24 @@ const HeaderTop = memo(() => {
             <span>+ (374) 91 75 19 00</span>
           </a>
         </li>
-        <li ref={ref} onClick={() => setIsShow((isOpen) => !isOpen)}>
+        <li data-testid="headerTop-btn" ref={ref} onClick={() => setIsShow((isOpen) => !isOpen)}>
           <img src={language.img} alt={`${language.label} flag`} width={20} height={10} />
-          <div className={classes.select}>{language.label}</div>
+          <div className={classes.select} data-testid="headerTop-language">
+            {language.label}
+          </div>
           <FontAwesomeIcon
             className={classes.angle}
             style={isShow ? { transform: 'rotateX(180deg)' } : undefined}
             icon={faAngleDown}
           />
           {isShow && (
-            <ul className={classes.options}>
+            <ul className={classes.options} data-testid="headerTop-menu">
               {languagesList.map((lan) => {
                 return lan.title === language.title ? undefined : (
-                  <li key={lan.title} onClick={() => onChangeLanguage(lan)}>
+                  <li
+                    data-testid={`headerTop-${lan.label.toLowerCase()}`}
+                    key={lan.title}
+                    onClick={() => onChangeLanguage(lan)}>
                     <img src={lan.img} alt={`${language.label} flag`} width={20} height={10} />
                     <p>{lan.label}</p>
                   </li>

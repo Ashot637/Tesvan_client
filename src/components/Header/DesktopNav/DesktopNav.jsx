@@ -14,6 +14,7 @@ const DesktopNav = memo(() => {
         <ul className={classes.links}>
           <li className={classes.link}>
             <NavLink
+              data-testid="nav-categories"
               className={({ isActive }) => (isActive ? classes.active : undefined)}
               to={'/categories'}>
               {t('categories')}
@@ -21,6 +22,7 @@ const DesktopNav = memo(() => {
           </li>
           <li className={classes.link}>
             <NavLink
+              data-testid="nav-aboutUs"
               className={({ isActive }) => (isActive ? classes.active : undefined)}
               to={'/about-us'}>
               {t('about-us')}
@@ -28,6 +30,7 @@ const DesktopNav = memo(() => {
           </li>
           <li className={classes.link}>
             <NavLink
+              data-testid="nav-creditTerms"
               className={({ isActive }) => (isActive ? classes.active : undefined)}
               to={'/credit-terms'}>
               {t('credit-terms')}
@@ -35,6 +38,7 @@ const DesktopNav = memo(() => {
           </li>
           <li className={classes.link}>
             <NavLink
+              data-testid="nav-contacts"
               className={({ isActive }) => (isActive ? classes.active : undefined)}
               to={'/contacts'}>
               {t('contacts')}

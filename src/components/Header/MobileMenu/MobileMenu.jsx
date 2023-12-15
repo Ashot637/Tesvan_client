@@ -13,12 +13,13 @@ const MobileMenu = memo(() => {
   return (
     <li className={classes.icon} ref={ref}>
       <FontAwesomeIcon
+        data-testid="mobileMenu-btn"
         icon={faBars}
         className={isShow ? classes.active : undefined}
         onClick={() => setIsShow((isShow) => !isShow)}
       />
       {isShow && (
-        <ul className={classes.menu}>
+        <ul className={classes.menu} data-testid="mobileMenu-menu">
           <li>
             <NavLink
               className={({ isActive }) => (isActive ? classes.active : undefined)}

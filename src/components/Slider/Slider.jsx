@@ -46,7 +46,7 @@ const Slider = () => {
           {slides.map((slide) => {
             return (
               <SwiperSlide key={slide.id}>
-                <div className={classes.slide}>
+                <div className={classes.slide} data-testid="slider-slide">
                   <div className={classes.info}>
                     <span className={classes.title}>{slide.title}</span>
                     <Link

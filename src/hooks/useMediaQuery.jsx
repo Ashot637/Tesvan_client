@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 export default function useMediaQuery(query) {
   const getMatches = (query) => {
     if (typeof window !== 'undefined') {
-      return window.matchMedia(query).matches;
+      return window.matchMedia(query)?.matches;
     }
     return false;
   };
@@ -19,16 +19,12 @@ export default function useMediaQuery(query) {
 
     handleChange();
 
-    if (matchMedia.addEventListener) {
-      matchMedia.addEventListener('change', handleChange);
-    } else {
-      matchMedia.addEventListener('change', handleChange);
+    if (matchMedia?.addEventListener) {
+      matchMedia?.addEventListener('change', handleChange);
     }
 
     return () => {
-      if (matchMedia.removeEventListener) {
-        matchMedia.removeEventListener('change', handleChange);
-      } else {
+      if (matchMedia?.removeEventListener) {
         matchMedia.removeEventListener('change', handleChange);
       }
     };

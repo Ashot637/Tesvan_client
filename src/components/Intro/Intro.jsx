@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import axios from '../../helpers/axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/pagination';
 import useSWR from 'swr';
 
 const fetcher = (url) =>
@@ -36,7 +34,7 @@ const Intro = () => {
                   to={`/categories/${slide.device.categorie.title_en.toLowerCase()}/${
                     slide.device.id
                   }`}>
-                  <div className={classes.slide}>
+                  <div className={classes.slide} data-testid="intro-slide">
                     <div className={classes.text}>
                       <b>{slide.title}</b>
                       <span>{slide.description}</span>

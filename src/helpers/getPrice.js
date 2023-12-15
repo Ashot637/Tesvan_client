@@ -1,5 +1,5 @@
 const getPrice = (price) => {
-  return price.toLocaleString().replaceAll(',', ' ');
+  return price.toLocaleString('en-US').replaceAll(',', ' ');
 };
 
 export default getPrice;
