@@ -449,13 +449,15 @@
   }
 }
 
+@media screen and (max-width: 1120px) and (min-width: 1000px) {
+  .method {
+    font-size: 14px;
+  }
+}
+
 @media screen and (max-width: 1070px) {
   .icon {
     width: 100px;
-  }
-
-  .method {
-    font-size: 15px;
   }
 }
 

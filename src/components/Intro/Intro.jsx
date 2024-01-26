@@ -7,11 +7,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import useSWR from 'swr';
 
-const fetcher = (url) =>
-  axios
-    .get(url)
-    .then(({ data }) => data)
-    .catch((e) => console.log(e));
+const fetcher = (url) => axios.get(url).then(({ data }) => data);
 
 const Intro = () => {
   const { data: slides } = useSWR('/img/header', fetcher, { suspense: true });

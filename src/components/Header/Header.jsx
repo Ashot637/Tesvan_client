@@ -57,7 +57,7 @@ const Header = () => {
           <div className={classes.inner}>
             <div className={classes.logo}>
               <NavLink to={'/'}>
-                <img src={'/img/Logo.png'} alt="logo" height={78} width={65} />
+                <img src={'/img/full-logo.png'} alt="logo" height={88} width={65} />
               </NavLink>
             </div>
             {isBigger930 && <DesktopNav />}

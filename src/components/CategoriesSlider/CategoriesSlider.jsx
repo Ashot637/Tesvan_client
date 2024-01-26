@@ -8,11 +8,7 @@ import { Link } from 'react-router-dom';
 import axios from '../../helpers/axios';
 import useSWR from 'swr';
 
-const fetcher = (url) =>
-  axios
-    .get(url)
-    .then(({ data }) => data)
-    .catch((e) => console.log(e));
+const fetcher = (url) => axios.get(url).then(({ data }) => data);
 
 const CategoriesSlider = () => {
   const { data: categories } = useSWR('/categories', fetcher);

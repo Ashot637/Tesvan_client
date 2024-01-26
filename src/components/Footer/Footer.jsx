@@ -45,7 +45,7 @@ const Footer = () => {
               </li>
             </ul>
             <div className={classes.logo}>
-              <img src={'/img/Logo.png'} width={46} height={55.19} alt="Logo" />
+              <img src={'/img/full-logo.png'} width={46} height={62.27} alt="Logo" />
             </div>
             <ul className={classes.info}>
               <li>

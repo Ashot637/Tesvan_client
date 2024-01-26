@@ -7,11 +7,7 @@ import axios from '../../helpers/axios';
 import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
 
-const fetcher = (url) =>
-  axios
-    .get(url)
-    .then(({ data }) => data)
-    .catch((e) => console.log(e));
+const fetcher = (url) => axios.get(url).then(({ data }) => data);
 
 const Slider = () => {
   const { data: slides } = useSWR('/img/slider', fetcher);

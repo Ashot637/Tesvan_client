@@ -9,9 +9,9 @@
       "purpose": "any maskable"
     },
     {
-      "src": "img/Logo.png",
+      "src": "img/full-logo.png",
       "type": "image/png",
-      "sizes": "65x78"
+      "sizes": "65x88"
     }
   ],
   "start_url": "/",

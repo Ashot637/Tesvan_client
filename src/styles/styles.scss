@@ -1,13 +1,13 @@
 @font-face {
-  font-family: "Roboto";
-  src: url("../../public/fonts/Roboto-Regular.ttf");
+  font-family: 'Roboto';
+  src: url('../../public/fonts/Roboto-Regular.ttf');
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Fira Sans";
-  src: url("../../public/fonts/FiraSans-Regular.ttf");
+  font-family: 'Fira Sans';
+  src: url('../../public/fonts/FiraSans-Regular.ttf');
   font-weight: 400;
   font-display: swap;
 }
@@ -16,6 +16,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .container {
@@ -27,7 +30,7 @@
 
 body {
   background: var(--darkBlue);
-  font-family: "Fira Sans";
+  font-family: 'Fira Sans';
 }
 
 ul {
@@ -42,7 +45,7 @@ a {
 input,
 textarea {
   border: none;
-  font-family: "Fira Sans";
+  font-family: 'Fira Sans';
 
   &:focus {
     outline: none;
