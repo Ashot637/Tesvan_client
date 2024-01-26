@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
-import OrderForm from "../components/OrderForm/OrderForm";
-import { useLocation, useParams } from "react-router-dom";
-import axios from "../helpers/axios";
-import Page404 from "./404";
-import { Helmet } from "react-helmet";
+import React, { useEffect, useState } from 'react';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import OrderForm from '../components/OrderForm/OrderForm';
+import { useLocation, useParams } from 'react-router-dom';
+import axios from '../helpers/axios';
+import Page404 from './404';
+import { Helmet } from 'react-helmet';
 
 const OrderPage = () => {
   const { id, categorie } = useParams();
@@ -14,28 +14,24 @@ const OrderPage = () => {
 
   useEffect(() => {
     if (id) {
-      let quantity = new URLSearchParams(location.search).get("quantity");
+      let quantity = new URLSearchParams(location.search).get('quantity');
       quantity = quantity || 1;
       axios
-        .get("/device/" + id)
+        .get('/device/' + id)
         .then(({ data }) =>
           setDevice([
             {
               ...data,
               count: data.quantity < quantity ? data.quantity : quantity,
             },
-          ])
+          ]),
         )
         .catch(() => setIsError(true));
     }
   }, [id, categorie]);
 
   useEffect(() => {
-    if (
-      categorie &&
-      device.length &&
-      categorie !== device[0].categorie.title_en.toLowerCase()
-    ) {
+    if (categorie && device.length && categorie !== device[0].categorie.title_en.toLowerCase()) {
       setIsError(true);
     }
   }, [categorie, device]);
@@ -50,12 +46,9 @@ const OrderPage = () => {
         <title>Make order | Tesvan Electronics</title>
       </Helmet>
       {id ? (
-        device.length && (
+        !!device.length && (
           <>
-            <Breadcrumbs
-              deviceTitle={device[0].title}
-              categorieTitle={device[0].categorie.title}
-            />
+            <Breadcrumbs deviceTitle={device[0].title} categorieTitle={device[0].categorie.title} />
             <OrderForm device={device} />
           </>
         )
