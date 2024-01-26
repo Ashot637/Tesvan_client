@@ -44,7 +44,7 @@ const AdminHeaderImages = () => {
             <tr key={img.id}>
               <td onClick={() => navigateToEdit(img.id)}>{img.id}</td>
               <td onClick={() => navigateToEdit(img.id)}>
-                <img src={'http://localhost:8080/' + img.img} width={100} alt="img" />
+                <img src={'http://134.209.251.128/service/' + img.img} width={100} alt="img" />
               </td>
               <td onClick={() => navigateToEdit(img.id)}>{img.title}</td>
               <td onClick={() => navigateToEdit(img.id)}>{img.description}</td>

@@ -66,7 +66,7 @@ const SimpleDevice = memo(({ device, inCart, inCompareList }) => {
                 <div className={classes.images}>
                   <div className={classes.mainImg}>
                     <img
-                      src={'http://localhost:8080/' + img}
+                      src={'http://134.209.251.128/service/' + img}
                       width={420}
                       height={283.78}
                       alt="Device"
@@ -80,7 +80,7 @@ const SimpleDevice = memo(({ device, inCart, inCompareList }) => {
                           className={classes.otherImg}
                           onClick={() => setImg(image)}>
                           <img
-                            src={'http://localhost:8080/' + image}
+                            src={'http://134.209.251.128/service/' + image}
                             width={110}
                             height={74.31}
                             alt="Device"

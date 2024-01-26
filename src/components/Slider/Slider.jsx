@@ -57,7 +57,7 @@ const Slider = () => {
                     </Link>
                   </div>
                   <img
-                    src={'http://localhost:8080/' + slide.img}
+                    src={'http://134.209.251.128/service/' + slide.img}
                     width={388}
                     height={387}
                     alt="Slide"

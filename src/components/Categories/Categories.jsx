@@ -8,10 +8,10 @@ import axios from '../../helpers/axios';
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const { t } = useTranslation();
-  
+
   useEffect(() => {
-    axios.get('/categories').then(({data}) => setCategories(data))
-  }, [])
+    axios.get('/categories').then(({ data }) => setCategories(data));
+  }, []);
 
   return (
     <div className={classes.categories}>
@@ -25,7 +25,7 @@ const Categories = () => {
                 className={classes.categorie}
                 key={i}>
                 <img
-                  src={'http://localhost:8080/' + categorie.img}
+                  src={'http://134.209.251.128/service/' + categorie.img}
                   width={105}
                   height={105}
                   alt="Slide"

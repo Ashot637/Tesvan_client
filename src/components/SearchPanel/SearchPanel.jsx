@@ -84,7 +84,7 @@ const SearchPanel = () => {
                         setTerm('');
                       }}>
                       <img
-                        src={'http://localhost:8080/' + device?.images[0]}
+                        src={'http://134.209.251.128/service/' + device?.images[0]}
                         alt="Searched Device"
                       />
                     </Link>

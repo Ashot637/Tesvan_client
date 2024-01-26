@@ -26,7 +26,7 @@ const OrderDetails = memo(
                     <td>
                       <div className={classes.deviceImg}>
                         <img
-                          src={'http://localhost:8080/' + device?.images[0]}
+                          src={'http://134.209.251.128/service/' + device?.images[0]}
                           width={50}
                           height={33.8}
                           alt="Device Order"
@@ -57,7 +57,7 @@ const OrderDetails = memo(
                   </div>
                   <div className={classes.deviceMobileImg}>
                     <img
-                      src={'http://localhost:8080/' + device?.images[0]}
+                      src={'http://134.209.251.128/service/' + device?.images[0]}
                       width={78}
                       height={53}
                       alt="Device Order"

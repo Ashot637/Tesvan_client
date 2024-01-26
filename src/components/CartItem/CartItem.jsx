@@ -26,7 +26,11 @@ const CartItem = memo(({ item, smallScreen }) => {
             <FontAwesomeIcon icon={faClose} />
           </td>
           <td>
-            <img src={'http://localhost:8080/' + item?.images[0]} alt="Cart item" width={90} />
+            <img
+              src={'http://134.209.251.128/service/' + item?.images[0]}
+              alt="Cart item"
+              width={90}
+            />
           </td>
           <td className={classes.name}>
             <div>{item.title}</div>
@@ -78,7 +82,11 @@ const CartItem = memo(({ item, smallScreen }) => {
           </div>
           <div className={classes.device}>
             <div className={classes.img}>
-              <img src={'http://localhost:8080/' + item?.images[0]} alt="Cart item" width={75} />
+              <img
+                src={'http://134.209.251.128/service/' + item?.images[0]}
+                alt="Cart item"
+                width={75}
+              />
             </div>
             <div className={classes.deviceInfo}>
               <p>{item.title}</p>

@@ -127,7 +127,7 @@ const OrderInfo = () => {
               devices.map((device) => (
                 <Link key={device.id} className={classes.device} to={'/admin/devices/' + device.id}>
                   <img
-                    src={'http://localhost:8080/' + device.images[0]}
+                    src={'http://134.209.251.128/service/' + device.images[0]}
                     height={150}
                     alt="Device"
                   />

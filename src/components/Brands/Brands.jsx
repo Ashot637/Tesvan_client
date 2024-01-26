@@ -69,7 +69,7 @@ const Brands = () => {
                 <SwiperSlide key={i}>
                   <div className={classes.slide}>
                     <img
-                      src={'http://localhost:8080/' + brand.img}
+                      src={'http://134.209.251.128/service/' + brand.img}
                       height={100}
                       width={100}
                       alt="Brand"

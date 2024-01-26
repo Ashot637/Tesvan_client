@@ -84,11 +84,9 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
                           onClick={() => dispatch(removeDeviceComparing(device.id))}>
                           <FontAwesomeIcon icon={faClose} />
                         </div>
-                        <div className={classes.categorie}>
-                          {device.brand.title}
-                        </div>
+                        <div className={classes.categorie}>{device.brand.title}</div>
                         <img
-                          src={'http://localhost:8080/' + device?.images[0]}
+                          src={'http://134.209.251.128/service/' + device?.images[0]}
                           alt="Comparing Item"
                         />
                         <div className={classes.name}>{device.title}</div>

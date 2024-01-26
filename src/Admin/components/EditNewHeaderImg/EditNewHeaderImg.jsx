@@ -126,7 +126,7 @@ const EditNewHeaderImg = () => {
           {selectedDevice && (
             <>
               <img
-                src={'http://localhost:8080/' + selectedDevice.images[0]}
+                src={'http://134.209.251.128/service/' + selectedDevice.images[0]}
                 alt={selectedDevice.title}
               />
               <p>{selectedDevice?.title}</p>
@@ -144,7 +144,10 @@ const EditNewHeaderImg = () => {
                     className={[classes.select, classes.selectDevice].join(' ')}
                     key={item.id}
                     onClick={() => onChangeDeviceId(item)}>
-                    <img src={'http://localhost:8080/' + item.images[0]} alt={item.title} />
+                    <img
+                      src={'http://134.209.251.128/service/' + item.images[0]}
+                      alt={item.title}
+                    />
                     <p>{item?.title}</p>
                     <span>{item.price} AMD</span>
                   </div>
@@ -157,7 +160,9 @@ const EditNewHeaderImg = () => {
         {imageUrl ? 'Change image' : 'Upload image'}
       </div>
       <input type="file" style={{ display: 'none' }} ref={fileRef} onChange={onUploadFile} />
-      {imageUrl && <img src={'http://localhost:8080/' + imageUrl} height={150} alt="Device" />}
+      {imageUrl && (
+        <img src={'http://134.209.251.128/service/' + imageUrl} height={150} alt="Device" />
+      )}
       <button
         type="submit"
         className={classes.btn}

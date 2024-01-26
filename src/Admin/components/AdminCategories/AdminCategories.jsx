@@ -42,7 +42,11 @@ const AdminCategories = () => {
             <tr key={categorie.id}>
               <td onClick={() => navigateToEdit(categorie.id)}>{categorie.id}</td>
               <td onClick={() => navigateToEdit(categorie.id)}>
-                <img src={'http://localhost:8080/' + categorie.img} width={100} alt="categorie" />
+                <img
+                  src={'http://134.209.251.128/service/' + categorie.img}
+                  width={100}
+                  alt="categorie"
+                />
               </td>
               <td onClick={() => navigateToEdit(categorie.id)}>{categorie.title_en}</td>
               <td onClick={() => onDeletecategorie(categorie.id)}>

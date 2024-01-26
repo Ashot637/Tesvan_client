@@ -452,7 +452,7 @@ const EditNewDevice = () => {
               onChange={(e) => onUploadFile(e, image.id)}
             />
             {image.url && (
-              <img src={'http://localhost:8080/' + image.url} height={150} alt="Device" />
+              <img src={'http://134.209.251.128/service/' + image.url} height={150} alt="Device" />
             )}
           </Fragment>
         );
