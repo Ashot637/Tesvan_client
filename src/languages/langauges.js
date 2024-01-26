@@ -394,7 +394,7 @@ export const translationsAm = {
   cash: 'Վճարել կանխիկ',
   online: 'Առցանց',
   terminal: 'POS-տերմինկալ',
-  delivery: 'Անհատական առաքում',
+  delivery: 'Առաքում',
   pickup: 'Ինքնառաքում',
   orderDetails: 'Պատվերի դետալներ',
   discount: 'Զեղչ',
