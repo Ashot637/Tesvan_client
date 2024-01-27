@@ -23,7 +23,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const isBigger930 = useMediaQuery('(max-width: 930px)');
   const { devicesIds: comparingDevices } = useSelector((state) => state.compare);
-  const [isOpenSearchPanel, setisOpenSearchPanel] = useState(false);
+  const [isOpenSearchPanel, setIsOpenSearchPanel] = useState(false);
   const { isOpen: isOpenCart, devices: cartDevices } = useSelector((state) => state.cart);
   const [scrolling, setScrolling] = useState(false);
 
@@ -63,7 +63,7 @@ const Header = () => {
             {isBigger930 && <DesktopNav />}
             <ul className={classes.btns}>
               {!isBigger930 && (
-                <li className={classes.icon} onClick={() => setisOpenSearchPanel(true)}>
+                <li className={classes.icon} onClick={() => setIsOpenSearchPanel(true)}>
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </li>
               )}
@@ -101,10 +101,10 @@ const Header = () => {
             className={classes.overlay}
             onClick={(e) => {
               if (e.target.classList[0]?.includes('overlay')) {
-                setisOpenSearchPanel(false);
+                setIsOpenSearchPanel(false);
               }
             }}>
-            <SearchPanel />
+            <SearchPanel setIsOpenSearchPanel={setIsOpenSearchPanel} />
           </div>,
           document.body,
         )}

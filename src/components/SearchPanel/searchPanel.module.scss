@@ -52,6 +52,7 @@
 
   tbody {
     tr {
+      cursor: pointer;
       &:first-child {
         td {
           padding-top: 40px;
@@ -74,6 +75,44 @@
           max-width: 100px;
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .devices {
+    tbody {
+      tr {
+        &:first-child {
+          td {
+            padding-top: 25px;
+          }
+        }
+        td {
+          padding: 5px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .devices {
+    tbody {
+      font-size: 15px;
+      tr {
+        td {
+          img {
+            max-width: 85px;
+          }
+        }
+      }
+    }
+  }
+
+  .search {
+    h2 {
+      font-size: 18px;
     }
   }
 }
