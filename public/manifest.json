@@ -14,7 +14,7 @@
       "sizes": "65x88"
     },
     {
-      "src": "img/success.png",
+      "src": "img/icon196x196.png",
       "sizes": "196x196",
       "type": "image/png",
       "purpose": "maskable"
@@ -23,5 +23,7 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "splash_pages": null,
+  "prefer_related_applications": false
 }
