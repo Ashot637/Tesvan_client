@@ -1,17 +1,23 @@
 {
-  "short_name": "Tesvan Electronics",
-  "name": "Electronics",
+  "short_name": "T-Electronics",
+  "name": "Tesvan Electronics",
   "icons": [
     {
       "src": "favicon.svg",
       "sizes": "512x512 144x144 64x64 32x32 24x24 16x16",
-      "type": "image/x-icon",
+      "type": "image/svg+xml",
       "purpose": "any"
     },
     {
       "src": "img/full-logo.png",
       "type": "image/png",
       "sizes": "65x88"
+    },
+    {
+      "src": "img/success.png",
+      "sizes": "196x196",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "start_url": "/",
