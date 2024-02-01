@@ -86,7 +86,7 @@ const ComparingItems = ({ devices, title, isFilterMode }) => {
                         </div>
                         <div className={classes.categorie}>{device.brand.title}</div>
                         <img
-                          src={'http://134.209.251.128/service/' + device?.images[0]}
+                          src={'https://tesvanelectronics.am/service/' + device?.images[0]}
                           alt="Comparing Item"
                         />
                         <div className={classes.name}>{device.title}</div>

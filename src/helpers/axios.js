@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://134.209.251.128/service/api',
+  baseURL: 'https://tesvanelectronics.am/service/api',
 });
 
 instance.interceptors.request.use((config) => {

@@ -59,7 +59,7 @@ const CategoriesSlider = () => {
                     className={classes.slide}
                     to={`/categories/${categorie.title_en.toLowerCase()}`}>
                     <img
-                      src={'http://134.209.251.128/service/' + categorie.img}
+                      src={'https://tesvanelectronics.am/service/' + categorie.img}
                       alt="Slide"
                       height={105}
                       width={105}

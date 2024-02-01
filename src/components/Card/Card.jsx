@@ -79,7 +79,7 @@ const Card = memo(({ item, inCompareList, inCart }) => {
         to={`/categories/${item.categorie.title_en.toLowerCase()}/${item.id}`}>
         <div className={classes.imgHolder}>
           <img
-            src={'http://134.209.251.128/service/' + item?.images[0]}
+            src={'https://tesvanelectronics.am/service/' + item?.images[0]}
             alt="Macbook"
             width={259}
             height={175}

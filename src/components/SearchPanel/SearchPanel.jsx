@@ -86,7 +86,7 @@ const SearchPanel = ({ setIsOpenSearchPanel }) => {
                 <tr key={device.id} onClick={() => onNavigateToSearchedItem(device)}>
                   <td width={'5%'}>
                     <img
-                      src={'http://134.209.251.128/service/' + device?.images[0]}
+                      src={'https://tesvanelectronics.am/service/' + device?.images[0]}
                       alt="Searched Device"
                     />
                   </td>

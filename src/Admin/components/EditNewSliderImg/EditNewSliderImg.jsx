@@ -113,7 +113,7 @@ const EditNewSliderImg = () => {
           {selectedDevice && (
             <>
               <img
-                src={'http://134.209.251.128/service/' + selectedDevice.images[0]}
+                src={'https://tesvanelectronics.am/service/' + selectedDevice.images[0]}
                 alt={selectedDevice.title}
               />
               <p>{selectedDevice?.title}</p>
@@ -132,7 +132,7 @@ const EditNewSliderImg = () => {
                     key={item.id}
                     onClick={() => onChangeDeviceId(item)}>
                     <img
-                      src={'http://134.209.251.128/service/' + item.images[0]}
+                      src={'https://tesvanelectronics.am/service/' + item.images[0]}
                       alt={item.title}
                     />
                     <p>{item?.title}</p>
@@ -148,7 +148,7 @@ const EditNewSliderImg = () => {
       </div>
       <input type="file" style={{ display: 'none' }} ref={fileRef} onChange={onUploadFile} />
       {imageUrl && (
-        <img src={'http://134.209.251.128/service/' + imageUrl} height={150} alt="Device" />
+        <img src={'https://tesvanelectronics.am/service/' + imageUrl} height={150} alt="Device" />
       )}
       <button
         type="submit"

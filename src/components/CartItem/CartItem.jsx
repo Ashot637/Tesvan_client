@@ -27,7 +27,7 @@ const CartItem = memo(({ item, smallScreen }) => {
           </td>
           <td>
             <img
-              src={'http://134.209.251.128/service/' + item?.images[0]}
+              src={'https://tesvanelectronics.am/service/' + item?.images[0]}
               alt="Cart item"
               width={90}
             />
@@ -83,7 +83,7 @@ const CartItem = memo(({ item, smallScreen }) => {
           <div className={classes.device}>
             <div className={classes.img}>
               <img
-                src={'http://134.209.251.128/service/' + item?.images[0]}
+                src={'https://tesvanelectronics.am/service/' + item?.images[0]}
                 alt="Cart item"
                 width={75}
               />

@@ -25,7 +25,7 @@ const Categories = () => {
                 className={classes.categorie}
                 key={i}>
                 <img
-                  src={'http://134.209.251.128/service/' + categorie.img}
+                  src={'https://tesvanelectronics.am/service/' + categorie.img}
                   width={105}
                   height={105}
                   alt="Slide"

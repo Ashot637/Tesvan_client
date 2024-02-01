@@ -39,7 +39,7 @@ const Intro = () => {
                     </div>
                     <div className={classes.img}>
                       <img
-                        src={'http://134.209.251.128/service/' + slide.img}
+                        src={'https://tesvanelectronics.am/service/' + slide.img}
                         alt="Slide"
                         width={978}
                         height={514}

@@ -43,7 +43,7 @@ const AdminCategories = () => {
               <td onClick={() => navigateToEdit(categorie.id)}>{categorie.id}</td>
               <td onClick={() => navigateToEdit(categorie.id)}>
                 <img
-                  src={'http://134.209.251.128/service/' + categorie.img}
+                  src={'https://tesvanelectronics.am/service/' + categorie.img}
                   width={100}
                   alt="categorie"
                 />

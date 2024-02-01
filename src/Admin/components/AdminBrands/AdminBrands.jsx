@@ -42,7 +42,11 @@ const AdminBrands = () => {
             <tr key={brand.id}>
               <td onClick={() => navigateToEdit(brand.id)}>{brand.id}</td>
               <td onClick={() => navigateToEdit(brand.id)}>
-                <img src={'http://134.209.251.128/service/' + brand.img} width={100} alt="brand" />
+                <img
+                  src={'https://tesvanelectronics.am/service/' + brand.img}
+                  width={100}
+                  alt="brand"
+                />
               </td>
               <td onClick={() => navigateToEdit(brand.id)}>{brand.title}</td>
               <td onClick={() => onDeletebrand(brand.id)}>

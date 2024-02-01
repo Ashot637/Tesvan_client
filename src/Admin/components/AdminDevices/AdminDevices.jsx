@@ -53,7 +53,7 @@ const AdminDevices = () => {
               <td onClick={() => navigateToEdit(device.id)}>{device.id}</td>
               <td onClick={() => navigateToEdit(device.id)}>
                 <img
-                  src={'http://134.209.251.128/service/' + device.images[0]}
+                  src={'https://tesvanelectronics.am/service/' + device.images[0]}
                   width={100}
                   alt="Device"
                 />

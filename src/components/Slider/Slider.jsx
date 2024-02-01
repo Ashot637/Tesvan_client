@@ -53,7 +53,7 @@ const Slider = () => {
                     </Link>
                   </div>
                   <img
-                    src={'http://134.209.251.128/service/' + slide.img}
+                    src={'https://tesvanelectronics.am/service/' + slide.img}
                     width={388}
                     height={387}
                     alt="Slide"

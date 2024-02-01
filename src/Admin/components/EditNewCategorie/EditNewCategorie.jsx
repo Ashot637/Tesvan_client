@@ -99,7 +99,7 @@ const EditNewCategorie = () => {
       </div>
       <input type="file" style={{ display: 'none' }} ref={fileRef} onChange={onUploadFile} />
       {imageUrl && (
-        <img src={'http://134.209.251.128/service/' + imageUrl} height={150} alt="Device" />
+        <img src={'https://tesvanelectronics.am/service/' + imageUrl} height={150} alt="Device" />
       )}
       <button
         type="submit"

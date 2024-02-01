@@ -69,7 +69,7 @@ const Brands = () => {
                 <SwiperSlide key={i}>
                   <div className={classes.slide}>
                     <img
-                      src={'http://134.209.251.128/service/' + brand.img}
+                      src={'https://tesvanelectronics.am/service/' + brand.img}
                       height={100}
                       width={100}
                       alt="Brand"

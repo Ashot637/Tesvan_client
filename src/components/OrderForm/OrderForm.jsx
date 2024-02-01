@@ -337,10 +337,7 @@ const OrderForm = ({ device }) => {
                   })}
                 </ul>
               </div>
-              <button
-                type="submit"
-                className={classes.btn}
-                disabled={!isValid || !phoneValid || !checked || !selectedRegion.id}>
+              <button type="submit" className={classes.btn} disabled={true}>
                 {t('confirmOrder')}
               </button>
             </form>
