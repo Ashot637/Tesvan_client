@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import axios from '../../helpers/axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/pagination';
 import useSWR from 'swr';
 
 const fetcher = (url) => axios.get(url).then(({ data }) => data);

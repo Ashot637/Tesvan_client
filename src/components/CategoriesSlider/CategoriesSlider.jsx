@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import classes from './categoriesSlider.module.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import 'swiper/css';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import axios from '../../helpers/axios';
