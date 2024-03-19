@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://tesvanelectronics.am/service/api',
+  // baseURL: 'https://tesvanelectronics.am/service/api',
+  baseURL: 'http://localhost:8080/api',
 });
 
 instance.interceptors.request.use((config) => {

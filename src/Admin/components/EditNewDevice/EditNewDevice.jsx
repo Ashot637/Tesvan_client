@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import classes from '../../styles/form.module.scss';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useNavigate, useParams } from 'react-router-dom';
 import Select from '../Select/Select';
 import axios from '../../../helpers/axios';
+import SingleDeviceInfo from './SingleDeviceInfo';
 
 const EditNewDevice = () => {
   const [brands, setBrands] = useState([]);
@@ -167,21 +167,6 @@ const EditNewDevice = () => {
     ]);
   };
 
-  const onDeleteInfo = (id) => {
-    if (+id < 50000) {
-      if (window.confirm('Are you sure?')) {
-        axios.delete('/remove-info/' + id);
-        setInfo((info) => info.filter((i) => i.id !== id));
-      }
-    } else {
-      setInfo((info) => info.filter((i) => i.id !== id));
-    }
-  };
-
-  const onChangeInfo = (id, key, value) => {
-    setInfo((info) => info.map((i) => (i.id === id ? { ...i, [key]: value } : i)));
-  };
-
   const onUploadFile = async (event, id) => {
     try {
       const formData = new FormData();
@@ -226,12 +211,18 @@ const EditNewDevice = () => {
               i.title_ru.trim() &&
               i.description_ru.trim(),
           )
-          .map((i) => {
+          .map((i, index) => {
             if (+i.id > 50000) {
               let { id, ...data } = i;
-              return data;
+              return {
+                ...data,
+                order: index,
+              };
             }
-            return i;
+            return {
+              ...i,
+              order: index,
+            };
           }),
       ),
     );
@@ -246,7 +237,7 @@ const EditNewDevice = () => {
     } else {
       axios
         .patch('/device/' + id, formData)
-        .then(({ data }) => {
+        .then(() => {
           onResetFields();
           navigate('/admin/devices');
         })
@@ -254,111 +245,37 @@ const EditNewDevice = () => {
     }
   };
 
-  const renderInfos = () => {
-    let content;
+  const moveInfo = (dragIndex, hoverIndex) => {
+    const draggedInfo = info[dragIndex];
+    setInfo((prevState) => {
+      let newInfos = [...prevState];
+      newInfos.splice(dragIndex, 1);
+      newInfos.splice(hoverIndex, 0, draggedInfo);
+      return newInfos;
+    });
+  };
+
+  const getLanguage = () => {
     if (language === 'Eng') {
-      content = info.map((i) => {
-        return (
-          <div key={i.id} className={classes.info}>
-            <select onChange={(e) => onChangeInfo(i.id, 'deviceInfoCategorieId', e.target.value)}>
-              {!i.deviceInfoCategorieId && <option hidden>Selcect</option>}
-              {deviceInfoCategories.map((c) => {
-                if (i.deviceInfoCategorieId === c.id) {
-                  return (
-                    <option selected key={c.id} value={c.id}>
-                      {c.title_en}
-                    </option>
-                  );
-                }
-                return (
-                  <option key={c.id} value={c.id}>
-                    {c.title_en}
-                  </option>
-                );
-              })}
-            </select>
-            <div className={classes.field}>
-              <label>Info title (Eng)</label>
-              <input
-                type="text"
-                value={i.title_en}
-                onChange={(e) => onChangeInfo(i.id, 'title_en', e.target.value)}
-              />
-            </div>
-            <div className={classes.field}>
-              <label>Info description (Eng)</label>
-              <input
-                type="text"
-                value={i.description_en}
-                onChange={(e) => onChangeInfo(i.id, 'description_en', e.target.value)}
-              />
-            </div>
-            <FontAwesomeIcon
-              onClick={() => onDeleteInfo(i.id)}
-              className={classes.removeInfo}
-              icon={faClose}
-            />
-          </div>
-        );
-      });
+      return 'en';
     } else if (language === 'Ru') {
-      content = info.map((i) => {
-        return (
-          <div key={i.id} className={classes.info}>
-            <div className={classes.field}>
-              <label>Info title (Ru)</label>
-              <input
-                type="text"
-                value={i.title_ru}
-                onChange={(e) => onChangeInfo(i.id, 'title_ru', e.target.value)}
-              />
-            </div>
-            <div className={classes.field}>
-              <label>Info description (Ru)</label>
-              <input
-                type="text"
-                value={i.description_ru}
-                onChange={(e) => onChangeInfo(i.id, 'description_ru', e.target.value)}
-              />
-            </div>
-            <FontAwesomeIcon
-              onClick={() => onDeleteInfo(i.id)}
-              className={classes.removeInfo}
-              icon={faClose}
-            />
-          </div>
-        );
-      });
-    } else {
-      content = info.map((i) => {
-        return (
-          <div key={i.id} className={classes.info}>
-            <div className={classes.field}>
-              <label>Info title (Arm)</label>
-              <input
-                type="text"
-                value={i.title_am}
-                onChange={(e) => onChangeInfo(i.id, 'title_am', e.target.value)}
-              />
-            </div>
-            <div className={classes.field}>
-              <label>Info description (Arm)</label>
-              <input
-                type="text"
-                value={i.description_am}
-                onChange={(e) => onChangeInfo(i.id, 'description_am', e.target.value)}
-              />
-            </div>
-            <FontAwesomeIcon
-              onClick={() => onDeleteInfo(i.id)}
-              className={classes.removeInfo}
-              icon={faClose}
-            />
-          </div>
-        );
-      });
+      return 'ru';
     }
-    return content;
+    return 'am';
+  };
+
+  const reorderInfos = (result) => {
+    try {
+      const startIndex = result.source.index;
+      const endIndex = result.destination.index;
+
+      setInfo((prev) => {
+        const newInfo = [...prev];
+        const [removed] = newInfo.splice(startIndex, 1);
+        newInfo.splice(endIndex, 0, removed);
+        return newInfo;
+      });
+    } catch (e) {}
   };
 
   return (
@@ -473,7 +390,41 @@ const EditNewDevice = () => {
           );
         })}
       </ul>
-      <div className={classes.infos}>{renderInfos()}</div>
+      <div className={classes.infos}>
+        <DragDropContext onDragEnd={reorderInfos}>
+          <Droppable droppableId="droppable">
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {info.map((i, index) => {
+                  return (
+                    <Draggable key={i.id} draggableId={i.id.toString()} index={index}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          variant={snapshot.isDragging ? 'elevation' : 'outlined'}
+                          elevation={4}>
+                          <SingleDeviceInfo
+                            key={i.id}
+                            info={i}
+                            index={index}
+                            setInfo={setInfo}
+                            moveInfo={moveInfo}
+                            deviceInfoCategories={deviceInfoCategories}
+                            language={getLanguage()}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
       <div className={classes.addInfo} onClick={onAddInfo}>
         Add info
       </div>
