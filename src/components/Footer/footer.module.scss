@@ -1,6 +1,6 @@
 footer {
   background: var(--primary);
-  font-family: 'Roboto';
+  font-family: "Roboto";
 }
 
 .inner {
@@ -20,10 +20,10 @@ footer {
   color: white;
   padding: 28px 0;
   margin-bottom: 30px;
-  font-family: 'Fira Sans';
+  font-family: "Fira Sans";
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     transform: translateY(40px);
@@ -144,7 +144,7 @@ footer {
   }
 }
 
-@media screen and (max-width: 765px) {
+@media screen and (max-width: 824px) {
   .info {
     column-gap: 50px;
   }
@@ -183,7 +183,7 @@ footer {
       position: relative;
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         width: 100vw;
         height: 1px;
@@ -204,7 +204,7 @@ footer {
     width: 100%;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       width: 100vw;
       height: 1px;

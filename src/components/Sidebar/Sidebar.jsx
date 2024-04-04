@@ -12,6 +12,27 @@ import {
 } from "../../redux/slices/devicesSlice";
 import { useTranslation } from "react-i18next";
 import { debounce } from "debounce";
+import { useParams } from "react-router-dom";
+
+const processorTypes = [
+  "Intel Celeron",
+  "Intel Pentium",
+  "Intel Core i3",
+  "Intel Core i5",
+  "Intel Core i7",
+  "Intel Core i9",
+  "Intel Xeon",
+  "Ryzen 3",
+  "Ryzen 5",
+  "Ryzen 7",
+  "Ryzen 9",
+  "Apple M1 Chip",
+  "Apple M1 Pro",
+  "Apple M2 Chip",
+  "Apple M2 Pro",
+  "Apple M3",
+  "Apple M3 Pro",
+];
 
 const Sidebar = memo(() => {
   const dispatch = useDispatch();
@@ -22,6 +43,7 @@ const Sidebar = memo(() => {
   const [min, setMin] = useState(minPrice);
   const [max, setMax] = useState(maxPrice);
   const { t } = useTranslation();
+  const { categorie } = useParams();
 
   const onSelectBrand = (id) => {
     dispatch(setBrandId(id));
@@ -127,6 +149,28 @@ const Sidebar = memo(() => {
             </div>
           </div>
         </AccordionItem>
+        {categorie === "notebooks" && (
+          <AccordionItem title={t("processor")}>
+            <div className={classes.items}>
+              {processorTypes.map((proc) => {
+                return (
+                  <div
+                    key={proc}
+                    className={[
+                      classes.item,
+                      activeFilters[t("processor")]?.includes(proc)
+                        ? classes.active
+                        : "",
+                    ].join(" ")}
+                    onClick={() => onSelectFilter(t("processor"), proc)}
+                  >
+                    {proc}
+                  </div>
+                );
+              })}
+            </div>
+          </AccordionItem>
+        )}
         {filters &&
           filters.map((filter) => {
             return (

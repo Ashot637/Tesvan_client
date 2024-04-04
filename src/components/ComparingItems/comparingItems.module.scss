@@ -96,7 +96,7 @@
 .items {
   tbody {
     &:before {
-      content: '@';
+      content: "@";
       display: block;
       line-height: 20px;
       text-indent: -99999px;
@@ -108,6 +108,7 @@
       td {
         padding-left: 10px;
         padding-right: 10px;
+        width: 280px;
       }
 
       &:nth-child(2n-1) {

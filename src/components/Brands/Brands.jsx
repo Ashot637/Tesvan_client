@@ -1,15 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import classes from './brands.module.scss';
+import React, { useState, useCallback, useEffect } from "react";
+import classes from "./brands.module.scss";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchBrands } from '../../redux/slices/brandSlice';
-import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBrands } from "../../redux/slices/brandSlice";
+import { useTranslation } from "react-i18next";
+import { removeAllFilters, setBrandId } from "../../redux/slices/devicesSlice";
+import { useNavigate } from "react-router-dom";
 
 const Brands = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { brands } = useSelector((state) => state.brands);
   const [swiperRef, setSwiperRef] = useState();
@@ -18,6 +21,12 @@ const Brands = () => {
   useEffect(() => {
     dispatch(fetchBrands(0));
   }, []);
+
+  const onNavigateToDevices = (id) => {
+    navigate("/categories/notebooks");
+    dispatch(removeAllFilters());
+    dispatch(setBrandId(id));
+  };
 
   const handlePrevious = useCallback(() => {
     swiperRef?.slidePrev();
@@ -29,7 +38,7 @@ const Brands = () => {
 
   return (
     <div className={classes.brands}>
-      <h1 className={classes.title}>{t('brands')}</h1>
+      <h1 className={classes.title}>{t("brands")}</h1>
       <div className={classes.inner}>
         <button onClick={handlePrevious} aria-label="Previus slide">
           <FontAwesomeIcon icon={faAngleLeft} />
@@ -37,7 +46,7 @@ const Brands = () => {
         <div className="container">
           <Swiper
             onSwiper={setSwiperRef}
-            slidesPerView={'auto'}
+            slidesPerView={"auto"}
             spaceBetween={20}
             breakpoints={{
               0: {
@@ -62,13 +71,17 @@ const Brands = () => {
               1270: {
                 slidesPerView: 6,
               },
-            }}>
+            }}
+          >
             {brands.map((brand, i) => {
               return (
                 <SwiperSlide key={i}>
-                  <div className={classes.slide}>
+                  <div
+                    onClick={() => onNavigateToDevices(brand.id)}
+                    className={classes.slide}
+                  >
                     <img
-                      src={'https://tesvanelectronics.am/service/' + brand.img}
+                      src={"https://tesvanelectronics.am/service/" + brand.img}
                       height={100}
                       width={100}
                       alt="Brand"

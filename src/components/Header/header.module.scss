@@ -92,6 +92,11 @@ header {
     color: var(--yellow);
     background: var(--darkBlue);
   }
+
+  span {
+    color: grey;
+    cursor: not-allowed;
+  }
 }
 
 .btns {
@@ -175,6 +180,11 @@ header {
 
     a:hover {
       color: var(--yellow);
+    }
+
+    span {
+      color: grey;
+      cursor: not-allowed;
     }
   }
 }
