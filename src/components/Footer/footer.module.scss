@@ -36,6 +36,11 @@ footer {
   li:hover {
     color: var(--yellow);
   }
+
+  span {
+    color: grey;
+    cursor: not-allowed;
+  }
 }
 
 .logo {
