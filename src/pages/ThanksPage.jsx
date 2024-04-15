@@ -1,34 +1,34 @@
-import Thanks from '../components/Thanks/Thanks';
-import { Helmet } from 'react-helmet';
+import Thanks from "../components/Thanks/Thanks";
+import { Helmet } from "react-helmet";
 
 const ThanksPage = ({ type }) => {
   const getContent = () => {
     switch (type) {
-      case 'success':
+      case "success":
         return (
           <Thanks
-            title={'confirmed'}
-            subtitle={'thanks'}
-            btn={'continue'}
-            img={'/img/success.png'}
+            title={"confirmed"}
+            subtitle={"thanks"}
+            btn={"continue"}
+            img={"/img/success.png"}
           />
         );
-      case 'reject':
+      case "reject":
         return (
           <Thanks
-            title={'failed'}
-            subtitle={'rejectedOrder'}
-            btn={'tryAgain'}
-            img={'/img/warn.png'}
+            title={"failed"}
+            subtitle={"rejectedOrder"}
+            btn={"backToHomePage"}
+            img={"/img/warn.png"}
           />
         );
       default:
         return (
           <Thanks
-            title={'contactThanks'}
-            subtitle={'weHaveReceived'}
-            btn={'backToHomePage'}
-            img={'/img/letter.png'}
+            title={"contactThanks"}
+            subtitle={"weHaveReceived"}
+            btn={"backToHomePage"}
+            img={"/img/letter.png"}
           />
         );
     }

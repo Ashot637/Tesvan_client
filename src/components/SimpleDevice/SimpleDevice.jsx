@@ -113,7 +113,7 @@ const SimpleDevice = memo(({ device, inCart, inCompareList }) => {
                     <span className={classes.price}>
                       {getPrice(device.price)} {t("amd")}
                     </span>
-                    <table className={classes.table}>
+                    {/* <table className={classes.table}>
                       <thead className={classes.thead}>
                         <tr>
                           <td>120 000 {t("amd")}</td>
@@ -128,7 +128,7 @@ const SimpleDevice = memo(({ device, inCart, inCompareList }) => {
                           <td>12 {t("months")}</td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table> */}
                     <span className={classes.line}></span>
                   </div>
                   <div className={classes.ordering}>
@@ -143,7 +143,8 @@ const SimpleDevice = memo(({ device, inCart, inCompareList }) => {
                       <div className={classes.credit}>
                         <b>{t("withCard")}</b>
                         <span>
-                          {getPrice(device.price + 50000)} {t("amd")}
+                          ---------------
+                          {/* {getPrice(device.price + 50000)} {t("amd")} */}
                         </span>
                       </div>
                     </div>

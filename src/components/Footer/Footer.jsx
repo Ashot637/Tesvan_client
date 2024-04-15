@@ -86,8 +86,8 @@ const Footer = () => {
                 <div>
                   <FontAwesomeIcon icon={faPhone} />
                 </div>
-                <a href="tel:+37491751900">
-                  <span>+ (374) 91 75 19 00</span>
+                <a href="tel:+37455491989">
+                  <span>+ (374) 55 49 19 89</span>
                 </a>
               </li>
               <li>

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import classes from './orderInfo.module.scss';
-import { Link, useParams } from 'react-router-dom';
-import Select from '../Select/Select';
-import axios from '../../../helpers/axios';
+import React, { useEffect, useState } from "react";
+import classes from "./orderInfo.module.scss";
+import { Link, useParams } from "react-router-dom";
+import Select from "../Select/Select";
+import axios from "../../../helpers/axios";
 
 const OrderInfo = () => {
   const { id } = useParams();
@@ -13,25 +13,25 @@ const OrderInfo = () => {
   const statuses = [
     {
       id: 1,
-      title: 'pending',
+      title: "pending",
     },
     {
       id: 2,
-      title: 'processing',
+      title: "processing",
     },
     {
       id: 3,
-      title: 'delivered',
+      title: "delivered",
     },
     {
       id: 4,
-      title: 'picked',
+      title: "picked",
     },
   ];
   const [confirmedStatusId, setConfirmedStatusId] = useState();
 
   useEffect(() => {
-    axios.get('/orders/' + id).then(({ data }) => {
+    axios.get("/orders/" + id).then(({ data }) => {
       setOrder(data);
       let a = statuses.find((status) => data.status === status.title)?.id;
       setStatusId(a);
@@ -44,7 +44,7 @@ const OrderInfo = () => {
       let parsedData = JSON.parse(order.devices);
       let ids = parsedData.map((device) => device.id);
       axios
-        .post('/devices/ids', {
+        .post("/devices/ids?language=en", {
           ids,
         })
         .then(({ data }) => {
@@ -80,18 +80,18 @@ const OrderInfo = () => {
   const convertDateTimeFormat = (date) => {
     const dt = new Date(date);
 
-    const day = String(dt.getDate()).padStart(2, '0');
-    const month = String(dt.getMonth() + 1).padStart(2, '0');
+    const day = String(dt.getDate()).padStart(2, "0");
+    const month = String(dt.getMonth() + 1).padStart(2, "0");
     const year = String(dt.getFullYear()).slice(-2);
-    const hours = String(dt.getHours()).padStart(2, '0');
-    const minutes = String(dt.getMinutes()).padStart(2, '0');
+    const hours = String(dt.getHours()).padStart(2, "0");
+    const minutes = String(dt.getMinutes()).padStart(2, "0");
 
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   };
 
   const onUpdateStatus = () => {
     axios
-      .patch('/orders/' + id, {
+      .patch("/orders/" + id, {
         status: statuses[statusId - 1].title,
         name: order.name,
         email: order.email,
@@ -105,10 +105,10 @@ const OrderInfo = () => {
         <div className={classes.orderInfo}>
           {Object.entries(order).map((arr) => {
             if (
-              arr[0] === 'devices' ||
-              arr[0] === 'status' ||
-              arr[0] === 'updatedAt' ||
-              arr[0] === 'createdAt'
+              arr[0] === "devices" ||
+              arr[0] === "status" ||
+              arr[0] === "updatedAt" ||
+              arr[0] === "createdAt"
             )
               return undefined;
             return (
@@ -125,9 +125,15 @@ const OrderInfo = () => {
           <div className={classes.devices}>
             {devices &&
               devices.map((device) => (
-                <Link key={device.id} className={classes.device} to={'/admin/devices/' + device.id}>
+                <Link
+                  key={device.id}
+                  className={classes.device}
+                  to={"/admin/devices/" + device.id}
+                >
                   <img
-                    src={'https://tesvanelectronics.am/service/' + device.images[0]}
+                    src={
+                      "https://tesvanelectronics.am/service/" + device.images[0]
+                    }
                     height={150}
                     alt="Device"
                   />
@@ -143,7 +149,7 @@ const OrderInfo = () => {
               id={statusId}
               items={statuses}
               event={onSelectStatus}
-              title={'Status'}
+              title={"Status"}
             />
           </div>
           {statusId !== confirmedStatusId && (

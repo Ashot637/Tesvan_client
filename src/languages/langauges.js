@@ -77,8 +77,7 @@ export const translationsEn = {
   openCart: "Open cart",
   pcs: "pcs",
   confirmed: "Order confirmed!",
-  thanks:
-    "Thanks for shopping with us! We'll contact you soon to arrange delivery.",
+  thanks: "Thanks for shopping with us!",
   continue: "Continue",
   failed: "Order failed!",
   rejectedOrder: "Please check Your payment details and try again.",
@@ -111,7 +110,7 @@ export const translationsEn = {
   partner6: "UNIBANK CJSC",
   partner7: "ARARAT BANK CJSC",
   partner8: "ARMBUSINESS BANK CJSC",
-  call: "For more information you can call +374 91 75 19 00",
+  call: "For more information you can call +374 55 49 19 89",
   allRights: "2024 The Content Folk All rights reserved",
   code: "Code",
   agree: "I have read and agree with the",
@@ -127,6 +126,10 @@ export const translationsEn = {
   lessQuantity: "The quantity of this device is less than you want",
   somethingWentWrong: "Something went wrong",
   processor: "Processor",
+  payment: "Payment",
+  "card-number": "Card number",
+  "card-holder": "Card holder",
+  "min-length": "Please enter at least {{number}} digits",
 
   // Policy
   privacy: {
@@ -257,8 +260,7 @@ export const translationsRu = {
   addedToCart: "Добавлен",
   openCart: "Открыть корзину",
   confirmed: "Заказ подтвержден!",
-  thanks:
-    "Спасибо, что делаете покупки у нас! Ваши товары будут отправлены в ближайшее время.",
+  thanks: "Спасибо, что делаете покупки у нас!",
   continue: "Продолжить",
   failed: "Не удалось выполнить заказ.",
   rejectedOrder:
@@ -292,7 +294,7 @@ export const translationsRu = {
   partner6: "UNIBANK CJSC",
   partner7: "ARARAT BANK CJSC",
   partner8: "ARMBUSINESS BANK CJSC",
-  call: "Для получения подробной информации вы можете позвонить по +374 91 75 19 00 номеру телефона.",
+  call: "Для получения подробной информации вы можете позвонить по +374 55 49 19 89 номеру телефона.",
   allRights: "2024 Все права защищены",
   code: "Код",
   agree: "Я прочитал и согласен с",
@@ -308,6 +310,10 @@ export const translationsRu = {
   lessQuantity: "Количество этого устройства меньше, чем вы хотите.",
   somethingWentWrong: "Что-то пошло не так",
   processor: "Процессор",
+  payment: "Оплата",
+  "card-number": "Номер карты",
+  "card-holder": "Владелец карты",
+  "min-length": "Пожалуйста, введите не менее {{number}} цифр",
 
   // Policy
   privacy: {
@@ -438,8 +444,7 @@ export const translationsAm = {
   addedToCart: "Ավելացված",
   openCart: "Բացել զամբյուղը",
   confirmed: "Պատվերը կատարված է",
-  thanks:
-    "Շնորհակալություն գնումների համար! Ձեր ապրանքը կառաքվի հնարավորինս շուտ ժամկետում։",
+  thanks: "Շնորհակալություն գնումների համար!",
   continue: "Շարունակել",
   failed: "Չհաջողվեզ իրականցնել պատվերը",
   rejectedOrder: "Խնդրում ենք ստուգել Ձեր վճարման տվյալները և փորձել կրկին։",
@@ -472,7 +477,7 @@ export const translationsAm = {
   partner6: "UNIBANK CJSC",
   partner7: "ARARAT BANK CJSC",
   partner8: "ARMBUSINESS BANK CJSC",
-  call: "Մանրամասն տեղեկությունների համար կարող եք զանգահարել +374 91 75 19 00 հեռախոսահամարով։",
+  call: "Մանրամասն տեղեկությունների համար կարող եք զանգահարել +374 55 49 19 89 հեռախոսահամարով։",
   allRights: "2024 Բոլոր իրավունքները պաշտպանված են",
   code: "Կոդ",
   agree: "Ես համաձայն եմ",
@@ -488,6 +493,10 @@ export const translationsAm = {
   lessQuantity: "Այս ապրանքի քանակն ավելի քիչ է, քան ցանկանում եք։",
   somethingWentWrong: "Ինչ որ բան այնպես չգնաց",
   processor: "Պրոցեսոր",
+  payment: "Վճարում",
+  "card-number": "Քարտի համար",
+  "card-holder": "Քարտի սեփականատեր",
+  "min-length": "Խնդրում ենք մուտքագրել առնվազը {{number}} թիվ",
 
   // Policy
   privacy: {
