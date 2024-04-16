@@ -149,8 +149,7 @@ const OrderForm = ({ device }) => {
     data = {
       ...data,
       total: 1,
-      // total: totalPrice + (deliveryMethod === 1 ? selectedRegion.price : 0),
-      region: selectedRegion?.title_en,
+      total: totalPrice + (deliveryMethod === 1 ? selectedRegion.price : 0),
       payment: paymentMethods.find((method) => method.id === paymentMethod)
         .label,
       delivery: deliveryMethods.find((method) => method.id === deliveryMethod)
