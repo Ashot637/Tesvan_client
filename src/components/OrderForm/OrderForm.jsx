@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import Phone from "../Phone/Phone";
 import { removeAll } from "../../redux/slices/cartSlice";
-
+import { i18n } from "../../index";
 import { useTranslation } from "react-i18next";
 import {
   NotificationContainer,
@@ -22,6 +22,7 @@ import {
 } from "react-notifications";
 import Regions from "./Regions/Regions";
 import OrderDetails from "./OrderDetails/OrderDetails";
+import Axios from "axios";
 
 const paymentMethods = [
   {
@@ -43,13 +44,13 @@ const paymentMethods = [
   //   width: 50,
   //   height: 50,
   // },
-  // {
-  //   id: 4,
-  //   label: "Idram",
-  //   img: "/img/idram.png",
-  //   width: 75,
-  //   height: 23,
-  // },
+  {
+    id: 4,
+    label: "Idram",
+    img: "/img/idram.png",
+    width: 75,
+    height: 23,
+  },
 ];
 
 const deliveryMethods = [
@@ -146,12 +147,17 @@ const OrderForm = ({ device }) => {
         count: device.count,
       });
     });
+    const payment = paymentMethods.find(
+      (method) => method.id === paymentMethod
+    ).label;
+
+    const total =
+      totalPrice + (deliveryMethod === 1 ? selectedRegion.price : 0);
     data = {
       ...data,
-      total: totalPrice + (deliveryMethod === 1 ? selectedRegion.price : 0),
+      payment,
+      total,
       region: selectedRegion?.title_en,
-      payment: paymentMethods.find((method) => method.id === paymentMethod)
-        .label,
       delivery: deliveryMethods.find((method) => method.id === deliveryMethod)
         .label,
       devices: JSON.stringify(orderedDevices),
@@ -160,10 +166,40 @@ const OrderForm = ({ device }) => {
       returnUrl: "https://tesvanelectronics.am/thanks",
       failUrl: "https://tesvanelectronics.am/reject",
     };
+
     axios
       .post("/orders", data)
       .then(({ data }) => {
-        window.open(data.formUrl, "_self");
+        if (payment === "Idram") {
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = "https://banking.idram.am/Payment/GetPayment";
+
+          const params = {
+            EDP_LANGUAGE: "EN",
+            EDP_REC_ACCOUNT: "100046967",
+            EDP_DESCRIPTION: `Payment for the ${devices
+              .map((device) => device.title)
+              .join(", ")}`,
+            // EDP_AMOUNT: total,
+            EDP_AMOUNT: 1,
+            EDP_BILL_NO: data.billId,
+          };
+
+          Object.keys(params).forEach((key) => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = params[key];
+            form.appendChild(input);
+          });
+
+          document.body.appendChild(form);
+          form.submit();
+          document.body.removeChild(form);
+        } else {
+          window.open(data.formUrl, "_self");
+        }
         if (!device) {
           dispatch(removeAll());
         }
