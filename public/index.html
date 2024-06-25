@@ -7,13 +7,16 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="og:title"
-      content="Welcome to Tesvan Electronics - Your Ultimate Destination for Electronics & Fashion" />
+      content="Welcome to Tesvan Electronics - Your Ultimate Destination for Electronics & Fashion"
+    />
     <meta
       name="og:description"
-      content="Explore endless shopping options at Tesvan Electronics. From fashion to electronics, enjoy secure transactions & swift delivery. Start shopping now!" />
+      content="Explore endless shopping options at Tesvan Electronics. From fashion to electronics, enjoy secure transactions & swift delivery. Start shopping now!"
+    />
     <meta
       name="description"
-      content="Elevate your style with our curated collection of fashion accessories at Tesvan Electronics. Find trendy bags, chic jewelry, and more to complete any outfit. Shop now for fast shipping and hassle-free returns!" />
+      content="Elevate your style with our curated collection of fashion accessories at Tesvan Electronics. Find trendy bags, chic jewelry, and more to complete any outfit. Shop now for fast shipping and hassle-free returns!"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="manifest" href="/manifest.json" />
@@ -21,5 +24,41 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Meta Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("init", "854415823225585");
+      fbq("track", "PageView");
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=854415823225585&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
   </body>
 </html>
