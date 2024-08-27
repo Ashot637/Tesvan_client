@@ -113,7 +113,7 @@ const App = () => {
         <Route path="/compare" element={<ComparePage />} />
 
         <Route path="/about-us" element={<AboutUsPage />} />
-        {/* <Route path="/credit-terms" element={<CreditTermsPage />} /> */}
+        <Route path="/credit-terms" element={<CreditTermsPage />} />
         <Route path="/contacts" element={<ContactsPage />} />
         <Route path="/contacts/make-order" element={<ContactsPage />} />
 

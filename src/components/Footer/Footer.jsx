@@ -45,12 +45,12 @@ const Footer = () => {
                 </NavLink>
               </li>
               <li className={classes.link}>
-                {/* <NavLink
+                <NavLink
                   className={({ isActive }) => (isActive ? classes.active : undefined)}
                   to={'/credit-terms'}>
                   {t('credit-terms')}
-                </NavLink> */}
-                <span>{t("credit-terms")}</span>
+                </NavLink>
+                {/* <span>{t("credit-terms")}</span> */}
               </li>
               <li className={classes.link}>
                 <NavLink
