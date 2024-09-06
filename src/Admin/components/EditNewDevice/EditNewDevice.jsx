@@ -18,6 +18,8 @@ const EditNewDevice = () => {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [oldPrice, setOldPrice] = useState('');
+  const [installmentPrice, setInstallmentPrice] = useState('');
+
   const [quantity, setQuantity] = useState(1);
   const fileRef = useRef([]);
   const [info, setInfo] = useState([]);
@@ -80,6 +82,7 @@ const EditNewDevice = () => {
         setTitle(data.title);
         setPrice(data.price);
         setOldPrice(data.oldPrice);
+        setInstallmentPrice(data.installmentPrice)
         setBrandId(data.brandId);
         setCategorieId(data.categorieId);
         setImages([
@@ -114,6 +117,7 @@ const EditNewDevice = () => {
     setTitle('');
     setPrice('');
     setOldPrice('');
+    setInstallmentPrice('');
     setImages([
       {
         id: 1,
@@ -194,6 +198,7 @@ const EditNewDevice = () => {
     formData.append('title', title);
     formData.append('price', price);
     formData.append('oldPrice', oldPrice);
+    formData.append('installmentPrice', installmentPrice);
     formData.append('quantity', quantity);
     formData.append('brandId', brandId);
     formData.append('categorieId', categorieId);
@@ -317,6 +322,15 @@ const EditNewDevice = () => {
         />
       </div>
       <div className={classes.field}>
+        <label>Installment price</label>
+        <input
+          type="text"
+          className={classes.name}
+          value={installmentPrice}
+          onChange={(e) => setInstallmentPrice(e.target.value)}
+        />
+      </div>
+      <div className={classes.field}>
         <label>Quantity</label>
         <input
           type="text"
@@ -436,6 +450,7 @@ const EditNewDevice = () => {
           !title.trim() ||
           !price ||
           (!oldPrice && oldPrice !== 0) ||
+          !installmentPrice ||
           images.filter((image) => image.url).length < 2 ||
           quantity < 0 ||
           !info.length ||
@@ -448,3 +463,7 @@ const EditNewDevice = () => {
 };
 
 export default EditNewDevice;
+
+
+
+

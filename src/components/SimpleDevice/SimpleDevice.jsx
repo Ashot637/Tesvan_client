@@ -143,8 +143,20 @@ const SimpleDevice = memo(({ device, inCart, inCompareList }) => {
                       <div className={classes.credit}>
                         <b>{t("withCard")}</b>
                         <span>
-                          ---------------
-                          {/* {getPrice(device.price + 50000)} {t("amd")} */}
+                          {/* --------------- */}
+                          {/* {getPrice(device.installmentPrice)} {t("amd")} */}
+                          {/* (device.installmentPrice) {t("amd")} */}
+
+                          <span>
+                                {device.installmentPrice ? (
+                                  <>
+                                    {getPrice(device.installmentPrice)} {t("amd")}
+                                  </>
+                                ) : (
+                                  "---------------"
+                                )}
+                              </span>
+
                         </span>
                       </div>
                     </div>
